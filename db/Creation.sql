@@ -21,8 +21,8 @@ CREATE TABLE Videos (
 CREATE TABLE Brands (
 	brand_id int NOT NULL AUTO_INCREMENT,
 	brand_name varchar(255) NOT NULL,
-	brand_rating int
-	PRIMARY KEY brand_id
+	brand_rating int,
+	PRIMARY KEY (brand_id)
 );
 
 CREATE TABLE Watches (
@@ -39,7 +39,7 @@ CREATE TABLE Sponsorships (
 	sponsorship_id int NOT NULL AUTO_INCREMENT,
 	brand_id int,
 	video_id varchar(15),
-	PRIMARY KEY (watch_id),
+	PRIMARY KEY (sponsorship_id),
 	FOREIGN KEY (brand_id) REFERENCES Brands(brand_id),
 	FOREIGN KEY (video_id) REFERENCES Videos(video_id)
 );
