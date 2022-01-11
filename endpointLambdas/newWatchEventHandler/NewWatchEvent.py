@@ -30,6 +30,7 @@ def lambda_handler(event, context):
 		try: 
 			cur.execute(qry)
 		except pymysql.Error as e:
+			#  duplicate key case
 			if e.args[0] == 1062:
 				return {
 					'statusCode': 200,
@@ -51,9 +52,10 @@ def lambda_handler(event, context):
 					},
 					'body': ("Error %d: %s" % (e.args[0], e.args[1]))
 				}
-		row = cur.fetchall()
-	
-	if len(row) >= 1:
+		conn.commit()
+		row = cur.rowcount
+
+	if row >= 1:
 		return {
 			'statusCode': 200,
 			'headers': {
