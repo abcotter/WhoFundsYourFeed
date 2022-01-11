@@ -22,7 +22,7 @@ conn = pymysql.connect(host=rdsHost,user=name,
 def lambda_handler(event, context):
 	videoId = event['youtubeVideoId']
 	with conn.cursor() as cur:
-			qry = f'SELECT * FROM Videos WHERE video_id = {videoId}'
+			qry = f"SELECT * FROM Videos WHERE video_id = '{videoId}';"
 			cur.execute(qry)
 			row = cur.fetchall()
 	
