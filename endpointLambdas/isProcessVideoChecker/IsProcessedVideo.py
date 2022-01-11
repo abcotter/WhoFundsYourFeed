@@ -17,7 +17,7 @@ conn = pymysql.connect(host=rdsHost,user=name,
 
 # inputs
 # {
-# 	youtubeVideoId: string,
+# 	youtubeVideoId: string
 # }
 def lambda_handler(event, context):
 	videoId = event['youtubeVideoId']
@@ -25,6 +25,9 @@ def lambda_handler(event, context):
 			qry = f'SELECT * FROM Videos WHERE video_id = {videoId}'
 			cur.execute(qry)
 			row = cur.fetchall()
+	
+	result = True if len(row) >= 1 else False
+
 	return {
 			'statusCode': 200,
 			'headers': {
@@ -33,5 +36,5 @@ def lambda_handler(event, context):
 					'Access-Control-Allow-Credentials': 'true',
 					'Content-Type': 'application/json'
 			},
-			'body': json.dumps(row)
+			'body': json.dumps(result)
 	}
