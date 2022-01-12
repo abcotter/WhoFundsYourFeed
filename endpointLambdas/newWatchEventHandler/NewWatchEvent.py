@@ -14,6 +14,13 @@ conn = pymysql.connect(host=rdsHost,user=name,
 												connect_timeout=5,
 												cursorclass=pymysql.cursors.DictCursor)
 
+headers = {
+							'Access-Control-Allow-Origin': '*',
+							'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+							'Access-Control-Allow-Credentials': 'true',
+							'Content-Type': 'application/json'
+					}
+
 # input
 # {
 # 	userId: int,
@@ -34,22 +41,12 @@ def lambda_handler(event, context):
 			if e.args[0] == 1062:
 				return {
 					'statusCode': 200,
-					'headers': {
-							'Access-Control-Allow-Origin': '*',
-							'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-							'Access-Control-Allow-Credentials': 'true',
-							'Content-Type': 'application/json'
-					}
+					'headers': headers
 				}
 			else:
 				return {
 					'statusCode': 500,
-					'headers': {
-							'Access-Control-Allow-Origin': '*',
-							'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-							'Access-Control-Allow-Credentials': 'true',
-							'Content-Type': 'application/json'
-					},
+					'headers': headers,
 					'body': ("Error %d: %s" % (e.args[0], e.args[1]))
 				}
 		conn.commit()
@@ -58,20 +55,10 @@ def lambda_handler(event, context):
 	if row >= 1:
 		return {
 			'statusCode': 200,
-			'headers': {
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-					'Access-Control-Allow-Credentials': 'true',
-					'Content-Type': 'application/json'
-			}
+			'headers': headers
 		}
 	else:
 		return {
 			'statusCode': 500,
-			'headers': {
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-					'Access-Control-Allow-Credentials': 'true',
-					'Content-Type': 'application/json'
-			}
+			'headers': headers
 		}

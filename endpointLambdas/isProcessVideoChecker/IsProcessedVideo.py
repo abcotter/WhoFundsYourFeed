@@ -24,7 +24,7 @@ def lambda_handler(event, context):
 	with conn.cursor() as cur:
 			qry = f"SELECT * FROM Videos WHERE video_id = '{videoId}';"
 			cur.execute(qry)
-			row = cur.fetchall()
+			row = cur.fetchone()
 	
 	result = True if len(row) >= 1 else False
 
