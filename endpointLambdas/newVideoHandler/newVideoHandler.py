@@ -102,3 +102,26 @@ def lambda_handler(event, context):
 				cur.execute(qry)
 
 	# create video to brand relationship
+	for brandName in event['sponsorships']:
+		with conn.cursor() as cur:
+			qry = f"INSERT INTO Sponsorships (brand_name, video_id) Values ('{brandName}','{videoId}');"
+			try: 
+				cur.execute(qry)
+			except pymysql.Error as e:
+				#  duplicate key case
+				if e.args[0] == 1062:
+					return {
+						'statusCode': 200,
+						'headers': headers
+					}
+				else:
+					return {
+						'statusCode': 500,
+						'headers': headers,
+						'body': ("Error %d: %s" % (e.args[0], e.args[1]))
+					}
+	conn.commit()
+	return {
+			'statusCode': 200,
+			'headers': headers
+		}
