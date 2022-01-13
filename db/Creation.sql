@@ -19,27 +19,24 @@ CREATE TABLE Videos (
 );
 
 CREATE TABLE Brands (
-	brand_id int NOT NULL AUTO_INCREMENT,
 	brand_name varchar(255) NOT NULL,
 	brand_rating int,
-	PRIMARY KEY (brand_id)
+	PRIMARY KEY (brand_name)
 );
 
 CREATE TABLE Watches (
-	watch_id int NOT NULL AUTO_INCREMENT,
 	user_id int,
 	video_id varchar(15),
 	time_watched TIMESTAMP,
-	PRIMARY KEY (watch_id),
+	PRIMARY KEY (user_id,video_id),
 	FOREIGN KEY (user_id) REFERENCES Users(user_id),
 	FOREIGN KEY (video_id) REFERENCES Videos(video_id)
 );
 
 CREATE TABLE Sponsorships (
-	sponsorship_id int NOT NULL AUTO_INCREMENT,
-	brand_id int,
+	brand_name varchar(255),
 	video_id varchar(15),
-	PRIMARY KEY (sponsorship_id),
-	FOREIGN KEY (brand_id) REFERENCES Brands(brand_id),
+	PRIMARY KEY (brand_name, video_id),
+	FOREIGN KEY (brand_name) REFERENCES Brands(brand_name),
 	FOREIGN KEY (video_id) REFERENCES Videos(video_id)
 );
