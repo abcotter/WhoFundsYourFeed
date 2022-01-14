@@ -81,68 +81,75 @@ export default {
 .container{
 	/*justify-content: ;flex-direction: column;*/
 	/*align-items: flex-start;*/
+	background-color: rgb(251,220,226);
+
 	
 }
 
 .mainHeader{
 	display: flex;
-	align-items: center;
+	justify-content: space-around;
 }
 
 .headers{
 	display: flex;
 	
+	
 }
 
 .header1{
 	flex: 3;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .header2{
 	flex: 3;
+	margin-right: 10px;
 }
 
 .header3{
 	flex: 3;
+	margin-right: 10px;
 }
 
 .statCard1{
-	background-color: blue;
+	background-color: rgb(247,255,247);
 }
 
 .statCard2{
 	flex:1;
-	background-color: pink;
+	background-color: rgb(247,255,247);
 }
 
 .companyCard1{
 	flex:1;
-	background-color: red;
+	background-color: rgb(247,255,247);
 }
 
 .companyCard2{
 	flex:1; 
-	background-color: orange;
+	background-color: rgb(247,255,247);
 }
 .companyCard3{
 	flex: 1;
-	background-color:brown;
+	background-color:rgb(247,255,247);
 }
 
 .influencerCard1{
 	flex:1;
-	background-color:green;
+	background-color:rgb(247,255,247);
 }
 
 .influencerCard2{
 	flex:1;
-	background-color:blueviolet
+	background-color:rgb(247,255,247);
 	
 }
 
 .influencerCard3{
 	flex:1;
-	background-color:greenyellow;
+	background-color:rgb(247,255,247);
 	
 }
 
