@@ -3,43 +3,55 @@
 		<div class="mainHeader">
 		<h1>Taylor, Who Funds Your Feed?</h1>
 		</div>
-
+		
+		<div class="headers">
 		<div class="header1">
 			<h2>My Viewing Stats</h2>
+			<div class="statCard1">
+				<p> Stat 1 </p>
 			</div>
 
+			<div class="statCard2">
+				<p> Stat 2 </p>
+			</div>
+			
+		</div>
 		<div class="header2">
 			<h2>Top Brands</h2>
+			<div class="companyCard1">
+				<p> Company 1 </p>
+			</div>
+
+			<div class="companyCard2">
+				<p> Company 2 </p>
+			</div>
+
+			<div class="companyCard3">
+				<p> Company 3 </p>
 			</div>
 		
+		</div>
 		<div class="header3">
 			<h2>Top Influencers</h2>
+			<div class="influencerCard1">
+				<p> Influencer 1 </p>
 			</div>
 
-		<div class="statCard1">
-		</div>
+			<div class="influencerCard2">
+				<p> Influencer 2</p>
+			</div>
 
-		<div class="statCard2">
+			<div class="influencerCard3">
+				<p> Influencer 3</p>
+			</div>
 		</div>
+	</div>
 
-		<div class="companyCard1">
+		<div class="nextSection">
+			<h1> next section </h1>
+
 		</div>
-
-		<div class="companyCard2">
-		</div>
-
-		<div class="companyCard3">
-		</div>
-
-		<div class="influencerCard1">
-		</div>
-
-		<div class="influencerCard2">
-		</div>
-
-		<div class="influencerCard3">
-		</div>
-
+		
 		<div class="mainFooter">
 			<p>Share Your Results</p>
 			</div>
@@ -64,34 +76,37 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
 .container{
-	display: flex;
-	padding: 10px;
-	justify-content: space-between;
-	/*flex-direction: column;*/
+	/*justify-content: ;flex-direction: column;*/
 	/*align-items: flex-start;*/
+	
 }
 
 .mainHeader{
-	flex:3; 
+	display: flex;
+	align-items: center;
+}
+
+.headers{
+	display: flex;
+	
 }
 
 .header1{
-	flex:2;
-
+	flex: 3;
 }
 
 .header2{
-	flex:2;
-
+	flex: 3;
 }
 
 .header3{
-	flex:2;
+	flex: 3;
 }
 
 .statCard1{
-	flex:1;
 	background-color: blue;
 }
 
@@ -108,7 +123,6 @@ export default {
 .companyCard2{
 	flex:1; 
 	background-color: orange;
-	
 }
 .companyCard3{
 	flex: 1;
@@ -130,6 +144,10 @@ export default {
 	flex:1;
 	background-color:greenyellow;
 	
+}
+
+.nextSection{
+	display: flex;
 }
 
 .mainFooter{
