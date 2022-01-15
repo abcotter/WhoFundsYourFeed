@@ -9,7 +9,7 @@
 				<img src="quavo.jpg"> 
 			</div>
 			<div class="funderDescription">
-				<p>description goes here</p>
+				<h1>Your main funder is Quavo</h1>
 				</div>
 			</div>
 		
@@ -105,13 +105,15 @@ export default {
 
 .funderImage{
 	flex: 1;
-	
+	width: 100%;
+	padding: 325px;
 }
 
 .funderDescription{
 	flex:1;
 	background-color: rgb(247,255,247);
-	padding: 50px;
+	border-radius: 30px;
+	padding: 150px;
 	margin: 10px;
 }
 
@@ -139,7 +141,8 @@ export default {
 
 .statCard1{
 	background-color: rgb(247,255,247);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 
@@ -148,7 +151,8 @@ export default {
 .statCard2{
 	flex:1;
 	background-color: rgb(255, 107, 107);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 }
@@ -156,7 +160,8 @@ export default {
 .companyCard1{
 	flex:1;
 	background-color: rgb(255,230,109);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 
@@ -165,7 +170,8 @@ export default {
 .companyCard2{
 	flex:1; 
 	background-color: rgb(247,255,247);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 
@@ -173,7 +179,8 @@ export default {
 .companyCard3{
 	flex: 1;
 	background-color:rgb(78, 205, 196);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 }
@@ -181,7 +188,8 @@ export default {
 .influencerCard1{
 	flex:1;
 	background-color:rgb(247,255,247);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 }
@@ -189,7 +197,8 @@ export default {
 .influencerCard2{
 	flex:1;
 	background-color:rgb(255, 107, 107);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 	
@@ -198,7 +207,8 @@ export default {
 .influencerCard3{
 	flex:1;
 	background-color:rgb(247,255,247);
-	padding: 5px;
+	border-radius: 25px;
+	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
 	
