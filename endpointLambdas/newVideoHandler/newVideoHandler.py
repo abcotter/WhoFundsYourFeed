@@ -58,19 +58,20 @@ headers = {
 
 def lambda_handler(event, context):
 	videoId = event['youtubeVideoId']
-	videoTitle = event['items']['snippet']['title']
-	channelName = event['items']['snippet']['channelTitle']
-	category = categoryMap[event['items']['snippet']['categoryId']]
-	runtimeHours = re.findall(r"\d{1,2}H", event['items']['snippet']['duration']) if len(re.findall(r"\d{1,2}H", event['items']['snippet']['duration']))>0 else ['0H']
-	runtimeMinutes = re.findall(r"\d{1,2}M", event['items']['snippet']['duration']) if len(re.findall(r"\d{1,2}M", event['items']['snippet']['duration']))>0 else ['0M']
-	runtimeSeconds = re.findall(r"\d{1,2}S", event['items']['snippet']['duration']) if len(re.findall(r"\d{1,2}S", event['items']['snippet']['duration']))>0 else ['0S']
+	videoTitle = event['youtubeApiResponse']['items'][0]['snippet']['title'].replace("'", "")
+	channelName = event['youtubeApiResponse']['items'][0]['snippet']['channelTitle']
+	category = categoryMap[int(event['youtubeApiResponse']['items'][0]['snippet']['categoryId'])]
+	runtimeHours = re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0H']
+	runtimeMinutes = re.findall(r"\d{1,2}M", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}M", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0M']
+	runtimeSeconds = re.findall(r"\d{1,2}S", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}S", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0S']
 	duration = int(runtimeHours[0][:-1])*3600 + int(runtimeMinutes[0][:-1])*60 + int(runtimeSeconds[0][:-1])
 	isSponsored = True if len(event['sponsorships']) >0 else False
 
 	# Add video to video table
 	with conn.cursor() as cur:
-		qry = f"INSERT INTO Videos (video_id, title, channel_name, video_category, video_duration_secs, is_sponsored) Values ('{videoId}', '{videoTitle}', '{channelName}', '{category}', {duration}, {isSponsored});"
-		try: 
+		qry = f'INSERT INTO Videos (video_id, title, channel_name, video_category, video_duration_secs, is_sponsored) Values ("{videoId}", "{videoTitle}", "{channelName}", "{category}", {duration}, {isSponsored});'
+		try:
+			print(qry)
 			cur.execute(qry)
 		except pymysql.Error as e:
 			#  duplicate key case
