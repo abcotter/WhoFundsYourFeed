@@ -70,7 +70,6 @@ def lambda_handler(event, context):
 	with conn.cursor() as cur:
 		qry = f'INSERT INTO Videos (video_id, title, channel_name, video_category, video_duration_secs, is_sponsored) Values ("{videoId}", "{videoTitle}", "{channelName}", "{category}", {duration}, {isSponsored});'
 		try:
-			print(qry)
 			cur.execute(qry)
 		except pymysql.Error as e:
 			#  duplicate key case
@@ -93,8 +92,8 @@ def lambda_handler(event, context):
 		cur.execute(qry)
 		existingSponsors = cur.fetchall()
 
-		newSponsors = [x for x in event["sponsorships"] if x["name"] not in set(existingSponsors)] #list(set(sponsorNames) - set(rows))
-
+		newSponsors = [x for x in event["sponsorships"] if x["name"] not in set(existingSponsors)]
+		
 	if len(newSponsors) > 0:
 		# insert new sponsors
 		for newSponsor in newSponsors:
@@ -107,7 +106,8 @@ def lambda_handler(event, context):
 	# create video to brand relationship
 	for brandName in event['sponsorships']:
 		with conn.cursor() as cur:
-			qry = f"INSERT INTO Sponsorships (brand_name, video_id) Values ('{brandName}','{videoId}');"
+			name = brandName["name"]
+			qry = f"INSERT INTO Sponsorships (brand_name, video_id) Values ('{name}','{videoId}');"
 			try: 
 				cur.execute(qry)
 			except pymysql.Error as e:
