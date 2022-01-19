@@ -51,8 +51,7 @@ headers = {
 			# 	]
 # 		}
 # 	sponsorships: [
-# 	“helloFresh”,
-# 	“Sobeys”
+# 		{name: "helloFresh", url: "http....com"},
 # 	]
 # }
 
@@ -88,18 +87,21 @@ def lambda_handler(event, context):
 				}
 	# check and add new sponsors to brand table
 	with conn.cursor() as cur:
-		sponsors = ",".join(map(lambda x: "'" + x + "'" ,event['sponsorships']))
+		sponsorNames = [x["name"] for x in event["sponsorships"]]
+		sponsors = ",".join(map(lambda x: "'" + x + "'" , sponsorNames))
 		qry = f"SELECT brand_name FROM Brands WHERE brand_name IN ({sponsors})"
 		cur.execute(qry)
-		rows = cur.fetchall()
+		existingSponsors = cur.fetchall()
 
-		newSponsors = list(set(event['sponsorships']) - set(rows))
+		newSponsors = [x for x in event["sponsorships"] if x["name"] not in set(existingSponsors)] #list(set(sponsorNames) - set(rows))
 
 	if len(newSponsors) > 0:
 		# insert new sponsors
 		for newSponsor in newSponsors:
 			with conn.cursor() as cur:
-				qry = f"INSERT INTO Brands (brand_name) Values ('{newSponsor}');"
+				sponsorName = newSponsor["name"]
+				sponsorUrl = newSponsor["url"]
+				qry = f"INSERT INTO Brands (brand_name, brand_url) Values ('{sponsorName}', '{sponsorUrl}');"
 				cur.execute(qry)
 
 	# create video to brand relationship
