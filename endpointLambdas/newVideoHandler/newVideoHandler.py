@@ -57,7 +57,7 @@ headers = {
 
 def lambda_handler(event, context):
 	videoId = event['youtubeVideoId']
-	videoTitle = event['youtubeApiResponse']['items'][0]['snippet']['title'].replace("'", "")
+	videoTitle = event['youtubeApiResponse']['items'][0]['snippet']['title'].replace("'", "&#39;")
 	channelName = event['youtubeApiResponse']['items'][0]['snippet']['channelTitle']
 	category = categoryMap[int(event['youtubeApiResponse']['items'][0]['snippet']['categoryId'])]
 	runtimeHours = re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0H']
