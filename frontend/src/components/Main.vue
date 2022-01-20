@@ -1,228 +1,96 @@
 <template>
-	<div class="container">
-		<div class="mainHeader">
-		<h1><font color="#292f36">Taylor, Who Funds Your Feed?</font></h1>
+	<div class="main-container">
+		<div class="main-header">
+			<Header userName="Taylor" />
 		</div>
-
-		<div class="mainFunder">
+		<div class="main-body">
+			<!-- <div class="mainFunder">
 			<div class="funderImage">
-				<img src="quavo.jpg"> 
+				<img src="quavo.jpg" />
 			</div>
 			<div class="funderDescription">
 				<h1>Your main funder is Quavo</h1>
-				</div>
 			</div>
-		
-		<div class="headers">
-		<div class="header1">
-			<h2><font color="#292f36">My Viewing Stats</font></h2>
-			<div class="statCard1">
-				<p> Stat 1 </p>
+		</div> -->
+
+			<ViewingStats />
+
+			<div class="down-scroll">
+				<ion-icon
+					name="chevron-down-outline"
+					style="font-size: 72px"
+				></ion-icon>
 			</div>
 
-			<div class="statCard2">
-				<p> Stat 2 </p>
-			</div>
-			
-		</div>
-		<div class="header2">
-			<h2><font color="#292f36">Top Brands</font></h2>
-			<div class="companyCard1">
-				<p> Company 1 </p>
-			</div>
+			<TopStats />
 
-			<div class="companyCard2">
-				<p> Company 2 </p>
-			</div>
-
-			<div class="companyCard3">
-				<p> Company 3 </p>
-			</div>
-		
-		</div>
-		<div class="header3">
-			<h2><font color="#292f36">Top Influencers</font></h2>
-			<div class="influencerCard1">
-				<p> Influencer 1 </p>
-			</div>
-
-			<div class="influencerCard2">
-				<p> Influencer 2</p>
-			</div>
-
-			<div class="influencerCard3">
-				<p> Influencer 3</p>
+			<div class="mainFooter">
+				<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
+				<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
+				<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
 			</div>
 		</div>
 	</div>
-
-		<div class="nextSection">
-			<h1> next section </h1>
-
-		</div>
-		
-		<div class="mainFooter">
-			<p>Share Your Results</p>
-			</div>
-		<a
-			href="https://github.com/abcotter/WhoFundsYourFeed"
-			target="_blank"
-			rel="noopener"
-			>Repo Link</a
-		>
-	</div>
-
-	
 </template>
 
 <script>
 //define components here that can be used elsewhere
-export default {
-  name: 'Main'
-}
+import Header from "./Header.vue";
+import ViewingStats from "./ViewingStats.vue";
+import TopStats from "./TopStats.vue";
 
+export default {
+	name: "Main",
+	components: {
+		Header,
+		ViewingStats,
+		TopStats,
+	},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
-.container{
-	/*justify-content: ;flex-direction: column;*/
-	/*align-items: flex-start;*/
-	background-color: rgb(251,220,226);	
+.main-container {
+	margin: 0px;
 }
 
-.mainHeader{
+.main-header {
+	position: fixed;
+	width: 100%;
+	backdrop-filter: blur(4px);
+}
+
+.main-body {
+	padding-top: 140px;
+}
+
+.mainFunder {
 	display: flex;
-	justify-content: space-around;
+	height: 80vh;
 }
 
-.mainFunder{
-	display: flex;
-
+.down-scroll {
+	padding-bottom: 200px;
 }
 
-.funderImage{
+.funderImage {
 	flex: 1;
 	width: 100%;
 	padding: 325px;
 }
 
-.funderDescription{
-	flex:1;
-	background-color: rgb(247,255,247);
+.funderDescription {
+	flex: 1;
+	background-color: rgb(247, 255, 247);
 	border-radius: 30px;
 	padding: 150px;
 	margin: 10px;
 }
 
-.headers{
+.mainFooter {
+	flex: 3;
 	display: flex;
-	
-	
+	justify-content: center;
 }
-
-.header1{
-	flex: 3;
-	margin-right: 10px;
-	margin-left: 10px;
-}
-
-.header2{
-	flex: 3;
-	margin-right: 10px;
-}
-
-.header3{
-	flex: 3;
-	margin-right: 10px;
-}
-
-.statCard1{
-	background-color: rgb(247,255,247);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-
-}
-
-.statCard2{
-	flex:1;
-	background-color: rgb(255, 107, 107);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-}
-
-.companyCard1{
-	flex:1;
-	background-color: rgb(255,230,109);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-
-}
-
-.companyCard2{
-	flex:1; 
-	background-color: rgb(247,255,247);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-
-}
-.companyCard3{
-	flex: 1;
-	background-color:rgb(78, 205, 196);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-}
-
-.influencerCard1{
-	flex:1;
-	background-color:rgb(247,255,247);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-}
-
-.influencerCard2{
-	flex:1;
-	background-color:rgb(255, 107, 107);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-	
-}
-
-.influencerCard3{
-	flex:1;
-	background-color:rgb(247,255,247);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 5px;
-	color: rgb(41, 47, 54)
-	
-}
-
-.nextSection{
-	display: flex;
-}
-
-.mainFooter{
-	flex:3;
-
-}
-
-
-
 </style>
