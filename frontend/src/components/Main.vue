@@ -4,15 +4,6 @@
 			<Header userName="Taylor" />
 		</div>
 		<div class="main-body">
-			<!-- <div class="mainFunder">
-			<div class="funderImage">
-				<img src="quavo.jpg" />
-			</div>
-			<div class="funderDescription">
-				<h1>Your main funder is Quavo</h1>
-			</div>
-		</div> -->
-
 			<ViewingStats />
 
 			<div class="down-scroll">
@@ -65,27 +56,8 @@ export default {
 	padding-top: 140px;
 }
 
-.mainFunder {
-	display: flex;
-	height: 80vh;
-}
-
 .down-scroll {
 	padding-bottom: 200px;
-}
-
-.funderImage {
-	flex: 1;
-	width: 100%;
-	padding: 325px;
-}
-
-.funderDescription {
-	flex: 1;
-	background-color: rgb(247, 255, 247);
-	border-radius: 30px;
-	padding: 150px;
-	margin: 10px;
 }
 
 .mainFooter {

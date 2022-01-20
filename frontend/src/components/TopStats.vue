@@ -2,16 +2,6 @@
 	<div class="top-stats-container">
 		<div class="main-header">Your Top Brands and Influencers</div>
 		<div class="headers">
-			<div class="header1">
-				<h2><font color="#292f36">My Viewing Stats</font></h2>
-				<div class="statCard1">
-					<p>Stat 1</p>
-				</div>
-
-				<div class="statCard2">
-					<p>Stat 2</p>
-				</div>
-			</div>
 			<div class="header2">
 				<h2><font color="#292f36">Top Brands</font></h2>
 				<div class="companyCard1">
