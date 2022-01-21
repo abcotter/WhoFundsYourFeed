@@ -1,13 +1,17 @@
 <template>
 	<div class="container">
-		<div class="mainHeader">
+		
 		<Header userName="Taylor" />
-		</div>
-
-		<div class="landingPage">
+		
 		<MainFunder />
+		
+		<div class="downScroll">
+			<ion-icon
+			name="chevron-down-outline"
+			style="font-size: 72px"
+			></ion-icon>
 		</div>
-
+		
 		<div class="secondHeader">
 			<h1><font color="#292f36"> More Viewing Highlights</font></h1>
 		</div>
@@ -16,12 +20,7 @@
 		<ViewingHighlights />
 		</div>
 
-		<div class="downScroll">
-			<ion-icon
-			name="chevron-down-outline"
-			style="font-size: 72px"
-			></ion-icon>
-		</div>
+		
 
 		<div class="mainFooter">
 			<h2>Share Your Results</h2>
@@ -61,11 +60,6 @@ export default {
 	/*justify-content: ;flex-direction: column;*/
 	/*align-items: flex-start;*/
 	background-color: rgb(251,220,226);	
-}
-
-.mainHeader{
-	display: flex;
-	justify-content: space-around;
 }
 
 .mainFooter{
