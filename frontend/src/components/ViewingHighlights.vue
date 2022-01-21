@@ -3,17 +3,32 @@
     <div class="columns">
 		<div class="column1">
 			<!--<h2><font color="#292f36">My Viewing Stats</font></h2>-->
+			
 			<div class="statCard1">
-				<p> Stat 1 </p>
+			<div class="statCard1Front">
+				<p> Stat 1 Front</p>
 			</div>
+			<div class="statCard1Back">
+				<p> Stat 1 Back </p>
+				</div>
+			</div>
+			
 
 			<div class="influencerCard1">
-				<p> Influencer 1 </p>
+			<div class="influencerCard1Front">
+				<p> Influencer 1 Front</p>
+			</div>
+			<div class="influencerCard1Back">
+				<p> Influencer 1 Back</p>
+				</div>
 			</div>
 
 			<div class="companyCard2">
 				<p> Company 2 </p>
 			</div>
+
+			<div class="companyCard2Flipped">
+				</div>
 		</div>
 
 		<div class="column2">
@@ -44,6 +59,7 @@ export default {
 
 .columns{
 	display: flex;
+	height: 75vh;
 }
 
 .column1{
@@ -58,11 +74,24 @@ export default {
 }
 
 .statCard1{
+	display: flex;
+}
+
+.statCard1Front{
+	flex:1;
 	background-color: rgb(247,255,247);
 	border-radius: 25px;
 	padding: 10px;
 	margin: 5px;
-	color: rgb(41, 47, 54)
+	color: rgb(41, 47, 54);
+}
+.statCard1Back{
+	flex:1;
+	background-color: rgb(247,255,247);
+	border-radius: 25px;
+	padding: 10px;
+	margin: 5px;
+	color: rgb(41, 47, 54);
 }
 
 .statCard2{
@@ -92,14 +121,21 @@ export default {
 	color: rgb(41, 47, 54)
 }
 
+
 .influencerCard1{
+	display: flex;
+}
+
+.influencerCard1Front{
 	flex:1;
 	background-color:rgb(255, 107, 107);
 	border-radius: 25px;
 	padding: 10px;
 	margin: 5px;
 	color: rgb(41, 47, 54)
+
 }
+
 
 .influencerCard2{
 	flex:1;

@@ -13,7 +13,7 @@ export default {
 <style scoped>
 .mainHeader {
 	padding: 30px;
-	height: 60px;
+	height: 8vh;
 	display: flex;
 	justify-content: center;
 	color: #292f36;

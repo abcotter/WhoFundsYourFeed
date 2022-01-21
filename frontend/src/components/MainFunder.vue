@@ -28,6 +28,7 @@ export default {
 
 .mainFunder{
 	display: flex;
+    height: 75vh;
 }
 
 /*.funderImage{

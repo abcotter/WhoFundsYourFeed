@@ -20,8 +20,6 @@
 		<ViewingHighlights />
 		</div>
 
-		
-
 		<div class="mainFooter">
 			<h2>Share Your Results</h2>
 			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
