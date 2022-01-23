@@ -61,16 +61,17 @@ def scrape_sponsor_websites(urls: list, model):
         parser = BeautifulSoup(page.content, 'html.parser')
         title = parser.title
         matches = re.search('(https?://.*?([a-zA-Z]*).(com|ca))', page.url)
-        page_url = matches.group(2) if matches else page.url
+        page_url = matches.group(0) if matches else page.url
+        domain = matches.group(2) if matches else page.url
         if not title:
             continue
         document = model(title.get_text())
         entities = set()
         for token in document:
-            if token.text.lower() in page_url and token.pos_ not in set(['PUNCT', 'ADP', 'DET']):
+            if token.text.lower() in domain and token.pos_ not in set(['PUNCT', 'ADP', 'DET']):
                 entities.add(token.text)
         if entities:
             sponsors.add((' '.join(entities), url))
-    return [{"name": name, "url": page.url} for name, url in sponsors]
+    return [{"name": name, "url": page_url} for name, url in sponsors]
 
 
