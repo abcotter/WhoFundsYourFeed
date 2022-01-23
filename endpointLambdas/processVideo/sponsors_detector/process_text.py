@@ -71,6 +71,6 @@ def scrape_sponsor_websites(urls: list, model):
                 entities.add(token.text)
         if entities:
             sponsors.add((' '.join(entities), url))
-    return [{"name": name, "url": page_url} for name, url in sponsors]
+    return [{"name": name, "url": page.url} for name, url in sponsors]
 
 

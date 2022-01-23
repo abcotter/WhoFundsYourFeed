@@ -3,6 +3,7 @@ from pathlib import Path
 import boto3
 import tarfile
 import json
+from typing import List
 
 MODELS_DIRECTORY = "/tmp/models"
 MODELS_BUCKET = os.environ['MODELS_BUCKET']
@@ -46,3 +47,12 @@ def is_video_processed(video_id):
         InvocationType="RequestResponse",
         Payload=json.dumps(payload))
     return json.load(response["Payload"])
+
+def process_sponsors(result: dict, video_id: str) -> None:
+    """Request video details and found sponsors to be processed"""
+    client = boto3.client('lambda')
+    result["youtubeVideoId"] = video_id
+    client.invoke(
+        FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newVideoHandler",
+        InvocationType="Event",
+        Payload=json.dumps(result))

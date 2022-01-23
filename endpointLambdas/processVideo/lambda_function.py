@@ -1,7 +1,7 @@
 import json
 import spacy
-from sponsor_detector.process_text import find_video_sponsors
-from util.util import get_model_path, is_video_processed
+from sponsors_detector.process_text import find_video_sponsors
+from util.util import get_model_path, is_video_processed, process_sponsors
 
 HEADERS = {'Access-Control-Allow-Origin': '*',
            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
@@ -27,9 +27,15 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'headers': HEADERS
         }
-    sponsor_names = find_video_sponsors(videoId, nlp)
+    result = find_video_sponsors(videoId, nlp)
+    if not result:
+        return {
+            'statusCode': 400,
+            'body': json.dumps("Problem detecting sponsors in video")
+        }
+    process_sponsors(result, videoId)
     return {
         "statusCode": 200,
-        "body": json.dumps(f"Sponsor names: {list(sponsor_names)}")
+        "body": json.dumps(f"Sponsor names: {list(result['sponsorships'])}")
 
     }
