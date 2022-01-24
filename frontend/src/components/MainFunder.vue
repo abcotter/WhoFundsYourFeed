@@ -1,7 +1,7 @@
 <template>
 	<div class="main-funder">
 		<div style="display: flex; justify-content: center">
-			<h1>Your most funder is:&nbsp;</h1>
+			<h1>Your main funder is:&nbsp;</h1>
 			<h2>{{ topFunder }}</h2>
 		</div>
 		<div class="stats-container">
