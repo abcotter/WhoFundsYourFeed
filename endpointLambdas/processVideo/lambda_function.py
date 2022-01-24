@@ -28,14 +28,10 @@ def lambda_handler(event, context):
             'headers': HEADERS
         }
     result = find_video_sponsors(videoId, nlp)
-    if not result:
-        return {
-            'statusCode': 400,
-            'body': json.dumps("Problem detecting sponsors in video")
-        }
-    process_sponsors(result, videoId)
+    if result:
+        process_sponsors(result, videoId)
     return {
         "statusCode": 200,
-        "body": json.dumps(f"Sponsor names: {list(result['sponsorships'])}")
+        "body": json.dumps(f"Sponsorships: {result.get('sponsorships', [])}")
 
     }
