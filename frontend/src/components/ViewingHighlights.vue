@@ -73,20 +73,18 @@ export default {
 
 .columns{
 	display: flex;
+	justify-content: space-evenly;
 	height: 75vh;
+	width: 100%;
 }
 
 .column1{
-	flex: 2;
-	margin-right: 10px;
-	margin-left: 10px;
+	width: 45%
 }
 
 .column2{
-	flex: 2;
-	margin-right: 10px;
+	width: 45%;
 }
-
 .statCard1{
 	display: flex;
 	perspective: 1000px;
