@@ -25,11 +25,11 @@ INSERT INTO who_funds_your_feed.Videos (video_id, title, channel_name, video_cat
 
 CREATE TABLE Brands (
 	brand_name varchar(255) NOT NULL,
-	brand_rating int,
+	brand_url TINYTEXT,
 	PRIMARY KEY (brand_name)
 );
 
-INSERT INTO who_funds_your_feed.Brands (brand_name, brand_rating) VALUES ('Native', '3');
+INSERT INTO who_funds_your_feed.Brands (brand_name, brand_url) VALUES ('Native', 'https://www.nativecos.com/');
 
 CREATE TABLE Watches (
 	user_id VARCHAR(255),
