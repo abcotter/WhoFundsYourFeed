@@ -1,20 +1,14 @@
 <template>
-	<vue-flip active-click="" transition="2s" class="Card">
-		<template v-slot:front class="front"> front </template>
-		<template v-slot:back class="back">
-			I'm where % of videos you watch that's sponsored goes
-		</template>
-	</vue-flip>
+	<div class="Card">
+		<div>What percent of you content sponsored?</div>
+		<div>I'm where % of videos you watch that's sponsored goes</div>
+	</div>
 </template>
 
 <script>
-import VueFlip from "vue-flip";
 //define components here that can be used elsewhere
 export default {
 	name: "PercentVideoSponsoredStat",
-	components: {
-		VueFlip,
-	},
 };
 </script>
 
@@ -25,5 +19,8 @@ export default {
 	padding: 10px;
 	margin: 10px;
 	height: 350px;
+	transition: transform 1s;
+	transform-style: preserve-3d;
+	cursor: pointer;
 }
 </style>
