@@ -1,5 +1,9 @@
 <template>
 	<div class="container">
+		<img class="blue-circle" src="../assets/blue_circ.png" alt="blue circle" />
+		<img class="yellow-bar" src="../assets/yell_bar.png" alt="yellow bar" />
+		<img class="peace-sign" src="../assets/peace.png" alt="peace sign" />
+
 		<Header userName="Taylor" />
 
 		<MainFunder topFunder="HelloFresh" />
@@ -39,6 +43,30 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
-	background-color: rgb(251, 220, 226);
+	background-color: #ffcbc6;
+}
+
+.blue-circle {
+	position: absolute;
+	max-width: 20vw;
+	max-height: 20vh;
+	top: 16vh;
+	left: 7vw;
+}
+
+.yellow-bar {
+	position: absolute;
+	top: 16vh;
+	right: 5vw;
+	max-width: 8vw;
+	max-height: 85vh;
+}
+
+.peace-sign {
+	position: absolute;
+	top: 8vh;
+	right: 13vw;
+	max-width: 10vw;
+	max-height: 20vh;
 }
 </style>

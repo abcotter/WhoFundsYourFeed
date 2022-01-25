@@ -5,8 +5,8 @@
 			<h2>{{ topFunder }}</h2>
 		</div>
 		<div class="stats-container">
-			<leftStatCard />
-			<rightStatCard />
+			<leftStatCard :topFunder="topFunder" />
+			<rightStatCard :topFunder="topFunder" />
 		</div>
 	</div>
 </template>
@@ -32,11 +32,11 @@ export default {
 	flex-direction: column;
 	justify-content: flex-start;
 	height: 75vh;
-	background-color: rgb(78, 205, 196);
+	width: 75%;
+	margin: auto;
+	background-color: #f5f5f5;
 	border-radius: 30px;
 	padding: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
 }
 
 h1 {
@@ -56,14 +56,7 @@ h2 {
 
 .stats-container {
 	display: flex;
-	height: 80%;
+	height: 58vh;
 	justify-content: space-evenly;
-}
-
-.funderCard2 {
-	background-color: rgb(247, 255, 247);
-	border-radius: 25px;
-	padding: 10px;
-	margin: 10px;
 }
 </style>
