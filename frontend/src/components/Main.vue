@@ -1,142 +1,68 @@
 <template>
 	<div class="container">
-		<div class="mainHeader">
-		<h1>Taylor, Who Funds Your Feed?</h1>
-		</div>
-
-		<div class="header1">
-			<h2>My Viewing Stats</h2>
-			</div>
-
-		<div class="header2">
-			<h2>Top Brands</h2>
-			</div>
 		
-		<div class="header3">
-			<h2>Top Influencers</h2>
-			</div>
-
-		<div class="statCard1">
+		<Header userName="Taylor" />
+		
+		<MainFunder />
+		
+		<div class="downScroll">
+			<ion-icon
+			name="chevron-down-outline"
+			style="font-size: 72px"
+			></ion-icon>
+		</div>
+		
+		<div class="secondHeader">
+			<h1><font color="#292f36"> More Viewing Highlights</font></h1>
 		</div>
 
-		<div class="statCard2">
-		</div>
-
-		<div class="companyCard1">
-		</div>
-
-		<div class="companyCard2">
-		</div>
-
-		<div class="companyCard3">
-		</div>
-
-		<div class="influencerCard1">
-		</div>
-
-		<div class="influencerCard2">
-		</div>
-
-		<div class="influencerCard3">
+		<div class="mainBody">
+		<ViewingHighlights />
 		</div>
 
 		<div class="mainFooter">
-			<p>Share Your Results</p>
-			</div>
-		<a
-			href="https://github.com/abcotter/WhoFundsYourFeed"
-			target="_blank"
-			rel="noopener"
-			>Repo Link</a
-		>
-	</div>
+			<h2>Share Your Results</h2>
+			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
+			<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
+			<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+		</div>
+		
+		</div>
 
 	
 </template>
 
 <script>
 //define components here that can be used elsewhere
+
+import Header from "./Header.vue";
+import MainFunder from "./MainFunder.vue";
+import ViewingHighlights from "./ViewingHighlights.vue";
+
 export default {
-  name: 'Main'
+  name: 'Main',
+  components: {
+	  Header,
+	  MainFunder,
+	  ViewingHighlights,
+  },
 }
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
 .container{
-	display: flex;
-	padding: 10px;
-	justify-content: space-between;
-	/*flex-direction: column;*/
+	/*justify-content: ;flex-direction: column;*/
 	/*align-items: flex-start;*/
-}
-
-.mainHeader{
-	flex:3; 
-}
-
-.header1{
-	flex:2;
-
-}
-
-.header2{
-	flex:2;
-
-}
-
-.header3{
-	flex:2;
-}
-
-.statCard1{
-	flex:1;
-	background-color: blue;
-}
-
-.statCard2{
-	flex:1;
-	background-color: pink;
-}
-
-.companyCard1{
-	flex:1;
-	background-color: red;
-}
-
-.companyCard2{
-	flex:1; 
-	background-color: orange;
-	
-}
-.companyCard3{
-	flex: 1;
-	background-color:brown;
-}
-
-.influencerCard1{
-	flex:1;
-	background-color:green;
-}
-
-.influencerCard2{
-	flex:1;
-	background-color:blueviolet
-	
-}
-
-.influencerCard3{
-	flex:1;
-	background-color:greenyellow;
-	
+	background-color: rgb(251,220,226);	
 }
 
 .mainFooter{
 	flex:3;
 
 }
-
-
 
 </style>
