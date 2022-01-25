@@ -23,7 +23,8 @@ def lambda_handler(event, context):
             'headers': HEADERS
         }
 
-    if is_video_processed(videoId) == "True":
+    if is_video_processed(videoId) == "true":
+        add_new_watch_event(userId, videoId, timestamp)
         return {
             'statusCode': 200,
             'headers': HEADERS
@@ -31,7 +32,7 @@ def lambda_handler(event, context):
     result = find_video_sponsors(videoId, nlp)
     if result:
         process_sponsors(result, videoId)
-    add_new_watch_event(userId, videoId, timestamp)
+        add_new_watch_event(userId, videoId, timestamp)
     return {
         "statusCode": 200,
         "body": json.dumps(f"Sponsorships: {result.get('sponsorships', [])}")

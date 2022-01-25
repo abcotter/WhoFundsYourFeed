@@ -46,16 +46,17 @@ def is_video_processed(video_id):
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:isProcessedVideoChecker",
         InvocationType="RequestResponse",
         Payload=json.dumps(payload))
-    return json.load(response["Payload"])
+    return json.load(response["Payload"]).get('body','false')
 
 def process_sponsors(result: dict, video_id: str) -> None:
     """Request video details and found sponsors to be processed"""
     client = boto3.client('lambda')
     result["youtubeVideoId"] = video_id
-    client.invoke(
+    response = client.invoke(
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newVideoHandler",
-        InvocationType="Event",
+        InvocationType="RequestResponse",
         Payload=json.dumps(result))
+    print(json.load(response["Payload"]))
 
 def add_new_watch_event(user_id: int, video_id: str, timestamp: str) -> None:
     client = boto3.client('lambda')
@@ -64,7 +65,9 @@ def add_new_watch_event(user_id: int, video_id: str, timestamp: str) -> None:
         "youtubeVideoId": video_id,
         "timestamp": timestamp
     }
-    client.invoke(
+    response = client.invoke(
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newWatchEventHandler",
-        InvocationType="Event",
+        InvocationType="RequestResponse",
         Payload=json.dumps(payload))
+
+    print(json.load(response["Payload"]))

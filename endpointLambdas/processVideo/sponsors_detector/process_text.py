@@ -3,7 +3,7 @@ import os
 import re
 import requests
 
-YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet"
+YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics"
 SOCIAL_MEDIA_DOMAINS = set(['instagram', 'facebook', 'linkedin', 'youtube',
                               'snapchat', 'twitter', 'paypal', 'patreon', 'tiktok',
                               'podcasts.apple', 'flickr', 'soundcloud', 'spotify'])
