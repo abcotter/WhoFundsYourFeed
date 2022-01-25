@@ -1,0 +1,8 @@
+{
+outputTimeSponsored: {45},
+outputVideoSponsored: {20},
+outputFrequentCompanies: {'companyOne', 'companyTwo', 'companyThree', 'companyFour', 'companyFive'}.
+outputChannelSponsors: {'channelSponsorOne', 'channelSponsorTwo', 'channelSponsorThree', 'channelSponsorFour', 'channelSponsorFive'}
+outputTopCategories: {'How to & Style'}
+
+}
