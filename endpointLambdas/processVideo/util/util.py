@@ -56,3 +56,15 @@ def process_sponsors(result: dict, video_id: str) -> None:
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newVideoHandler",
         InvocationType="Event",
         Payload=json.dumps(result))
+
+def add_new_watch_event(user_id: int, video_id: str, timestamp: str) -> None:
+    client = boto3.client('lambda')
+    payload = {
+        "userId": user_id,
+        "youtubeVideoId": video_id,
+        "timestamp": timestamp
+    }
+    client.invoke(
+        FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newWatchEventHandler",
+        InvocationType="Event",
+        Payload=json.dumps(payload))
