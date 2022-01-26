@@ -38,16 +38,16 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryTimeSponsored)
+            outputTimeSponsored = cur.fetchall()
+            
 
         except pymysql.Error as e:
+            outputTimeSponsored = "System Error"
             return {
                 'statusCode': 500,
-                # 'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
             }
-
-        # TO DO: find a way to return this as a single value/int actually
-        outputTimeSponsored = cur.fetchall()
-        reportOutputJSON[outputTimeSponsored] = outputTimeSponsored
+    
+        reportOutputJSON[outputTimeSponsored] = outputTimeSponsored        
 
         # % of videos watched that are sponsored
         """ SELECT SUM(CASE WHEN is_sponsored THEN 1 ELSE 0 END)*100 / COUNT(*)
@@ -64,15 +64,14 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryVideoSponsored)
+            outputVideoSponsored = cur.fetchall()
 
         except pymysql.Error as e:
+            outputVideoSponsored = "System Error"
             return {
                 'statusCode': 500,
-                # 'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
             }
 
-    # TO DO: find a way to return this as a single value/int actually
-        outputVideoSponsored = cur.fetchall()
         reportOutputJSON[outputVideoSponsored] = outputVideoSponsored
 
         # Most frequently occuring companies
@@ -96,14 +95,14 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryFrequentCompanies)
+            outputFrequentCompanies = cur.fetchall()
 
         except pymysql.Error as e:
+            outputFrequentCompanies = "System Error"
             return {
                 'statusCode': 500,
-                # 'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
             }
-
-        outputFrequentCompanies = cur.fetchall()
+ 
         reportOutputJSON[outputFrequentCompanies] = outputFrequentCompanies
 
         # our top channels top sponsors (channels you watch a lot and who are their sponsors)
@@ -127,14 +126,14 @@ def lambda_handler(event, context):
             userId + "ORDER BY time_watched DESC LIMIT 50) as userWatched GROUP BY channel_name ORDER BY channelFrequency DESC LIMIT 5) AS topChannels WHERE channel_name = topChannels.channel_name LIMIT 5"
         try:
             cur.execute(qryChannelSponsors)
+            outputChannelSponsors = cur.fetchall()
 
         except pymysql.Error as e:
+            outputChannelSponsors = "System Error"
             return {
                 'statusCode': 500,
-                # 'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
             }
 
-        outputChannelSponsors = cur.fetchall()
         reportOutputJSON[outputChannelSponsors] = outputChannelSponsors
 
         # What makes you unique (your top categories)
@@ -151,14 +150,14 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryTopCategories)
+            outputTopCategories = cur.fetchall()
 
         except pymysql.Error as e:
+            outputTopCategories = "System Error"
             return {
                 'statusCode': 500,
-                # 'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
             }
 
-        outputTopCategories = cur.fetchall()
         reportOutputJSON[outputTopCategories] = outputTopCategories
 
     body = json.dumps(reportOutputJSON)
