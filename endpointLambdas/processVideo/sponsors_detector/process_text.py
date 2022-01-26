@@ -3,7 +3,7 @@ import os
 import re
 import requests
 
-YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet"
+YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics"
 SOCIAL_MEDIA_DOMAINS = set(['instagram', 'facebook', 'linkedin', 'youtube',
                               'snapchat', 'twitter', 'paypal', 'patreon', 'tiktok',
                               'podcasts.apple', 'flickr', 'soundcloud', 'spotify'])
@@ -14,15 +14,15 @@ YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
 def find_video_sponsors(video_id: str, model) -> list:
     """Find sponsor in Youtube videos"""
     result = {}
+    sponsorships = []
     youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
     response = requests.get(youtube_api_url)
     if response.status_code != 200 or not response:
         return result
     description = get_video_description(response)
     urls = find_urls(description)
-    if not urls:
-        return result
-    sponsorships = scrape_sponsor_websites(urls, model)
+    if urls:
+        sponsorships = scrape_sponsor_websites(urls, model)
     result["sponsorships"] = sponsorships
     result["youtubeApiResponse"] = response.json()
     return result

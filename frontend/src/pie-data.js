@@ -1,11 +1,11 @@
 export const PieChartData = {
     type: "doughnut",
     data: {
-      labels: ["Mercury", "Venus", "Earth"],
+      labels: ["Sponsored Videos", "Unsponsored Videos"],
       datasets: [
         {
-          label: "Number of Moons",
-          data: [82, 27, 14],
+          label: "Watching Stats",
+          data: [outputVideoSponsored, 100 - outputVideoSponsored]
           backgroundColor: "rgb(255, 107, 107)",
           borderColor: "#36495d",
           borderWidth: 1,
