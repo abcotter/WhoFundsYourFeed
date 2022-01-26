@@ -106,24 +106,25 @@ def lambda_handler(event, context):
         reportOutputJSON[outputFrequentCompanies] = outputFrequentCompanies
 
         # our top channels top sponsors (channels you watch a lot and who are their sponsors)
-        """ SELECT topChannels.channel_name, brand_name
-        From who_funds_your_feed.Sponsorships NATURAL JOIN who_funds_your_feed.Brands NATURAL JOIN
-                (SELECT channel_name, COUNT(channel_name) AS channelFrequency
+        """ SELECT brand_name
+        From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN
+                (SELECT video_id, channel_name
                         FROM who_funds_your_feed.Videos
                         NATURAL JOIN (SELECT *
                                                 FROM who_funds_your_feed.Watches
                                                 WHERE user_id = 10001
                                                 ORDER BY time_watched DESC
                                                 LIMIT 50) as userWatched
+						WHERE is_sponsored = TRUE
                         GROUP BY channel_name
-                        ORDER BY channelFrequency DESC
+                        ORDER BY COUNT(channel_name) DESC
                         LIMIT 5) AS topChannels
-        WHERE channel_name = topChannels.channel_name
+        WHERE Sponsorships.video_id = topChannels.video_id
         LIMIT 5"""
 
     with conn.cursor() as cur:
-        qryChannelSponsors = f"SELECT topChannels.channel_name, brand_name FROM who_funds_your_feed.Sponsorships NATURAL JOIN who_funds_your_feed.Brands NATURAL JOIN (SELECT channel_name, COUNT(channel_name) AS channelFrequency FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + \
-            userId + "ORDER BY time_watched DESC LIMIT 50) as userWatched GROUP BY channel_name ORDER BY channelFrequency DESC LIMIT 5) AS topChannels WHERE channel_name = topChannels.channel_name LIMIT 5"
+        qryChannelSponsors = f"SELECT brand_name From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT video_id, channel_name FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + "ORDER BY time_watched DESC LIMIT 50) as userWatched WHERE is_sponsored = TRUE GROUP BY channel_name ORDER BY COUNT(channel_name) DESC LIMIT 5) AS topChannels WHERE Sponsorships.video_id = topChannels.video_id LIMIT 5"
+
         try:
             cur.execute(qryChannelSponsors)
             outputChannelSponsors = cur.fetchall()
