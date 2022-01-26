@@ -11,6 +11,7 @@
                 </div>
                 <div class="funderCard2">
                     <p>card 2</p>
+                    <PieChart />
                 </div>
             </div>
     </div>
@@ -18,9 +19,14 @@
 
 <script>
 //define components here that can be used elsewhere
+import PieChart from "./PieChart.vue";
 export default {
   name: 'Main',
+  components: {
+    PieChart,
+  }
 };
+
 
 </script>
 

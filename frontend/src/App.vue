@@ -1,13 +1,19 @@
 <template>
 	<div id="app">
+		<!-- <PieChart/> -->
 		<router-view />
 	</div>
 	
 </template>
 
 <script>
+//import PieChart from './components/PieChart.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    //PieChart
+  }
 }
 </script>
 
