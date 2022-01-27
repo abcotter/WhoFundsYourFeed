@@ -138,16 +138,15 @@ def lambda_handler(event, context):
         reportOutputJSON[outputChannelSponsors] = outputChannelSponsors
 
         # What makes you unique (your top categories)
-        """ SELECT video_category
+        """SELECT video_category, count(video_category)
                 FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT video_id FROM who_funds_your_feed.Watches
                 WHERE user_id = 10001
                 ORDER BY time_watched DESC
                 LIMIT 50) as userWatches
                 GROUP BY video_category
-                ORDER BY COUNT(video_category) DESC
-                LIMIT 1 """
+                ORDER BY COUNT(video_category) DESC """
     with conn.cursor() as cur:
-        qryTopCategories = f" SELECT video_category FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT video_id FROM who_funds_your_feed.Watches WHERE user_id = " + userId + "ORDER BY time_watched DESC LIMIT 50) as userWatches GROUP BY video_category ORDER BY COUNT(video_category) DESC LIMIT 1"
+        qryTopCategories = f" SELECT video_category, count(video_category) FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT video_id FROM who_funds_your_feed.Watches WHERE user_id = " + userId + "ORDER BY time_watched DESC LIMIT 50) as userWatches GROUP BY video_category ORDER BY COUNT(video_category)"
 
         try:
             cur.execute(qryTopCategories)

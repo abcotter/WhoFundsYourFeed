@@ -3,5 +3,5 @@
 {outputVideoSponsored: (53.5211)},
 {outputFrequentCompanies:('companyOne', 'companyTwo', 'companyThree', 'companyFour', 'companyFive')}.
 {outputChannelSponsors: ('channelSponsorOne', 'channelSponsorTwo', 'channelSponsorThree', 'channelSponsorFour', 'channelSponsorFive')}
-{outputTopCategories: ('How to & Style')}
+{outputTopCategories: ('How to & Style', 5), ('Entertainment', 2), ('dfgdfgdfg', 2), ('  ', 2), ('Gaming', 1), ('Sports', 1)}
 }
