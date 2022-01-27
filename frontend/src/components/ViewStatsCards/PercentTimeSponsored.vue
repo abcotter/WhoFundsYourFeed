@@ -7,7 +7,7 @@
 				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
-				<PieChart :data="stats" />
+				<PieChart :data="chartData" />
 				<div class="back-text">
 					{{ stats.outputTimeSponsored }}% of your time on youtube is being
 					sponsored!
@@ -30,6 +30,31 @@ export default {
 		return {
 			flipped: false,
 		};
+	},
+	computed: {
+		chartData() {
+			return {
+				type: "doughnut",
+				data: {
+					labels: ["Sponsored Videos", "Unsponsored Videos"],
+					datasets: [
+						{
+							label: "Watching Stats",
+							data: [
+								this.stats.outputVideoSponsored,
+								100 - this.stats.outputVideoSponsored,
+							],
+							backgroundColor: "rgb(255, 107, 107)",
+							borderColor: "#36495d",
+							borderWidth: 1,
+						},
+					],
+				},
+				options: {
+					responsive: false,
+				},
+			};
+		},
 	},
 	methods: {
 		flip() {

@@ -12,7 +12,7 @@ export default {
 	props: ["data"],
 	data() {
 		return {
-			PieChartData: data,
+			PieChartData: this.data,
 		};
 	},
 	mounted() {
