@@ -1,20 +1,13 @@
 <template>
 	<div class="card">
-		<div class="content-flipper" @click="flip">
-			<div class="front" :class="{ reveal: flipped }">
-				<div class="front-text">
-					What percent of your watch time is sponsored?
-				</div>
-			</div>
-			<div class="back" :class="{ reveal: flipped }">
-				<div class="back-text">
-					<canvas
-						style="max-width: 30vw; max-height: 30vw"
-						id="TimeSponsored"
-					></canvas>
-					{{ stats.outputTimeSponsored }}% of your time on youtube is being
-					sponsored!
-				</div>
+		<div class="back">
+			<div class="back-text">
+				<canvas
+					style="max-width: 30vw; max-height: 30vw"
+					id="TimeSponsored"
+				></canvas>
+				{{ stats.outputTimeSponsored }}% of your time on youtube is being
+				sponsored!
 			</div>
 		</div>
 	</div>
@@ -62,11 +55,7 @@ export default {
 			new Chart(ctx, this.chartData);
 		},
 	},
-	methods: {
-		flip() {
-			this.flipped = !this.flipped;
-		},
-	},
+	methods: {},
 };
 </script>
 
@@ -74,52 +63,6 @@ export default {
 .card {
 	margin: 10px;
 	height: 35vw;
-	margin-bottom: 30px;
-}
-
-.content-flipper {
-	height: 100%;
-	transition: ease-in 300ms;
-	transform-style: preserve-3d;
-	cursor: pointer;
-}
-
-.flip {
-	transform: rotateY(180deg);
-}
-
-.front {
-	border-radius: 25px;
-	padding: 10px;
-	background-color: rgb(247, 255, 247);
-	position: absolute;
-	height: 100%;
-	width: 47vw;
-	margin-right: 10px;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transition: ease-in 300ms;
-	display: flex;
-	justify-content: space-around;
-}
-
-.front-text {
-	height: 90%;
-	width: 90%;
-	margin: auto;
-	justify-content: center;
-	align-items: center;
-	font-size: 30px;
-	color: #292f36;
-	display: flex;
-	font-weight: bold;
-	border: 5px solid #f5f5f5;
-	border-radius: 25px;
-	padding: 10px;
-}
-
-.front.reveal {
-	transform: rotateY(180deg);
 }
 
 .back {
@@ -127,12 +70,7 @@ export default {
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
 	position: absolute;
-	height: 100%;
 	width: 47vw;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transform: rotateY(180deg);
-	transition: ease-in 300ms;
 }
 
 .back-text {
@@ -146,9 +84,5 @@ export default {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
-}
-
-.back.reveal {
-	transform: rotateY(0deg);
 }
 </style>
