@@ -7,9 +7,10 @@
 				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
+				<PieChart :data="stats" />
 				<div class="back-text">
-					INSERT DATA VISUAL FOR STAT <br />
-					I'm where % of time you watch that's sponsored goes
+					{{ stats.outputTimeSponsored }}% of your time on youtube is being
+					sponsored!
 				</div>
 			</div>
 		</div>
@@ -17,9 +18,14 @@
 </template>
 
 <script>
-//define components here that can be used elsewhere
+import PieChart from "../Graphics/PieChart.vue";
+
 export default {
 	name: "PercentTimeSponsoredStat",
+	props: ["stats"],
+	components: {
+		PieChart,
+	},
 	data() {
 		return {
 			flipped: false,

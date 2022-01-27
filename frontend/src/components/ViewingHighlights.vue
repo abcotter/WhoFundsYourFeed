@@ -1,7 +1,7 @@
 <template>
 	<div class="columns">
 		<div class="column1">
-			<PercentTimeSponsoredStat />
+			<PercentTimeSponsoredStat :stats="stats" />
 			<PercentVideoSponsoredStat />
 			<YouTopChannels />
 		</div>
@@ -28,6 +28,7 @@ export default {
 		TopInfluencer,
 		YouTopChannels,
 	},
+	props: ["stats"],
 };
 </script>
 

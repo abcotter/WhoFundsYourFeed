@@ -2,11 +2,17 @@
 	<div class="main-funder">
 		<div style="display: flex; justify-content: center">
 			<h1>Your main funder is:&nbsp;</h1>
-			<h2>{{ topFunder }}</h2>
+			<h2>{{ stats.outputFrequentCompanies[0] }}</h2>
 		</div>
 		<div class="stats-container">
-			<leftStatCard :topFunder="topFunder" />
-			<rightStatCard :topFunder="topFunder" />
+			<leftStatCard
+				:topFunder="stats.outputFrequentCompanies[0]"
+				:stats="stats"
+			/>
+			<rightStatCard
+				:topFunder="stats.outputFrequentCompanies[0]"
+				:stats="stats"
+			/>
 		</div>
 	</div>
 </template>
@@ -22,7 +28,7 @@ export default {
 		leftStatCard,
 		rightStatCard,
 	},
-	props: ["topFunder"],
+	props: ["stats"],
 };
 </script>
 
