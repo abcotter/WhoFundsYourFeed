@@ -1,7 +1,7 @@
 {
-outputTimeSponsored: {75.1890},
-outputVideoSponsored: {53.5211},
-outputFrequentCompanies: {'companyOne', 'companyTwo', 'companyThree', 'companyFour', 'companyFive'}.
-outputChannelSponsors: {'channelSponsorOne', 'channelSponsorTwo', 'channelSponsorThree', 'channelSponsorFour', 'channelSponsorFive'}
-outputTopCategories: {'How to & Style'}
+{outputTimeSponsored:(75.1890)},
+{outputVideoSponsored: (53.5211)},
+{outputFrequentCompanies:('companyOne', 'companyTwo', 'companyThree', 'companyFour', 'companyFive')}.
+{outputChannelSponsors: ('channelSponsorOne', 'channelSponsorTwo', 'channelSponsorThree', 'channelSponsorFour', 'channelSponsorFive')}
+{outputTopCategories: ('How to & Style')}
 }
