@@ -35,7 +35,7 @@ CREATE TABLE Watches (
 	user_id VARCHAR(255),
 	video_id varchar(15),
 	time_watched TIMESTAMP,
-	PRIMARY KEY (user_id,video_id),
+	PRIMARY KEY (user_id,video_id, time_watched),
 	FOREIGN KEY (user_id) REFERENCES Users(user_id),
 	FOREIGN KEY (video_id) REFERENCES Videos(video_id)
 );

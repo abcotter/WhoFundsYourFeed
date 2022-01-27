@@ -33,7 +33,7 @@ def lambda_handler(event, context):
 	timestamp = event['timestamp']
 
 	with conn.cursor() as cur:
-		qry = f"INSERT INTO Watches (user_id, video_id, time_watched) Values ({userId}, '{videoId}', '{timestamp}');"
+		qry = f"INSERT INTO Watches (user_id, video_id, time_watched) Values ('{userId}', '{videoId}', '{timestamp}');"
 		try: 
 			cur.execute(qry)
 		except pymysql.Error as e:
