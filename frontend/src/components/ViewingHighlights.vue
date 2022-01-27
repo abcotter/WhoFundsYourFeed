@@ -2,7 +2,7 @@
 	<div class="columns">
 		<div class="column1">
 			<PercentTimeSponsoredStat :stats="stats" />
-			<PercentVideoSponsoredStat />
+			<PercentVideoSponsoredStat :stats="stats" />
 			<YouTopChannels />
 		</div>
 		<div class="column2">

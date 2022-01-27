@@ -7,8 +7,11 @@
 				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
-				<PieChart :data="chartData" />
 				<div class="back-text">
+					<canvas
+						style="max-width: 30vw; max-height: 30vw"
+						id="TimeSponsored"
+					></canvas>
 					{{ stats.outputTimeSponsored }}% of your time on youtube is being
 					sponsored!
 				</div>
@@ -18,14 +21,11 @@
 </template>
 
 <script>
-import PieChart from "../Graphics/PieChart.vue";
+import Chart from "chart.js/auto";
 
 export default {
 	name: "PercentTimeSponsoredStat",
 	props: ["stats"],
-	components: {
-		PieChart,
-	},
 	data() {
 		return {
 			flipped: false,
@@ -36,24 +36,30 @@ export default {
 			return {
 				type: "doughnut",
 				data: {
-					labels: ["Sponsored Videos", "Unsponsored Videos"],
+					labels: ["Sponsored Time", "Unsponsored Time"],
 					datasets: [
 						{
 							label: "Watching Stats",
 							data: [
-								this.stats.outputVideoSponsored,
-								100 - this.stats.outputVideoSponsored,
+								this.stats.outputTimeSponsored,
+								100 - this.stats.outputTimeSponsored,
 							],
-							backgroundColor: "rgb(255, 107, 107)",
+							backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},
 					],
 				},
 				options: {
-					responsive: false,
+					responsive: true,
 				},
 			};
+		},
+	},
+	watch: {
+		chartData() {
+			const ctx = document.getElementById("TimeSponsored");
+			new Chart(ctx, this.chartData);
 		},
 	},
 	methods: {
@@ -67,7 +73,7 @@ export default {
 <style scoped>
 .card {
 	margin: 10px;
-	height: 600px;
+	height: 35vw;
 	margin-bottom: 30px;
 }
 
@@ -133,11 +139,12 @@ export default {
 	height: 90%;
 	width: 90%;
 	margin: auto;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	font-size: 20px;
 	color: #292f36;
 	display: flex;
+	flex-direction: column;
 	padding: 10px;
 }
 
