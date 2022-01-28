@@ -6,7 +6,7 @@
 
 		<Header userName="Taylor" />
 
-		<MainFunder topFunder="HelloFresh" />
+		<MainFunder :stats="Stats" />
 
 		<div class="downScroll">
 			<ion-icon name="chevron-down-outline" style="font-size: 72px"></ion-icon>
@@ -16,7 +16,7 @@
 			<h1><font color="#292f36"> More Viewing Highlights</font></h1>
 		</div>
 
-		<ViewingHighlights />
+		<ViewingHighlights :stats="Stats" />
 
 		<h2>Share Your Results</h2>
 		<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
@@ -31,11 +31,32 @@ import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
 
 export default {
+	mounted() {
+		// todo call Fatimahs API and get real data
+		this.Stats = {
+			outputTimeSponsored: 75,
+			outputVideoSponsored: 53,
+			outputFrequentCompanies: ["HelloFresh", "Native", "Audible"],
+			outputChannelSponsors: [
+				"channelSponsorOne",
+				"channelSponsorTwo",
+				"channelSponsorThree",
+				"channelSponsorFour",
+				"channelSponsorFive",
+			],
+			outputTopCategories: ["How to & Style"],
+		};
+	},
 	name: "Main",
 	components: {
 		Header,
 		MainFunder,
 		ViewingHighlights,
+	},
+	data: function () {
+		return {
+			Stats: {},
+		};
 	},
 };
 </script>

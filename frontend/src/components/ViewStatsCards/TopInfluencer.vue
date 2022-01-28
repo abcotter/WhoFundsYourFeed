@@ -53,7 +53,7 @@ export default {
 .front {
 	border-radius: 25px;
 	padding: 10px;
-	background-color: rgb(255, 107, 107);
+	background-color: rgb(247, 255, 247);
 	position: absolute;
 	height: 100%;
 	width: 47vw;
@@ -87,7 +87,7 @@ export default {
 .back {
 	border-radius: 25px;
 	padding: 10px;
-	background-color: rgb(255, 107, 107);
+	background-color: rgb(247, 255, 247);
 	position: absolute;
 	height: 100%;
 	width: 47vw;

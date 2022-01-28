@@ -17,7 +17,7 @@
 //define components here that can be used elsewhere
 export default {
 	name: "RightMainFunderStat",
-	props: ["topFunder"],
+	props: ["topFunder", "stats"],
 	data() {
 		return {
 			flipped: false,
