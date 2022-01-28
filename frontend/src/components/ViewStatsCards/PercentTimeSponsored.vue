@@ -37,7 +37,7 @@ export default {
 								this.stats.outputTimeSponsored,
 								100 - this.stats.outputTimeSponsored,
 							],
-							backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+							backgroundColor: ["rgb(255, 230, 109)", "rgb(255, 107, 107)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},
@@ -71,6 +71,8 @@ export default {
 	background-color: rgb(247, 255, 247);
 	position: absolute;
 	width: 47vw;
+	border: 5px solid #f5f5f5;
+	border-radius: 25px;
 }
 
 .back-text {
