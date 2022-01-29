@@ -7,7 +7,7 @@
 		</div>
 		<div class="column2">
 			<CategoryBreakdown />
-			<TopInfluencer />
+			<TopInfluencer :stats="stats" />
 		</div>
 	</div>
 </template>
