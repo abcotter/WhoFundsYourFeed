@@ -25,7 +25,7 @@ def lambda_handler(event, context):
     reportOutputJSON = {}
 
     # % of time watched that is sponsored vs not
-    """SELECT SUM(CASE WHEN is_sponsored = TRUE THEN video_duration_secs ELSE 0 END) *100 /SUM(video_duration_secs)
+    """SELECT SUM(CASE WHEN is_sponsored = TRUE THEN video_duration_secs ELSE 0 END) *100 /SUM(video_duration_secs) as sponsoredTime
         FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT *
                 FROM who_funds_your_feed.Watches
                 WHERE user_id = 10001
@@ -36,7 +36,9 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryTimeSponsored)
-            outputTimeSponsored = cur.fetchall()
+            value = cur.fetchall()
+            percentValue = str(value)
+            outputTimeSponsored = percentValue
             
 
         except pymysql.Error as e:
@@ -49,7 +51,7 @@ def lambda_handler(event, context):
         reportOutputJSON['outputTimeSponsored'] = outputTimeSponsored        
 
         # % of videos watched that are sponsored
-        """ SELECT SUM(CASE WHEN is_sponsored THEN 1 ELSE 0 END)*100 / COUNT(*)
+        """ SELECT SUM(CASE WHEN is_sponsored THEN 1 ELSE 0 END)*100 / COUNT(*) as sponsoredVideos
         FROM who_funds_your_feed.Videos
         NATURAL JOIN (SELECT *
                                 FROM who_funds_your_feed.Watches
@@ -62,7 +64,9 @@ def lambda_handler(event, context):
 
         try:
             cur.execute(qryVideoSponsored)
-            outputVideoSponsored = cur.fetchall()
+            value = cur.fetchall()
+            percentValue = str(value)
+            outputVideoSponsored = percentValue
 
         except pymysql.Error as e:
             outputVideoSponsored = "System Error"
@@ -161,3 +165,4 @@ def lambda_handler(event, context):
         reportOutputJSON['outputTopCategories'] = outputTopCategories
 
     body = json.dumps(reportOutputJSON)
+    print(body)
