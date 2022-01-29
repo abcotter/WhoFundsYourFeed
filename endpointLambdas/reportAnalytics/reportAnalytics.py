@@ -32,7 +32,7 @@ def lambda_handler(event, context):
                 ORDER BY time_watched DESC LIMIT 50) as watchHistory;"""
 
     with conn.cursor() as cur:
-        qryTimeSponsored = f"SELECT SUM(CASE WHEN is_sponsored = TRUE THEN video_duration_secs ELSE 0 END) *100 /SUM(video_duration_secs) FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id =" + userId + " ORDER BY time_watched DESC LIMIT 50) as watchHistory;"
+        qryTimeSponsored = f"SELECT SUM(CASE WHEN is_sponsored = TRUE THEN video_duration_secs ELSE 0 END) *100 /SUM(video_duration_secs) as sponsoredTime FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id =" + userId + " ORDER BY time_watched DESC LIMIT 50) as watchHistory;"
 
         try:
             cur.execute(qryTimeSponsored)
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
                                 LIMIT 50) as userWatched """
 
     with conn.cursor() as cur:
-        qryVideoSponsored = f" SELECT SUM(CASE WHEN is_sponsored THEN 1 ELSE 0 END)*100 / COUNT(*) FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched"
+        qryVideoSponsored = f" SELECT SUM(CASE WHEN is_sponsored THEN 1 ELSE 0 END)*100 / COUNT(*) as sponsoredVideos FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched"
 
         try:
             cur.execute(qryVideoSponsored)
