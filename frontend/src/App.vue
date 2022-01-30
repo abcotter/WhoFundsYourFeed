@@ -2,13 +2,12 @@
 	<div id="app">
 		<router-view />
 	</div>
-	
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+	name: "App",
+};
 </script>
 
 <style>
@@ -18,6 +17,5 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
 }
 </style>
