@@ -66,7 +66,7 @@ def lambda_handler(event, context):
 	duration = int(runtimeHours[0][:-1])*3600 + int(runtimeMinutes[0][:-1])*60 + int(runtimeSeconds[0][:-1])
 	isSponsored = True if len(event['sponsorships']) >0 else False
     videoTitle = re.sub("'|\"", '', videoTitle)
-	channelName = re.sub("'|\"", '', videoTitle)
+    channelName = re.sub("'|\"", '', videoTitle)
 	# Add video to video table
 	with conn.cursor() as cur:
 		qry = f'INSERT INTO Videos (video_id, title, channel_name, video_category, video_duration_secs, is_sponsored) Values ("{videoId}", "{videoTitle}", "{channelName}", "{category}", {duration}, {isSponsored});'
