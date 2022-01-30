@@ -165,4 +165,4 @@ def lambda_handler(event, context):
         reportOutputJSON['outputTopCategories'] = outputTopCategories
 
     body = json.dumps(reportOutputJSON)
-    print(body)
+    return body
