@@ -6,7 +6,7 @@
 			<YouTopChannels />
 		</div>
 		<div class="column2">
-			<CategoryBreakdown />
+			<CategoryBreakdown :stats="stats" />
 			<TopInfluencer />
 		</div>
 	</div>
