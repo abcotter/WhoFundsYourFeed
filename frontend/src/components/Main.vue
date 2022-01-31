@@ -45,7 +45,13 @@ export default {
 				"channelSponsorFour",
 				"channelSponsorFive",
 			],
-			outputTopCategories: ["How to & Style"],
+			outputTopCategories: [
+				["How to & Style", 5],
+				["Entertainment", 4],
+				["Film & Animation", 2],
+				["Gaming", 1],
+				["Sports", 1],
+			],
 		};
 	},
 	name: "Main",
