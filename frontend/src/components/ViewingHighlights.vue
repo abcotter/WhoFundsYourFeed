@@ -3,11 +3,11 @@
 		<div class="column1">
 			<PercentTimeSponsoredStat :stats="stats" />
 			<PercentVideoSponsoredStat :stats="stats" />
-			<YouTopChannels />
+			<YourTopBrands />
 		</div>
 		<div class="column2">
-			<CategoryBreakdown />
-			<TopInfluencer />
+			<CategoryBreakdown :stats="stats" />
+			<TopInfluencer :stats="stats" />
 		</div>
 	</div>
 </template>
@@ -17,7 +17,7 @@ import PercentTimeSponsoredStat from "./ViewStatsCards/PercentTimeSponsored.vue"
 import PercentVideoSponsoredStat from "./ViewStatsCards/PercentVideoSponsored.vue";
 import TopInfluencer from "./ViewStatsCards/TopInfluencer.vue";
 import CategoryBreakdown from "./ViewStatsCards/CategoryBreakdown.vue";
-import YouTopChannels from "./ViewStatsCards/YourTopChannels.vue";
+import YourTopBrands from "./ViewStatsCards/YourTopBrands.vue";
 
 export default {
 	name: "ViewingStats",
@@ -26,7 +26,7 @@ export default {
 		PercentTimeSponsoredStat,
 		PercentVideoSponsoredStat,
 		TopInfluencer,
-		YouTopChannels,
+		YourTopBrands,
 	},
 	props: ["stats"],
 };
