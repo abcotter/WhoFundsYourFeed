@@ -37,6 +37,7 @@ export default {
 			outputTimeSponsored: 75,
 			outputVideoSponsored: 53,
 			outputFrequentCompanies: ["HelloFresh", "Native", "Audible"],
+			outputTopChannels: ["WithWendy", "TheSorryGirls", "WatchMojo"],
 			outputChannelSponsors: [
 				"channelSponsorOne",
 				"channelSponsorTwo",

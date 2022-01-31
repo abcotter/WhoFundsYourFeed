@@ -2,14 +2,13 @@
 	<div class="card">
 		<div class="content-flipper" @click="flip">
 			<div class="front" :class="{ reveal: flipped }">
-				<div class="front-text">What are your most watched channels?</div>
+				<div class="front-text">
+					What are some of your seen brands, and what channels did you see them
+					on?
+				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
-				<div class="back-text">
-					INSERT DATA VISUAL FOR STAT <br />
-					I'm a list of your most watch channels and how many videos you watch
-					of them
-				</div>
+				<div class="back-text">INSERT DATA VISUAL FOR STAT <br /></div>
 			</div>
 		</div>
 	</div>
