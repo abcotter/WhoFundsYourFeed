@@ -1,68 +1,100 @@
 <template>
 	<div class="container">
-		
+		<img class="blue-circle" src="../assets/blue_circ.png" alt="blue circle" />
+		<img class="yellow-bar" src="../assets/yell_bar.png" alt="yellow bar" />
+		<img class="peace-sign" src="../assets/peace.png" alt="peace sign" />
+
 		<Header userName="Taylor" />
-		
-		<MainFunder />
-		
+
+		<MainFunder :stats="Stats" />
+
 		<div class="downScroll">
-			<ion-icon
-			name="chevron-down-outline"
-			style="font-size: 72px"
-			></ion-icon>
+			<ion-icon name="chevron-down-outline" style="font-size: 72px"></ion-icon>
 		</div>
-		
+
 		<div class="secondHeader">
 			<h1><font color="#292f36"> More Viewing Highlights</font></h1>
 		</div>
 
-		<div class="mainBody">
-		<ViewingHighlights />
-		</div>
+		<ViewingHighlights :stats="Stats" />
 
-		<div class="mainFooter">
-			<h2>Share Your Results</h2>
-			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
-			<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
-			<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
-		</div>
-		
-		</div>
-
-	
+		<h2>Share Your Results</h2>
+		<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
+		<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
+		<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+	</div>
 </template>
 
 <script>
-//define components here that can be used elsewhere
-
 import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
 
 export default {
-  name: 'Main',
-  components: {
-	  Header,
-	  MainFunder,
-	  ViewingHighlights,
-  },
-}
-
+	mounted() {
+		// todo call Fatimahs API and get real data
+		this.Stats = {
+			outputTimeSponsored: 75,
+			outputVideoSponsored: 53,
+			outputFrequentCompanies: ["HelloFresh", "Native", "Audible"],
+			outputTopChannels: ["WithWendy", "TheSorryGirls", "WatchMojo"],
+			outputChannelSponsors: [
+				"channelSponsorOne",
+				"channelSponsorTwo",
+				"channelSponsorThree",
+				"channelSponsorFour",
+				"channelSponsorFive",
+			],
+			outputTopCategories: [
+				["How to & Style", 5],
+				["Entertainment", 4],
+				["Film & Animation", 2],
+				["Gaming", 1],
+				["Sports", 1],
+			],
+		};
+	},
+	name: "Main",
+	components: {
+		Header,
+		MainFunder,
+		ViewingHighlights,
+	},
+	data: function () {
+		return {
+			Stats: {},
+		};
+	},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
-.container{
-	/*justify-content: ;flex-direction: column;*/
-	/*align-items: flex-start;*/
-	background-color: rgb(251,220,226);	
+.container {
+	background-color: #ffcbc6;
 }
 
-.mainFooter{
-	flex:3;
-
+.blue-circle {
+	position: absolute;
+	max-width: 20vw;
+	max-height: 20vh;
+	top: 16vh;
+	left: 7vw;
 }
 
+.yellow-bar {
+	position: absolute;
+	top: 16vh;
+	right: 5vw;
+	max-width: 8vw;
+	max-height: 85vh;
+}
+
+.peace-sign {
+	position: absolute;
+	top: 8vh;
+	right: 13vw;
+	max-width: 10vw;
+	max-height: 20vh;
+}
 </style>

@@ -14,6 +14,7 @@ YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
 def find_video_sponsors(video_id: str, model) -> list:
     """Find sponsor in Youtube videos"""
     result = {}
+    sponsorships = []
     youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
     response = requests.get(youtube_api_url)
     if response.status_code != 200 or not response:
