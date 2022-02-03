@@ -19,18 +19,21 @@ def find_video_sponsors(video_id: str, model) -> list:
     response = requests.get(youtube_api_url)
     if response.status_code != 200 or not response:
         return result
+    result["youtubeApiResponse"] = response.json()
     description = get_video_description(response)
+    if not description:
+        return result
     urls = find_urls(description)
     if urls:
         sponsorships = scrape_sponsor_websites(urls, model)
     result["sponsorships"] = sponsorships
-    result["youtubeApiResponse"] = response.json()
     return result
 
 def get_video_description(youtube_api_response):
     """Send request to Youtube API to get video description"""
 
     items = youtube_api_response.json().get('items', [])
+    description = ''
     if items:
         description = items[0]['snippet']['description']
     return description
