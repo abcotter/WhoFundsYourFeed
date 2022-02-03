@@ -90,8 +90,7 @@ def lambda_handler(event, context):
 		sponsors = ",".join(map(lambda x: "'" + x + "'" , sponsorNames))
 		qry = f"SELECT brand_name FROM Brands WHERE brand_name IN ({sponsors})"
 		cur.execute(qry)
-		existingSponsors = cur.fetchall()
-
+		existingSponsors = [x["brand_name"] for x in cur.fetchall()]
 		newSponsors = [x for x in event["sponsorships"] if x["name"] not in set(existingSponsors)]
 		
 	if len(newSponsors) > 0:
