@@ -85,7 +85,7 @@ def lambda_handler(event, context):
 	vidCount = channelDetails['items'][0]['statistics']['videoCount']
 	subCount = channelDetails['items'][0]['statistics']['subscriberCount']
 	with conn.cursor() as cur:
-		qry = f'INSERT INTO Channels (channel_id, channel_name, channel_location, channel_thumbnail, video_count, sub_count) Values ("{channelId}", "{channelName}", "{location}", "{thumbnail}", {vidCount}, {subCount});'
+		qry = f'INSERT INTO Channels (channel_id, channel_name, channel_location, channel_thumbnail, video_count, sub_count) Values ("{channelId}", "{channelName}", "{location}", "{thumbnail}", {vidCount}, {subCount}) ON DUPLICATE KEY UPDATE thumbnail="{thumbnail}", video_count={vidCount}, sub_count={subCount};'
 		try:
 			cur.execute(qry)
 		except pymysql.Error as e:
