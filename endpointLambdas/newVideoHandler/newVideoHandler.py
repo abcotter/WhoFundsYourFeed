@@ -8,13 +8,19 @@ rdsHost = RDSconfigs.db_endpoint
 name = RDSconfigs.db_username
 password = RDSconfigs.db_password
 dbName = RDSconfigs.db_name
-port = 3306
+
+connection = {
+	"host": rdsHost,
+	"password": password,
+    "port": 3306,
+    "user": name,
+    "db": dbName,
+    "connect_timeout": 5,
+    "cursorclass": pymysql.cursors.DictCursor
+}
 
 
-conn = pymysql.connect(host=rdsHost,user=name,
-												passwd=password,db=dbName,
-												connect_timeout=5,
-												cursorclass=pymysql.cursors.DictCursor)
+conn = pymysql.connect(**connection)
 
 headers = {
 							'Access-Control-Allow-Origin': '*',
@@ -121,8 +127,29 @@ def lambda_handler(event, context):
 						'headers': headers,
 						'body': ("Error %d: %s" % (e.args[0], e.args[1]))
 					}
+	
+	with conn.cursor() as cur:
+		timestamp = event["timestamp"]
+		userId = event["userId"]
+		qry2 = f"INSERT INTO Watches (user_id, video_id, time_watched) Values ('{userId}', '{videoId}', '{timestamp}');"
+		try:
+			cur.execute(qry2)
+		except pymysql.Error as e:
+			#  duplicate key case
+			if e.args[0] == 1062:
+				return {
+					'statusCode': 200,
+					'headers': headers
+				}
+			else:
+				return {
+					'statusCode': 500,
+					'headers': headers,
+					'body': ("Error %d: %s" % (e.args[0], e.args[1]))
+				}
 	conn.commit()
 	return {
 			'statusCode': 200,
 			'headers': headers
 		}
+ 
