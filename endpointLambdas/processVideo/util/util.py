@@ -48,10 +48,12 @@ def is_video_processed(video_id):
         Payload=json.dumps(payload))
     return json.load(response["Payload"]).get('body','false')
 
-def process_sponsors(result: dict, video_id: str) -> None:
+def process_sponsors(result: dict, video_id: str, user_id: int, timestamp: str) -> None:
     """Request video details and found sponsors to be processed"""
     client = boto3.client('lambda')
     result["youtubeVideoId"] = video_id
+    result["userId"] = user_id
+    result["timestamp"] = timestamp
     response = client.invoke(
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newVideoHandler",
         InvocationType="RequestResponse",
