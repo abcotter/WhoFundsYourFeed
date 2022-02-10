@@ -67,7 +67,6 @@ def lambda_handler(event, context):
 	videoId = event['youtubeVideoId']
 	videoTitle = event['youtubeApiResponse']['items'][0]['snippet']['title'].replace("'", "&#39;").replace("\"", "&#34;")
 	channelId = event['youtubeApiResponse']['items'][0]['snippet']['channelId']
-	channelName = event['youtubeApiResponse']['items'][0]['snippet']['channelTitle'].replace("'", "&#39;").replace("\"", "&#34;")
 	category = categoryMap[int(event['youtubeApiResponse']['items'][0]['snippet']['categoryId'])]
 	runtimeHours = re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}H", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0H']
 	runtimeMinutes = re.findall(r"\d{1,2}M", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']) if len(re.findall(r"\d{1,2}M", event['youtubeApiResponse']['items'][0]['contentDetails']['duration']))>0 else ['0M']
@@ -75,33 +74,6 @@ def lambda_handler(event, context):
 	duration = int(runtimeHours[0][:-1])*3600 + int(runtimeMinutes[0][:-1])*60 + int(runtimeSeconds[0][:-1])
 	isSponsored = True if len(event['sponsorships']) >0 else False
 	
-	# UPSERT channel details to channel table
-	apiKey = os.environ['YOUTUBE_API_KEY']
-	youtubeUrl = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={channelId}&key={apiKey}'
-	response = requests.get(youtubeUrl)
-	channelDetails = response.json()
-	location = channelDetails['items'][0]['snippet']['country'] if "country" in channelDetails['items'][0]['snippet'] else "NA"
-	thumbnail = channelDetails['items'][0]['snippet']['thumbnails']['medium']['url']
-	vidCount = channelDetails['items'][0]['statistics']['videoCount']
-	subCount = channelDetails['items'][0]['statistics']['subscriberCount']
-	with conn.cursor() as cur:
-		qry = f'INSERT INTO Channels (channel_id, channel_name, channel_location, channel_thumbnail, video_count, sub_count) Values ("{channelId}", "{channelName}", "{location}", "{thumbnail}", {vidCount}, {subCount}) ON DUPLICATE KEY UPDATE channel_name = "{channelName}", channel_location = "{location}", channel_thumbnail="{thumbnail}", video_count={vidCount}, sub_count={subCount};'
-		print(qry)
-		try:
-			cur.execute(qry)
-		except pymysql.Error as e:
-			#  duplicate key case
-			if e.args[0] == 1062:
-				return {
-					'statusCode': 200,
-					'headers': headers
-				}
-			else:
-				return {
-					'statusCode': 500,
-					'headers': headers,
-					'body': ("Error %d: %s" % (e.args[0], e.args[1]))
-				}
 	# Add video to video table
 	with conn.cursor() as cur:
 		qry = f'INSERT INTO Videos (video_id, title, channel_id, video_category, video_duration_secs, is_sponsored) Values ("{videoId}", "{videoTitle}", "{channelId}", "{category}", {duration}, {isSponsored});'

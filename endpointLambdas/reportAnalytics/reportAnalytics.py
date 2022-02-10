@@ -1,4 +1,6 @@
 import json
+import os
+import requests
 import pymysql
 import RDSconfigs
 
@@ -18,11 +20,50 @@ conn = pymysql.connect(host=rdsHost, user=name,
 # 	userId: int,
 # }
 
+def topChannels(userId):
+    with conn.cursor() as cur:
+        qry = f"SELECT channel_id FROM who_funds_your_feed.Videos NATURAL JOIN who_funds_your_feed.Watches WHERE user_id = '{userId}' GROUP BY channel_id ORDER BY count(*) DESC LIMIT 5;"
+        
+        try:
+            cur.execute(qry)
+
+        except pymysql.Error as e:
+            print(e)
+            return {
+                'statusCode': 500
+            }
+        
+        channels = cur.fetchall()
+        print(channels)
+        result = []
+        for channel in channels:
+            apiKey = os.environ['YOUTUBE_API_KEY']
+            channelId = channel["channel_id"]
+            youtubeUrl = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={channelId}&key={apiKey}'
+            response = requests.get(youtubeUrl)
+            channelDetails = response.json()
+            channelName = channelDetails['items'][0]['snippet']['title']
+            location = channelDetails['items'][0]['snippet']['country'] if "country" in channelDetails['items'][0]['snippet'] else "NA"
+            thumbnail = channelDetails['items'][0]['snippet']['thumbnails']['medium']['url']
+            vidCount = channelDetails['items'][0]['statistics']['videoCount']
+            subCount = channelDetails['items'][0]['statistics']['subscriberCount']
+            result.append({
+                "channelId": channelId,
+                "chanelName": channelName,
+                "channelLocation": location,
+                "channelImage": thumbnail,
+                "videoCount": vidCount,
+                "subCount": subCount
+            })
+        return result
+
 
 def lambda_handler(event, context):
     userId = json.loads(event['userId'])
     userId = str(userId)
     reportOutputJSON = {}
+    
+    reportOutputJSON["outputTopChannels"] = topChannels(userId)
 
     # % of time watched that is sponsored vs not
     """SELECT SUM(CASE WHEN is_sponsored = TRUE THEN video_duration_secs ELSE 0 END) *100 /SUM(video_duration_secs) as sponsoredTime

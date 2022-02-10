@@ -15,18 +15,6 @@ INSERT INTO who_funds_your_feed.Users(user_id, user_name) VALUES ('10004', 'AbiC
 INSERT INTO who_funds_your_feed.Users(user_id, user_name) VALUES ('10005', 'NayabButt');
 INSERT INTO who_funds_your_feed.Users(user_id, user_name) VALUES ('10006', 'MoQaderi');
 
-CREATE TABLE who_funds_your_feed.Channels (
-	channel_id varchar(255) NOT NULL,
-	channel_name varchar(255) NOT NULL,
-	channel_location varchar(50) NOT NULL,
-	channel_thumbnail varchar(255), 
-	video_count int NOT NULL, 
-	sub_count varchar(50) NOT NULL,
-	PRIMARY KEY (channel_id)
-);
-
-INSERT INTO who_funds_your_feed.Channels (channel_id, channel_name, channel_location, channel_thumbnail, video_count, sub_count) Values ("{channelId}", "TheSorryGirls", "Canada", "yikesnourl", 300, "2110000");
-
 CREATE TABLE who_funds_your_feed.Videos (
 	video_id varchar(15) NOT NULL,
 	title TINYTEXT,
@@ -35,7 +23,6 @@ CREATE TABLE who_funds_your_feed.Videos (
 	video_duration_secs int NOT NULL,
 	is_sponsored boolean NOT NULL,
 	PRIMARY KEY (video_id)
-	FOREIGN KEY (channel_id) REFERENCES Channels(channel_id)
 );
 
 INSERT INTO who_funds_your_feed.Videos (video_id, title, channel_name, video_category, video_duration_secs, is_sponsored) VALUES ('VE3Vej963UE', 'sharing my EASY space saving and dorm friendly DIYs', 'TheSorryGirls', 'Howto & Style', '897', '1');
