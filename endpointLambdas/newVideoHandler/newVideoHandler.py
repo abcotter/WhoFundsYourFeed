@@ -1,8 +1,6 @@
 import pymysql
 import json
 import re
-import os
-import requests
 import RDSconfigs
 from categoryMapping import categoryMap
 
