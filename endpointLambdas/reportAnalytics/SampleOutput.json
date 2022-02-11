@@ -1,6 +1,6 @@
 {
-	"outputTimeSponsored": "[{'sponsoredTime': Decimal('62.5892')}]",
-	"outputVideoSponsored": "[{'sponsored': Decimal('64.2857')}]",
+	"outputTimeSponsored": 62.5892,
+	"outputVideoSponsored": 64.2857,
 	"outputFrequentCompanies": [
 		{
 			"brand_name": "Apple"

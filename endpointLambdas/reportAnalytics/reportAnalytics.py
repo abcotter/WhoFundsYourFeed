@@ -78,8 +78,7 @@ def lambda_handler(event, context):
         try:
             cur.execute(qryTimeSponsored)
             value = cur.fetchall()
-            percentValue = str(value)
-            outputTimeSponsored = percentValue
+            outputTimeSponsored = value[0]["sponsoredTime"]
             
 
         except pymysql.Error as e:
@@ -106,8 +105,7 @@ def lambda_handler(event, context):
         try:
             cur.execute(qryVideoSponsored)
             value = cur.fetchall()
-            percentValue = str(value)
-            outputVideoSponsored = percentValue
+            outputVideoSponsored = value[0]["sponsoredVideos"]
 
         except pymysql.Error as e:
             outputVideoSponsored = "System Error"
