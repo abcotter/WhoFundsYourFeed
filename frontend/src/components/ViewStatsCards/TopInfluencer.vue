@@ -4,10 +4,35 @@
 			<div class="title">Your Most Watched Channels</div>
 			<div class="channel-list">
 				<div
-					v-for="channel in stats.outputTopChannels"
+					class="channel"
+					v-for="(channel, index) in stats.outputTopChannels"
 					:key="channel['channelId']"
 				>
-					{{ channel["chanelName"] }}
+					<h1>{{ index + 1 }}</h1>
+					<img
+						style="
+							max-width: 120px;
+							max-height: 120px;
+							border-radius: 60px;
+							margin-left: 60px;
+						"
+						:src="channel['channelImage']"
+					/>
+					<div
+						style="
+							display: flex;
+							flex-direction: column;
+							justify-content: start;
+							margin-left: 30px;
+						"
+					>
+						<h1 style="margin: 0">
+							{{ channel["chanelName"] }}
+						</h1>
+						<p style="margin: 0">
+							Subscriber count : {{ channel["subCount"] }}
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -25,7 +50,6 @@ export default {
 <style scoped>
 .card {
 	margin: 10px;
-	height: 40vw;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
@@ -54,10 +78,19 @@ export default {
 }
 
 .channel-list {
+	padding-top: 20px;
 	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
+}
+
+.channel {
+	margin-bottom: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: start;
 }
 
 a {
