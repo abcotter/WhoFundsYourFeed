@@ -22,11 +22,9 @@ def find_video_sponsors(video_id: str, model) -> list:
     result["youtubeApiResponse"] = response.json()
     description = get_video_description(response)
     if not description:
-        result["sponsorships"] = sponsorships
         return result
     urls = find_urls(description)
     if not urls:
-        result["sponsorships"] = sponsorships
         return result
     sponsorships = scrape_sponsor_websites(urls, model)
     #sanity check
@@ -90,5 +88,4 @@ def scrape_sponsor_websites(urls: list, model):
         if entities:
             sponsors.add((' '.join(entities), page_url))
     return [{"name": name, "url": url} for name, url in sponsors]
-
 
