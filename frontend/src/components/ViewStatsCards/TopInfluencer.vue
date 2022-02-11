@@ -8,28 +8,13 @@
 					v-for="(channel, index) in stats.outputTopChannels"
 					:key="channel['channelId']"
 				>
-					<h1>{{ index + 1 }}</h1>
-					<img
-						style="
-							max-width: 120px;
-							max-height: 120px;
-							border-radius: 60px;
-							margin-left: 60px;
-						"
-						:src="channel['channelImage']"
-					/>
-					<div
-						style="
-							display: flex;
-							flex-direction: column;
-							justify-content: start;
-							margin-left: 30px;
-						"
-					>
-						<h1 style="margin: 0">
+					<h1 class="number">{{ index + 1 }}</h1>
+					<img class="channel-pic" :src="channel['channelImage']" />
+					<div class="channel-deets">
+						<h1 style="margin: 0; text-align: left">
 							{{ channel["chanelName"] }}
 						</h1>
-						<p style="margin: 0">
+						<p style="margin: 0; text-align: left">
 							Subscriber count : {{ channel["subCount"] }}
 						</p>
 					</div>
@@ -91,6 +76,28 @@ export default {
 	width: 100%;
 	display: flex;
 	justify-content: start;
+}
+
+.number {
+	display: flex;
+	justify-content: start;
+	margin: 0;
+}
+
+.channel-pic {
+	max-width: 130px;
+	max-height: 130px;
+	border-radius: 65px;
+	margin-left: 60px;
+	margin-top: 10px;
+}
+
+.channel-deets {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	margin-left: 30px;
+	padding-top: 10px;
 }
 
 a {
