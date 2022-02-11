@@ -3,8 +3,11 @@
 		<div class="back-text">
 			<div class="title">Your Most Watched Channels</div>
 			<div class="channel-list">
-				<div v-for="channel in stats.outputTopChannels" :key="channel">
-					<a :href="`https://www.youtube.com/c/${channel}`">{{ channel }}</a>
+				<div
+					v-for="channel in stats.outputTopChannels"
+					:key="channel['channelId']"
+				>
+					{{ channel["chanelName"] }}
 				</div>
 			</div>
 		</div>

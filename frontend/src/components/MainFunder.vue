@@ -2,15 +2,15 @@
 	<div class="main-funder">
 		<div style="display: flex; justify-content: center">
 			<h1>Your main funder is:&nbsp;</h1>
-			<h2>{{ stats.outputFrequentCompanies[0] }}</h2>
+			<h2>{{ stats.outputFrequentCompanies[0]["brand_name"] }}</h2>
 		</div>
 		<div class="stats-container">
 			<leftStatCard
-				:topFunder="stats.outputFrequentCompanies[0]"
+				:topFunder="stats.outputFrequentCompanies[0]['brand_name']"
 				:stats="stats"
 			/>
 			<rightStatCard
-				:topFunder="stats.outputFrequentCompanies[0]"
+				:topFunder="stats.outputFrequentCompanies[0]['brand_name']"
 				:stats="stats"
 			/>
 		</div>

@@ -29,11 +29,15 @@ export default {
 			this.chartData = {
 				type: "bar",
 				data: {
-					labels: this.stats.outputTopCategories.map((x) => x[0]),
+					labels: this.stats.outputTopCategories.map(
+						(x) => x["video_category"]
+					),
 					datasets: [
 						{
 							label: ["frequency"],
-							data: this.stats.outputTopCategories.map((x) => x[1]),
+							data: this.stats.outputTopCategories.map(
+								(x) => x["count(video_category)"]
+							),
 							backgroundColor: ["rgb(255,107,107)"],
 						},
 					],

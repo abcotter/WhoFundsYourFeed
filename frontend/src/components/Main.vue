@@ -29,30 +29,13 @@
 import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
+import sampleResponse from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
 
 export default {
 	mounted() {
 		// todo call Fatimahs API and get real data
-		this.Stats = {
-			outputTimeSponsored: 75,
-			outputVideoSponsored: 53,
-			outputFrequentCompanies: ["HelloFresh", "Native", "Audible"],
-			outputTopChannels: ["WithWendy", "TheSorryGirls", "WatchMojo"],
-			outputChannelSponsors: [
-				"channelSponsorOne",
-				"channelSponsorTwo",
-				"channelSponsorThree",
-				"channelSponsorFour",
-				"channelSponsorFive",
-			],
-			outputTopCategories: [
-				["How to & Style", 5],
-				["Entertainment", 4],
-				["Film & Animation", 2],
-				["Gaming", 1],
-				["Sports", 1],
-			],
-		};
+		console.log(sampleResponse);
+		this.Stats = sampleResponse;
 	},
 	name: "Main",
 	components: {
