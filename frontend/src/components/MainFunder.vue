@@ -2,7 +2,21 @@
 	<div class="main-funder">
 		<div style="display: flex; justify-content: center">
 			<h1>Your main funder is:&nbsp;</h1>
-			<h2>{{ stats.outputFrequentCompanies[0]["brand_name"] }}</h2>
+			<div
+				style="display: flex; flex-direction: column; justify-content: flex-end"
+			>
+				<h2>{{ stats.outputFrequentCompanies[0]["brand_name"] }}</h2>
+				<div>
+					<a
+						style="float: right"
+						:href="stats.outputFrequentCompanies[0]['brand_url']"
+						target="_blank"
+					>
+						learn more about
+						{{ stats.outputFrequentCompanies[0]["brand_name"] }}</a
+					>
+				</div>
+			</div>
 		</div>
 		<div class="stats-container">
 			<leftStatCard
