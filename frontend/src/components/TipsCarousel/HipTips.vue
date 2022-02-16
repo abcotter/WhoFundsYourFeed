@@ -1,10 +1,23 @@
 <template>
 	<div class="card">
 		<div class="back-text">
-			<div class="title">Hip Tips</div>
 			<agile ref="carousel" :dots="false" :navButtons="false">
-				<div class="slide">1</div>
-				<div class="slide">2</div>
+				<img
+					style="height: 410px; object-fit: cover"
+					src="./Greenwashing_slide1.png"
+				/>
+				<img
+					style="height: 410px; object-fit: cover"
+					src="./Greenwashing_slide2.png"
+				/>
+				<img
+					style="height: 410px; object-fit: cover"
+					src="./Greenwashing_slide3.png"
+				/>
+				<img
+					style="height: 410px; object-fit: cover"
+					src="./Greenwashing_slide4.png"
+				/>
 			</agile>
 			<div style="display: flex; width: 100%; justify-content: space-between">
 				<ion-icon
@@ -18,13 +31,20 @@
 					@click="$refs.carousel.goToNext()"
 				/>
 			</div>
+			<div>
+				see more tips at
+				<a
+					href="https://ecogreenlove.com/2021/03/18/avoid-greenwashing/"
+					target="_blank"
+					>ecogreenlove
+				</a>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 import { VueAgile } from "vue-agile";
-
 //define components here that can be used elsewhere
 export default {
 	name: "HipTips",
@@ -68,5 +88,6 @@ export default {
 .agile {
 	width: 90%;
 	border-radius: 10px;
+	height: 430px;
 }
 </style>
