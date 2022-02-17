@@ -31,8 +31,7 @@ def lambda_handler(event, context):
         }
     result = find_video_sponsors(videoId, nlp)
     if result:
-        process_sponsors(result, videoId)
-        add_new_watch_event(userId, videoId, timestamp)
+        process_sponsors(result, videoId, userId, timestamp)
     return {
         "statusCode": 200,
         "body": json.dumps(f"Sponsorships: {result.get('sponsorships', [])}")
