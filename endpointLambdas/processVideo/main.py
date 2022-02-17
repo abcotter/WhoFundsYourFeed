@@ -21,10 +21,12 @@ if __name__ == "__main__":
             print('Error finding sponsors', e)
             continue
         sponsorships = result.get('sponsorships', [])
+        significant_lines = result.get('sponsor_lines', [])
         sponsorships = [s['name'].lower() for s in sponsorships]
         if len(sponsorships) == 0:
             precision = 0.0
             recall = 0.0
+            actual_sponsorships = get_actual_sponsors(video_id, data)
         else:
             actual_sponsorships = get_actual_sponsors(video_id, data)
             total = set(actual_sponsorships).intersection(set(sponsorships))
@@ -34,7 +36,8 @@ if __name__ == "__main__":
                         'predicted': sponsorships,
                         'actual': actual_sponsorships,
                         'precision': precision,
-                        'recall': recall}
+                        'recall': recall,
+                        'significant_lines': significant_lines}
         overall_results.append(results_info)
         precision_metrics.append(precision)
         recall_metrics.append(recall)
@@ -45,3 +48,15 @@ if __name__ == "__main__":
     print('average recall:', sum(recall_metrics)/len(recall_metrics))
 
 
+
+# def remove_duplicate_tokens(tokens: list):
+#     ['hey', 'carla', 'carla', 'how', 'are', 'you']
+#     seen = set()
+#     deduplicated = []
+#     for token in tokens:
+#         if token not in seen:
+#             deduplicated.append(token)
+#             seen.add(token)
+#     return deduplicated
+
+    # matches = re.findall(r'(https?://.*?([a-zA-Z]*).([a-za-z]+)[^( |\n)]*)', description)

@@ -56,7 +56,7 @@ def process_sponsors(result: dict, video_id: str, user_id: int, timestamp: str) 
     result["timestamp"] = timestamp
     response = client.invoke(
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newVideoHandler",
-        InvocationType="RequestResponse",
+        InvocationType="Event",
         Payload=json.dumps(result))
 
 def add_new_watch_event(user_id: int, video_id: str, timestamp: str) -> None:
@@ -68,6 +68,6 @@ def add_new_watch_event(user_id: int, video_id: str, timestamp: str) -> None:
     }
     response = client.invoke(
         FunctionName="arn:aws:lambda:us-east-1:560621042947:function:newWatchEventHandler",
-        InvocationType="RequestResponse",
+        InvocationType="Event",
         Payload=json.dumps(payload))
 
