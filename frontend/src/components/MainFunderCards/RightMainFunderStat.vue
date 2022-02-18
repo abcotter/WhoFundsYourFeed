@@ -7,7 +7,29 @@
 				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
-				<div class="back-text">INSERT DATA VISUAL FOR STAT</div>
+				<div class="back-text">
+					<div class="channel-list">
+					<div
+					class="channel"
+					v-for="(channel, index) in stats.outputTopChannels"
+					:key="channel['channelId']"
+				>
+					<h1 class="number">{{ index + 1 }}</h1>
+					<img class="channel-pic" :src="channel['channelImage']" />
+					<div class="channel-deets">
+						<a
+							style="margin: 0; text-align: left"
+							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
+						>
+							{{ channel["chanelName"] }}
+						</a>
+						<p style="margin: 0; text-align: left">
+							Subscriber count : {{ channel["subCount"] }}
+						</p>
+					</div>
+				</div>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -109,5 +131,50 @@ export default {
 
 .back.reveal {
 	transform: rotateY(0deg);
+}
+
+.title {
+	font-size: 50px;
+	color: #292f36;
+	display: flex;
+	justify-content: center;
+}
+.channel-list {
+	padding-top: 20px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+.channel {
+	margin-bottom: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: start;
+}
+.number {
+	display: flex;
+	justify-content: start;
+	margin: 0;
+	font-size: 30px;
+}
+.channel-pic {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 65px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.channel-deets {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	margin-left: 20px;
+	padding-top: 10px;
+}
+a {
+	font-size: 20px;
+	color: #292f36;
 }
 </style>
