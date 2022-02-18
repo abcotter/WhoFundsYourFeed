@@ -7,6 +7,7 @@ YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippe
 SOCIAL_MEDIA_DOMAINS = set(['instagram', 'facebook', 'linkedin', 'youtube', 'snapchat', 'twitter', 'paypal', 'patreon', 'tiktok',
                             'podcasts.apple', 'flickr', 'soundcloud', 'spotify',
                             'twitch', 'twitter', 'reddit', 'thematic', 'amazon', 'discord', 'epidemic sound'])
+FILTER_ORGANIZATIONS = set(["ftc"])
 
 YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
 
@@ -31,7 +32,7 @@ def find_video_sponsors(video_id: str, model) -> list:
     scraped_sponsors = scrape_sponsor_websites(urls, model)
     found_sponsor_names = find_sponsors_from_disclaimer(sponsored_lines, model, scraped_sponsors)
     if found_sponsor_names:
-        sponsorships = found_sponsor_names
+        sponsorships = [sponsor for sponsor in found_sponsor_names if sponsor['name'] not in FILTER_ORGANIZATIONS]
     else:
         sponsorships = [{"name": name.lower(), "url": url} for name, url in scraped_sponsors.items() if name not in SOCIAL_MEDIA_DOMAINS]
     result["sponsorships"] = sponsorships
@@ -60,12 +61,12 @@ def find_sponsors_from_disclaimer(lines, model, scraped_sponsors):
         print("Processing line: ",line)
         doc = model(line)
         for ent in doc.ents:
-            print(ent, ent.label_, [t.pos_ == "PROPN" for t in ent])
+            print('entity', ent, ent.label_, [t.pos_ == "PROPN" for t in ent])
             if ent.label_ == "ORG" and all([t.pos_ == "PROPN" for t in ent]):
                 entities.add(ent.text.lower())
 
         for noun_chunk in doc.noun_chunks:
-            print(noun_chunk, [t.pos_ == "PROPN" for t in noun_chunk])
+            print('noun chunk', noun_chunk, [t.pos_ == "PROPN" for t in noun_chunk])
             if all([t.pos_ == "PROPN" for t in noun_chunk]):
                 entities.add(noun_chunk.text.lower())
     print("entities", entities)
@@ -90,23 +91,26 @@ def find_urls(description: str) -> set:
     description = description.split('\n')
     sponsored_lines = []
     for line in description:
-        matches = re.findall(r'(https?://.*?([a-zA-Z]*).([a-zA-Z]+)[^ ]*)', line)
+        matches = re.findall(r'(https?://.*?([a-zA-Z]*).(com|ca|ly|us)[^ ]*)', line)
         for match in matches:
             if match[1] not in SOCIAL_MEDIA_DOMAINS:
                 urls.add(match[0])
         if "sponsor" in line.lower() or "sponsored" in line.lower() or "sponsors" in line.lower():
             sponsored_lines.append(line)
     return urls, sponsored_lines
+    # for line in description:
+    #     matches = re.search(r'(https?://.*?([a-zA-Z]*).(?:[a-zA-Z]+)[^ ]*)', line)
+    #     if matches:
+    #         if matches.group(2) not in SOCIAL_MEDIA_DOMAINS:
+    #             urls.add(matches.group(0))
 
 def get_html_content(url):
     # matches = re.search('(https?://.*?([a-zA-Z]*).([a-zA-Z]{2}))', url)
     matches = re.search('(?:https?:\/\/)?(?:[^\/\n]+)?(?:www\.)?([^:\/?\n]+)', url)
     print(url, matches.group(0))
     page_url = matches.group(0) if matches else url
-    print(f'original url {url} page url: {page_url}')
     page = requests.get(page_url, timeout=30)
     if not page or not page.content or page.status_code == 404:
-        print(f'Falling back to original url {url} ')
         print({"page": page,
                "page status_code": page.status_code})
         page = requests.get(url, timeout=30)
@@ -151,6 +155,7 @@ def scrape_sponsor_websites(urls: list, model):
 
     """
     sponsors = set()
+    print('urls', urls)
     for i, url in enumerate(urls):
         print(f"processssing {i} of {len(urls)}")
         try:

@@ -8,9 +8,10 @@ def get_actual_sponsors(video_id, data):
     return [brand_name.lower() for brand_name in brand_names]
 
 if __name__ == "__main__":
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_lg")
     data = pd.read_csv('test_data/sponsorship_data.csv')
     video_ids = data['video_id'].unique().tolist()
+    # video_ids = ['wsYZ5FNheJQ']
     precision_metrics = []
     recall_metrics = []
     overall_results = []
