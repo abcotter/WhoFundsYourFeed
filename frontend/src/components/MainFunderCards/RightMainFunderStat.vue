@@ -11,7 +11,7 @@
 					<div class="channel-list">
 					<div
 					class="channel"
-					v-for="(channel, index) in stats.outputTopChannels"
+					v-for="(channel, index) in stats.outputFunderChannels"
 					:key="channel['channelId']"
 				>
 					<h1 class="number">{{ index + 1 }}</h1>

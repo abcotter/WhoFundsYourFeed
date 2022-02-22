@@ -2,11 +2,12 @@
 	<div class="card">
 		<div class="back">
 			<div class="back-text">
+				{{ stats.outputVideoSponsored }}% of videos you watch are sponsored!
 				<canvas
 					style="max-width: 30vw; max-height: 30vw"
 					id="VideoSponsored"
 				></canvas>
-				{{ stats.outputVideoSponsored }} of videos you watch are sponsored!
+				
 			</div>
 		</div>
 	</div>
@@ -37,7 +38,7 @@ export default {
 								this.stats.outputVideoSponsored,
 								100 - this.stats.outputVideoSponsored,
 							],
-							backgroundColor: ["rgb(255, 230, 109)", "rgb(79,204,196)"],
+							backgroundColor: ["rgb(79,204,196)", "rgb(247, 255, 247)"], 
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},
