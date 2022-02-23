@@ -1,5 +1,5 @@
 <template>
-	<div class="columns">
+	<div class="columns" ref="moreStats">
 		<div class="column1">
 			<PercentTimeSponsoredStat :stats="stats" />
 			<PercentVideoSponsoredStat :stats="stats" />
