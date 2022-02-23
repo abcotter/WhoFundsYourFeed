@@ -1,13 +1,8 @@
 <template>
-	<div class="card">
-		<div class="back">
-			<div class="back-text">
-				"{{ mostWatchedCategory }}" is your most watched category
-				<canvas
-					style="max-width: 40vw; max-height: 30vw"
-					id="Category"
-				></canvas>
-			</div>
+	<div class="back">
+		<div class="back-text">
+			"{{ mostWatchedCategory }}" is your most watched category
+			<canvas style="max-width: 40vw; max-height: 30vw" id="Category"></canvas>
 		</div>
 	</div>
 </template>
@@ -59,16 +54,12 @@ export default {
 </script>
 
 <style scoped>
-.card {
-	margin: 10px;
-	min-height: 26vw;
-}
-
 .back {
+	min-height: 30vw;
+	margin: auto;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
-	position: absolute;
 	width: 47vw;
 	border: 5px solid #f5f5f5;
 	border-radius: 25px;

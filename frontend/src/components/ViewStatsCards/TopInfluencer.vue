@@ -1,7 +1,6 @@
 <template>
 	<div class="card">
 		<div class="back-text">
-			<div class="title">Your Most Watched Channels</div>
 			<div class="channel-list">
 				<div
 					class="channel"
@@ -43,6 +42,7 @@ export default {
 	width: 47vw;
 	border: 5px solid #f5f5f5;
 	border-radius: 25px;
+	margin: auto;
 }
 .back-text {
 	height: 90%;

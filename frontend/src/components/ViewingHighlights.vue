@@ -1,14 +1,15 @@
 <template>
-	<div class="columns" ref="moreStats">
-		<div class="column1">
-			<PercentTimeSponsoredStat :stats="stats" />
-			<PercentVideoSponsoredStat :stats="stats" />
-			<YourTopBrands />
-		</div>
-		<div class="column2">
-			<CategoryBreakdown :stats="stats" />
-			<TopInfluencer :stats="stats" />
-		</div>
+	<div class="column" ref="moreStats">
+		<h1>Percent Of Your WatchTime That's Sponsored</h1>
+		<PercentTimeSponsoredStat :stats="stats" />
+		<h1>Percent Of Videos That Are Sponsored</h1>
+		<PercentVideoSponsoredStat :stats="stats" />
+		<h1>Your Personal Category Breakdown</h1>
+		<CategoryBreakdown :stats="stats" />
+		<h1>Your Most Watched Channels</h1>
+		<TopInfluencer :stats="stats" />
+		<h1>Your Most Seen Brands</h1>
+		<YourTopBrands />
 	</div>
 </template>
 
@@ -33,24 +34,9 @@ export default {
 </script>
 
 <style scoped>
-.columns {
-	display: flex;
-}
-
-.column1 {
-	flex: 2;
-	margin-right: 10px;
-	margin-left: 10px;
+.column {
 	display: flex;
 	flex-direction: column;
-	justify-content: start;
-}
-
-.column2 {
-	flex: 2;
-	margin-right: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
+	height: auto;
 }
 </style>
