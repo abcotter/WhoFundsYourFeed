@@ -26,7 +26,6 @@ def find_video_sponsors(video_id: str, model) -> list:
     for s in sponsorships:
         if not s.get('url'):
             s['url'] = get_url_for_sponsor(s.get('name'))
-    print('disclaimers', disclaimers)
 
     result["sponsorships"] = sponsorships
     result['sponsor_lines'] = disclaimers
@@ -135,7 +134,6 @@ def match_title_to_domain(url: str, model):
         return {"name": sponsor, "url": page.url}
 
 def scrape_url(url):
-    print('Scraping URL', url)
     if "http" not in url:
         url = "http://" + url
     #try and match url with no code since links with codes often do not expire.
