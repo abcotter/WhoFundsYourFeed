@@ -1,30 +1,15 @@
 import pytest
 from unittest.mock import Mock, patch
 from sponsors_detector.process_text import (get_url_domain,
-                                            match_links)
+                                            match_links,
+                                            cross_reference_sponsors)
 
 import spacy
 
-@pytest.fixture
-def model():
-    return spacy.load('en_core_web_sm')
-# @pytest.mark.parametrize("test_url, test_domain",[
-#     ("http://mancrates.com/h3", "mancrates"),
-#     ("www.fitfabfun", "fitfabfun"),
-#     ("https://stitchfix.com", "stitchfix"),
-#     ("http://www.storyblocks.com", "storyblocks"),
-#     ("https://www.storyblocks.com", "storyblocks"),
-#     ("https://www.casetify.com/kendall", "casetify"),
-#     ("http://us.princesspolly.com", "princesspolly"),
-#     ("http://us.princesspolly.ca", "princesspolly")
-# ])
-# def test_get_url_domain(test_url, test_domain):
-#     domain = get_url_domain(test_url)
-#     assert test_domain == domain
 
 @pytest.mark.parametrize("test_sentence, test_links",
                          [
-                             ("Check out Storyblocks Video at https://www.storyblocks.com/linustech...", ["https://www.storyblocks.com"]),
+                             ("Check out Storyblocks Video at https://www.storyblocks.com/linustech...", ["https://www.storyblocks.com/linustech"]),
                              ("Use my code 'JESSI' for $10 off your FIRST box at www.fabfitfun.com", ["www.fabfitfun.com"]),
                              ("Use code KELSEYK90 to get $90 off your first five HelloFresh boxes including free shipping on your first box at https://bit.ly/2OgZnRI. ",
                               ["https://bit.ly/2OgZnRI"]),
@@ -37,3 +22,18 @@ def model():
 def test_find_link_in_disclaimer(test_sentence, test_links):
     links = match_links(test_sentence)
     assert len(links) == len(test_links) and links == test_links
+@pytest.mark.parametrize("test, found",
+                         [
+                             (("en route jewelry", "www.enroutejewelry.com"), True),
+                              (("native", "www.nativecos.com"), True),
+                             (("storyblocks", "https://www.storyblocks.com"), True),
+                              (("adam & eve", "adamandeve.com"), True),
+                             (("false", "htttp://true.com"), False)
+                         ])
+def test_cross_referenced_sponsors(test, found):
+    test_result  = {"name": test[0], "url": test[1]}
+    final = cross_reference_sponsors([test[0]], [test[1]])
+    if found:
+        assert final == [test_result]
+    else:
+        assert not final

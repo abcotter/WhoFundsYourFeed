@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import os
 import re
 import requests
+from difflib import SequenceMatcher
 
 YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet"
 FILTER_ORGANIZATIONS = set(["ftc"])
@@ -62,13 +63,24 @@ def remove_duplicate_tokens(tokens: list):
 
 def find_sponsors_in_disclaimer(sentence: str, model):
     links = find_link_in_disclaimer(sentence, model)
-    print('links', links)
-    if links:
-        return links
-    else:
-        return find_sponsor_names_in_disclaimer(sentence, model)
-    if 
-    
+    sponsor_names = find_sponsor_names_in_disclaimer(sentence, model)
+    if links and sponsor_names:
+        cross_referenced = cross_reference_sponsors([l["name"] for l in links], [s["name"] for s in sponsor_names])
+        if cross_referenced:
+            return cross_referenced
+    return links if links else sponsor_names
+ 
+def cross_reference_sponsors(sponsors_names, sponsors_links):
+    def similarity(w1, w2):
+        return SequenceMatcher(None, w1, w2).ratio()
+    cross_referenced = []
+    for s_name in sponsors_names:
+        for s_link in sponsors_links:
+            print(s_name, s_link)
+            if similarity(s_name, s_link) > 0.4:
+                cross_referenced.append({"name": s_name, "url": s_link})
+    return cross_referenced
+
 def find_link_in_disclaimer(sentence, model):
     matches = match_links(sentence)
     sponsors = []
@@ -88,9 +100,6 @@ def match_links(sentence):
         return re.findall(r'([a-zA-Z0-9]+\.[a-zA-z]+)', sentence)
     else:
         return []
-
-    # else:
-        # return re.findall(r'((?:https?://)[a-zA-Z]+\.[a-zA-z]+(?:/[a-zA-Z0-9]+)?)', sentence)
 
 
 

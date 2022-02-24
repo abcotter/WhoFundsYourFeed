@@ -11,7 +11,6 @@ if __name__ == "__main__":
     nlp = spacy.load("en_core_web_lg")
     data = pd.read_csv('test_data/sponsorship_data.csv')
     video_ids = data['video_id'].unique().tolist()
-    # video_ids = ['wsYZ5FNheJQ']
     precision_metrics = []
     recall_metrics = []
     overall_results = []
@@ -48,16 +47,3 @@ if __name__ == "__main__":
     print('average precision:', sum(precision_metrics)/len(precision_metrics))
     print('average recall:', sum(recall_metrics)/len(recall_metrics))
 
-
-
-# def remove_duplicate_tokens(tokens: list):
-#     ['hey', 'carla', 'carla', 'how', 'are', 'you']
-#     seen = set()
-#     deduplicated = []
-#     for token in tokens:
-#         if token not in seen:
-#             deduplicated.append(token)
-#             seen.add(token)
-#     return deduplicated
-
-    # matches = re.findall(r'(https?://.*?([a-zA-Z]*).([a-za-z]+)[^( |\n)]*)', description)
