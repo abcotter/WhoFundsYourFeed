@@ -78,7 +78,7 @@ def lambda_handler(event, context):
         try:
             cur.execute(qryTimeSponsored)
             value = cur.fetchall()
-            outputTimeSponsored = value[0]["sponsoredTime"]
+            outputTimeSponsored = int(value[0]["sponsoredTime"])
             
 
         except pymysql.Error as e:
@@ -105,7 +105,7 @@ def lambda_handler(event, context):
         try:
             cur.execute(qryVideoSponsored)
             value = cur.fetchall()
-            outputVideoSponsored = value[0]["sponsoredVideos"]
+            outputVideoSponsored = int(value[0]["sponsoredVideos"])
 
         except pymysql.Error as e:
             outputVideoSponsored = "System Error"
@@ -131,7 +131,7 @@ def lambda_handler(event, context):
         LIMIT 5  """
 
     with conn.cursor() as cur:
-        qryFrequentCompanies = f" SELECT brand_name FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id =" + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships GROUP BY brand_name ORDER BY COUNT(brand_name) DESC LIMIT 5 "
+        qryFrequentCompanies = f" SELECT brand_name, brand_url FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id =" + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships GROUP BY brand_name ORDER BY COUNT(brand_name) DESC LIMIT 5 "
 
         try:
             cur.execute(qryFrequentCompanies)
