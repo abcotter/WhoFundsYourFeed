@@ -90,6 +90,6 @@ def test_find_sponsorship_disclaimer():
     print('Accuracy: ', accuracy/len(data))
 
 if __name__ == "__main__":
-    # test_detect_possible_sponsors()
+    test_detect_possible_sponsors()
     # test_match_title_to_domain()
     # test_find_sponsorship_disclaimer()
