@@ -10,7 +10,6 @@
 					:key="channel['channelId']"
 				>
 					<h1 class="number">{{ index + 1 }}</h1>
-					<img class="brand-pic" :src="channel['brandImage']"/>
 					<img class="channel-pic" :src="channel['channelImage']" />
 					<div class="channel-deets">
 						<a
@@ -20,9 +19,10 @@
 							{{ channel["chanelName"] }}
 						</a>
 						<p style="margin: 0; text-align: left">
-							Subscriber count : {{ channel["subCount"] }}
+							Videos Sponsored: {{ channel["videoCount"] }}
 						</p>
 					</div>
+					
 				</div>
 			</div>
 				</div>
