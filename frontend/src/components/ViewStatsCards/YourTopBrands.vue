@@ -33,7 +33,6 @@ export default {
 
 <style scoped>
 .card {
-	margin: 10px;
 	height: 600px;
 	margin-bottom: 30px;
 }
@@ -50,6 +49,7 @@ export default {
 }
 
 .front {
+	margin: auto;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
@@ -84,6 +84,7 @@ export default {
 }
 
 .back {
+	margin: auto;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);

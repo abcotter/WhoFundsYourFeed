@@ -2,10 +2,9 @@
 	<div class="back">
 		<div class="back-text">
 			<canvas
-				style="max-width: 30vw; max-height: 30vw"
+				style="max-width: 35vw; max-height: 35vw"
 				id="VideoSponsored"
 			></canvas>
-			{{ stats.outputVideoSponsored }} of videos you watch are sponsored!
 		</div>
 	</div>
 </template>

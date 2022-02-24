@@ -2,11 +2,9 @@
 	<div class="back">
 		<div class="back-text">
 			<canvas
-				style="max-width: 30vw; max-height: 30vw"
+				style="max-width: 35vw; max-height: 35vw"
 				id="TimeSponsored"
 			></canvas>
-			{{ stats.outputTimeSponsored }}% of your time on youtube is being
-			sponsored!
 		</div>
 	</div>
 </template>

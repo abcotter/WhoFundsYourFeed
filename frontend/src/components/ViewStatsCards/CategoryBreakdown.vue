@@ -1,8 +1,7 @@
 <template>
 	<div class="back">
 		<div class="back-text">
-			"{{ mostWatchedCategory }}" is your most watched category
-			<canvas style="max-width: 40vw; max-height: 30vw" id="Category"></canvas>
+			<canvas style="max-width: 40vw; max-height: 45vw" id="Category"></canvas>
 		</div>
 	</div>
 </template>
@@ -16,7 +15,6 @@ export default {
 	data() {
 		return {
 			chartData: null,
-			mostWatchedCategory: null,
 		};
 	},
 	watch: {
@@ -41,9 +39,6 @@ export default {
 					responsive: true,
 				},
 			};
-
-			this.mostWatchedCategory =
-				this.stats.outputTopCategories[0]["video_category"];
 		},
 		chartData() {
 			const ctx = document.getElementById("Category");
@@ -56,7 +51,7 @@ export default {
 
 <style scoped>
 .back {
-	min-height: 30vw;
+	min-height: 25vw;
 	margin: auto;
 	border-radius: 25px;
 	padding: 10px;
