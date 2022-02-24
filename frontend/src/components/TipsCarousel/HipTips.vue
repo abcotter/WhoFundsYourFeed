@@ -2,22 +2,10 @@
 	<div class="card">
 		<div class="back-text">
 			<agile ref="carousel" :dots="false" :navButtons="false">
-				<img
-					style="height: 410px; object-fit: cover"
-					src="./Greenwashing_slide1.png"
-				/>
-				<img
-					style="height: 410px; object-fit: cover"
-					src="./Greenwashing_slide2.png"
-				/>
-				<img
-					style="height: 410px; object-fit: cover"
-					src="./Greenwashing_slide3.png"
-				/>
-				<img
-					style="height: 410px; object-fit: cover"
-					src="./Greenwashing_slide4.png"
-				/>
+				<img style="object-fit: cover" src="./GreenwashingSlide1.png" />
+				<img style="object-fit: cover" src="./GreenwashingSlide2.png" />
+				<img style="object-fit: cover" src="./GreenwashingSlide3.png" />
+				<img style="object-fit: cover" src="./GreenwashingSlide4.png" />
 			</agile>
 			<div style="display: flex; width: 100%; justify-content: space-between">
 				<ion-icon
