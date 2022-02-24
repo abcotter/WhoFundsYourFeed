@@ -30,10 +30,3 @@ def test_find_link_in_disclaimer(test_sentence, test_links):
                               (("adam & eve", "adamandeve.com"), True),
                              (("false", "htttp://true.com"), False)
                          ])
-def test_cross_referenced_sponsors(test, found):
-    test_result  = {"name": test[0], "url": test[1]}
-    final = cross_reference_sponsors([test[0]], [test[1]])
-    if found:
-        assert final == [test_result]
-    else:
-        assert not final
