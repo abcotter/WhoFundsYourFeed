@@ -10,7 +10,7 @@
 					:key="channel['channelId']"
 				>
 					<h1 class="number">{{ index + 1 }}</h1>
-					<img class="channel-pic" :src="channel['channelImage']" />
+				
 					<div class="channel-deets">
 						<a
 							style="margin: 0; text-align: left"
