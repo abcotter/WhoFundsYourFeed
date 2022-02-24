@@ -22,11 +22,23 @@ def find_video_sponsors(video_id: str, model) -> list:
         return result
     disclaimers = find_sponsorship_disclaimers(description)
     sponsorships = find_sponsors_in_disclaimer(disclaimers, model)
+    sponsorships = [s for s in sponsorships if s["name"] not in FILTER_ORGANIZATIONS]
+    for s in sponsorships:
+        if not s.get('url'):
+            s['url'] = get_url_for_sponsor(s.get('name'))
     print('disclaimers', disclaimers)
 
     result["sponsorships"] = sponsorships
     result['sponsor_lines'] = disclaimers
     return result
+
+def get_url_for_sponsor(sponsor: str):
+    s = sponsor.replace(' ', '')
+    r = requests.get(f'https://autocomplete.clearbit.com/v1/companies/suggest?query={s}')
+    if r:
+        return r.json()[0]["domain"]
+    else:
+        return None
 
 def get_video_description(video_id):
     """Send request to Youtube API and get video description"""
@@ -64,10 +76,6 @@ def remove_duplicate_tokens(tokens: list):
 def find_sponsors_in_disclaimer(sentence: str, model):
     links = find_link_in_disclaimer(sentence, model)
     sponsor_names = find_sponsor_names_in_disclaimer(sentence, model)
-    if links and sponsor_names:
-        cross_referenced = cross_reference_sponsors([l["name"] for l in links], [s["name"] for s in sponsor_names])
-        if cross_referenced:
-            return cross_referenced
     return links if links else sponsor_names
  
 def cross_reference_sponsors(sponsors_names, sponsors_links):

@@ -21,6 +21,7 @@ if __name__ == "__main__":
             print('Error finding sponsors', e)
             continue
         sponsorships = result.get('sponsorships', [])
+        p = sponsorships
         significant_lines = result.get('sponsor_lines', [])
         sponsorships = [s['name'].lower() for s in sponsorships]
         if len(sponsorships) == 0:
@@ -33,7 +34,7 @@ if __name__ == "__main__":
             precision = len(total)/len(sponsorships)
             recall = len(total)/len(actual_sponsorships)
         results_info = {'video_id': video_id,
-                        'predicted': sponsorships,
+                        'predicted': p,
                         'actual': actual_sponsorships,
                         'precision': precision,
                         'recall': recall,
