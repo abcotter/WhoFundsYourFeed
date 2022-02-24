@@ -8,6 +8,8 @@
 		<CategoryBreakdown :stats="stats" />
 		<h1>Your Most Watched Channels</h1>
 		<TopInfluencer :stats="stats" />
+		<h1>Hip Tips: greenwashing 101</h1>
+		<HipTips />
 		<h1>Your Most Seen Brands</h1>
 		<YourTopBrands />
 	</div>
@@ -19,6 +21,7 @@ import PercentVideoSponsoredStat from "./ViewStatsCards/PercentVideoSponsored.vu
 import TopInfluencer from "./ViewStatsCards/TopInfluencer.vue";
 import CategoryBreakdown from "./ViewStatsCards/CategoryBreakdown.vue";
 import YourTopBrands from "./ViewStatsCards/YourTopBrands.vue";
+import HipTips from "./TipsCarousel/HipTips.vue";
 
 export default {
 	name: "ViewingStats",
@@ -28,6 +31,7 @@ export default {
 		PercentVideoSponsoredStat,
 		TopInfluencer,
 		YourTopBrands,
+		HipTips,
 	},
 	props: ["stats"],
 };

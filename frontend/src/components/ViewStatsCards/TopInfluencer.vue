@@ -13,6 +13,7 @@
 						<a
 							style="margin: 0; text-align: left"
 							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
+							target="_blank"
 						>
 							{{ channel["chanelName"] }}
 						</a>
@@ -35,7 +36,6 @@ export default {
 </script>
 <style scoped>
 .card {
-	margin: 10px;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
