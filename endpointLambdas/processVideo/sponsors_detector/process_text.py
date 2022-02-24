@@ -23,21 +23,10 @@ def find_video_sponsors(video_id: str, model) -> list:
     disclaimers = find_sponsorship_disclaimers(description)
     sponsorships = find_sponsors_in_disclaimer(disclaimers, model)
     sponsorships = [s for s in sponsorships if s["name"] not in FILTER_ORGANIZATIONS]
-    for s in sponsorships:
-        if not s.get('url'):
-            s['url'] = get_url_for_sponsor(s.get('name'))
-
     result["sponsorships"] = sponsorships
     result['sponsor_lines'] = disclaimers
     return result
 
-def get_url_for_sponsor(sponsor: str):
-    s = sponsor.replace(' ', '')
-    r = requests.get(f'https://autocomplete.clearbit.com/v1/companies/suggest?query={s}')
-    if r:
-        return r.json()[0]["domain"]
-    else:
-        return None
 
 def get_video_description(video_id):
     """Send request to Youtube API and get video description"""
