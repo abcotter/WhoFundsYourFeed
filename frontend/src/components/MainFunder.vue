@@ -2,7 +2,31 @@
 	<div class="main-funder">
 		<div style="display: flex; justify-content: center">
 			<h1>Your main funder is:&nbsp;</h1>
-			<h2>{{ stats.outputFrequentCompanies[0]["brand_name"] }}</h2>
+			<div
+				style="display: flex; flex-direction: column; justify-content: flex-end"
+			>
+				<a
+					class="brand-name"
+					:href="stats.outputFrequentCompanies[0]['brand_url']"
+					target="_blank"
+				>
+					{{ stats.outputFrequentCompanies[0]["brand_name"] }}
+				</a>
+				<div>
+					<a
+						style="float: right"
+						:href="
+							'https://www.youtube.com/results?search_query=' +
+							stats.outputFrequentCompanies[0]['brand_name'] +
+							' review'
+						"
+						target="_blank"
+					>
+						See reviews for
+						{{ stats.outputFrequentCompanies[0]["brand_name"] }}</a
+					>
+				</div>
+			</div>
 		</div>
 		<div class="stats-container">
 			<leftStatCard
@@ -58,6 +82,15 @@ h2 {
 	color: #292f36;
 	font-style: italic;
 	margin: 0;
+}
+
+.brand-name {
+	font-family: Impact, fantasy;
+	font-size: 100px;
+	color: #292f36;
+	font-style: italic;
+	margin: 0;
+	float: right;
 }
 
 .stats-container {

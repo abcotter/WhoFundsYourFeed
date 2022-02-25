@@ -47,7 +47,8 @@ export default {
 				},
 			};
 
-			this.mostWatchedCategory = this.stats.outputTopCategories[0][0];
+			this.mostWatchedCategory =
+				this.stats.outputTopCategories[0]["video_category"];
 		},
 		chartData() {
 			const ctx = document.getElementById("Category");
