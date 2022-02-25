@@ -7,7 +7,7 @@
 				<div
 					class="brand"
 					v-for="(brand, index) in stats.outputYourTopBrands"
-					:key="brand['brandId']"
+					:key="brand['brandName']"
 				>
 					<h1 class="number">{{ index + 1 }}</h1>
 				
