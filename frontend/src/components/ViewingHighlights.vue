@@ -7,6 +7,7 @@
 		</div>
 		<div class="column2">
 			<CategoryBreakdown :stats="stats" />
+			<HipTips />
 			<TopInfluencer :stats="stats" />
 		</div>
 	</div>
@@ -18,6 +19,7 @@ import PercentVideoSponsoredStat from "./ViewStatsCards/PercentVideoSponsored.vu
 import TopInfluencer from "./ViewStatsCards/TopInfluencer.vue";
 import CategoryBreakdown from "./ViewStatsCards/CategoryBreakdown.vue";
 import YourTopBrands from "./ViewStatsCards/YourTopBrands.vue";
+import HipTips from "./TipsCarousel/HipTips.vue";
 
 export default {
 	name: "ViewingStats",
@@ -27,6 +29,7 @@ export default {
 		PercentVideoSponsoredStat,
 		TopInfluencer,
 		YourTopBrands,
+		HipTips,
 	},
 	props: ["stats"],
 };

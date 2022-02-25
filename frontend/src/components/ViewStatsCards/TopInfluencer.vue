@@ -14,6 +14,7 @@
 						<a
 							style="margin: 0; text-align: left"
 							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
+							target="_blank"
 						>
 							{{ channel["chanelName"] }}
 						</a>

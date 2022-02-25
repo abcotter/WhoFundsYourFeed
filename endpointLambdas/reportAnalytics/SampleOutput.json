@@ -1,22 +1,24 @@
 {
-	"outputTimeSponsored": 62.5892,
-	"outputVideoSponsored": 64.2857,
+	"outputTimeSponsored": 62,
+	"outputVideoSponsored": 64,
 	"outputTimeSponsoredbyFunder": 54,
+
 	"outputFrequentCompanies": [
 		{
-			"brand_name": "HelloFresh"
+			"brand_name": "HelloFresh",
+			"brand_url": "https://www.hellofresh.ca/"
 		},
 		{
-			"brand_name": "Poshmark"
+			"brand_name": "Poshmark",
+			"brand_url": "https://poshmark.ca/"
 		},
 		{
-			"brand_name": "Native"
+			"brand_name": "Native",
+			"brand_url": "https://www.nativecos.com/"
 		},
 		{
-			"brand_name": "TeuxDeux"
-		},
-		{
-			"brand_name": "Moto Loot"
+			"brand_name": "TeuxDeux",
+			"brand_url": "https://teuxdeux.com/"
 		}
 	],
 	"outputTopChannels": [
@@ -77,16 +79,20 @@
 	],
 	"outputTopCategories": [
 		{
-			"video_category": "Gaming",
-			"count(video_category)": 1
+			"video_category": "Howto & Style",
+			"count(video_category)": 6
 		},
 		{
-			"video_category": "News & Politics",
-			"count(video_category)": 1
+			"video_category": "Music",
+			"count(video_category)": 5
 		},
 		{
-			"video_category": "Science & Technology",
-			"count(video_category)": 1
+			"video_category": "other",
+			"count(video_category)": 5
+		},
+		{
+			"video_category": "People & Blogs",
+			"count(video_category)": 3
 		},
 		{
 			"video_category": "Sports",
@@ -101,20 +107,16 @@
 			"count(video_category)": 2
 		},
 		{
-			"video_category": "People & Blogs",
-			"count(video_category)": 3
+			"video_category": "Gaming",
+			"count(video_category)": 1
 		},
 		{
-			"video_category": "Music",
-			"count(video_category)": 5
+			"video_category": "News & Politics",
+			"count(video_category)": 1
 		},
 		{
-			"video_category": "",
-			"count(video_category)": 5
-		},
-		{
-			"video_category": "Howto & Style",
-			"count(video_category)": 6
+			"video_category": "Science & Technology",
+			"count(video_category)": 1
 		}
 	],
 
