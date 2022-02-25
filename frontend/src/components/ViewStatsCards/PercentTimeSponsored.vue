@@ -33,7 +33,7 @@ export default {
 								this.stats.outputTimeSponsored,
 								100 - this.stats.outputTimeSponsored,
 							],
-							backgroundColor: ["rgb(255, 230, 109)", "rgb(255, 107, 107)"],
+							backgroundColor: ["rgb(255, 107, 107)", "rgb(247, 255, 247)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},

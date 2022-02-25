@@ -1,11 +1,10 @@
 <template>
-	<div class="mainHeader">{{ userName }}, Who Funds Your Feed?</div>
+	<div class="mainHeader">Who Funds Your Feed?</div>
 </template>
 
 <script>
 export default {
 	name: "Header",
-	props: ["userName"],
 };
 </script>
 

@@ -1,6 +1,8 @@
 {
 	"outputTimeSponsored": 62,
 	"outputVideoSponsored": 64,
+	"outputTimeSponsoredbyFunder": 54,
+
 	"outputFrequentCompanies": [
 		{
 			"brand_name": "HelloFresh",
@@ -115,6 +117,48 @@
 		{
 			"video_category": "Science & Technology",
 			"count(video_category)": 1
+		}
+	],
+
+	"outputFunderChannels": [
+		{
+			"channelId": "UCKzw1M8xhzXD9TjEquvQ8Sg",
+			"chanelName": "Kaiti Yoo",
+			"channelLocation": "US",
+			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLSHpRoIXXkyTaOOLabT3Q4tHIN6jY1SGB9RaXirLg=s240-c-k-c0x00ffffff-no-rj",
+			"videoCount": "127",
+			"subCount": "485000"
+		},
+		{
+			"channelId": "UCRXiA3h1no_PFkb1JCP0yMA",
+			"chanelName": "Vogue",
+			"channelLocation": "US",
+			"channelImage": "https://yt3.ggpht.com/thnzkriwUD98vyhpBpL9VWKVC8S172K84W8VOPwrdUOmXpadThVRv6RRnlIgS3CRpnRjGz6ZOw=s240-c-k-c0x00ffffff-no-rj",
+			"videoCount": "2600",
+			"subCount": "11100000"
+		},
+		{
+			"channelId": "UCnQhwPVwcP-DnbUZtIMrupw",
+			"chanelName": "bestdressed",
+			"channelLocation": "US",
+			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLQQqaWbGzCF2b2hFRXD8ifAXAvibj-vTPys6kz-cA=s240-c-k-c0x00ffffff-no-rj",
+			"videoCount": "208",
+			"subCount": "3800000"
+		}
+	],
+
+	"outputYourTopBrands":[
+		{
+			"brandName": "Squarespace",
+			"videoCount": "127"
+		},
+		{
+			"brandName": "Audible",
+			"videoCount": "2600"
+		},
+		{
+			"brandName": "Poshmark",
+			"videoCount": "208"
 		}
 	]
 }

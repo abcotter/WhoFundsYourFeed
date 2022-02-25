@@ -4,7 +4,7 @@
 		<img class="yellow-bar" src="../assets/yell_bar.png" alt="yellow bar" />
 		<img class="peace-sign" src="../assets/peace.png" alt="peace sign" />
 
-		<Header userName="Taylor" />
+		<Header />
 
 		<MainFunder :stats="Stats" />
 

@@ -54,7 +54,7 @@
 		<h1>Hip Tips: greenwashing 101</h1>
 		<HipTips />
 		<h1>Your Most Seen Brands</h1>
-		<YourTopBrands />
+		<YourTopBrands :stats="stats" />
 	</div>
 </template>
 
