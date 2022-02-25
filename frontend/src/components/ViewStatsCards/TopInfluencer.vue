@@ -19,7 +19,7 @@
 							{{ channel["chanelName"] }}
 						</a>
 						<p style="margin: 0; text-align: left">
-							Subscriber count : {{ channel["subCount"] }}
+							Subscribers: {{ channel["subCount"] }}
 						</p>
 					</div>
 				</div>
