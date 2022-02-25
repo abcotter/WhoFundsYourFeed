@@ -3,23 +3,23 @@
 			<div class="back">
 				<div class="back-text">
 				<div class="title">Your Top Funding Brands</div>
-			<div class="channel-list">
+			<div class="brand-list">
 				<div
-					class="channel"
-					v-for="(channel, index) in stats.outputYourTopBrands"
-					:key="channel['channelId']"
+					class="brand"
+					v-for="(brand, index) in stats.outputYourTopBrands"
+					:key="brand['brandId']"
 				>
 					<h1 class="number">{{ index + 1 }}</h1>
 				
-					<div class="channel-deets">
+					<div class="brand-deets">
 						<a
 							style="margin: 0; text-align: left"
-							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
+							:href="`http://www.youtube.com/channel/${brand['brandId']}`"
 						>
-							{{ channel["chanelName"] }}
+							{{ brand["brandName"] }}
 						</a>
 						<p style="margin: 0; text-align: left">
-							Videos Sponsored: {{ channel["videoCount"] }}
+							Videos Sponsored: {{ brand["videoCount"] }}
 						</p>
 					</div>
 					
@@ -65,7 +65,7 @@ export default {
 	display: flex;
 	justify-content: center;
 }
-.channel-list {
+.brand-list {
 	padding-top: 20px;
 	height: 100%;
 	width: 100%;
@@ -73,7 +73,7 @@ export default {
 	flex-direction: column;
 	justify-content: space-evenly;
 }
-.channel {
+.brand {
 	margin-bottom: 20px;
 	width: 100%;
 	display: flex;
@@ -84,14 +84,8 @@ export default {
 	justify-content: start;
 	margin: 0;
 }
-.channel-pic {
-	max-width: 130px;
-	max-height: 130px;
-	border-radius: 65px;
-	margin-left: 60px;
-	margin-top: 10px;
-}
-.channel-deets {
+
+.brand-deets {
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
