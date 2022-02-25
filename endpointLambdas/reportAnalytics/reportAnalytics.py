@@ -147,7 +147,7 @@ def lambda_handler(event, context):
         reportOutputJSON['outputFrequentCompanies'] = outputFrequentCompanies
 
         # our top channels top sponsors (channels you watch a lot and who are their sponsors)
-        """ SELECT brand_name
+        """ SELECT topChannels.channel_id, brand_name
         From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN
                 (SELECT video_id, channel_id
                         FROM who_funds_your_feed.Videos
@@ -221,11 +221,12 @@ def lambda_handler(event, context):
             ORDER BY brandFrequency DESC ) as brandFrequencies
         """
     with conn.cursor() as cur:
-        qryFunderPercent = f" SELECT max(brandFrequencies.brandFrequency)/count(brandFrequencies.video_id) as percentageFromTopSponsor FROM (SELECT *, COUNT(Sponsorships.video_id) OVER(PARTITION BY Sponsorships.brand_name) as brandFrequency FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = "+userId+" ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships ORDER BY brandFrequency DESC ) as brandFrequencies"
+        qryFunderPercent = f" SELECT max(brandFrequencies.brandFrequency)/count(brandFrequencies.video_id) * 100 as percentageFromTopSponsor FROM (SELECT *, COUNT(Sponsorships.video_id) OVER(PARTITION BY Sponsorships.brand_name) as brandFrequency FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = "+userId+" ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships ORDER BY brandFrequency DESC ) as brandFrequencies"
 
         try:
             cur.execute(qryFunderPercent)
-            outputFunderPercent = cur.fetchall()
+            value = cur.fetchall()
+            outputFunderPercent = int(value[0]["percentageFromTopSponsor"])
 
         except pymysql.Error as e:
             outputFunderPercent = "System Error"
@@ -237,7 +238,7 @@ def lambda_handler(event, context):
         reportOutputJSON['outputTimeSponsoredbyFunder'] = outputFunderPercent
 
 # 3 Other channels funded by your top funder
-        """ Select Videos.channel_id
+        """ Select DISTINCT Videos.channel_id
                 FROM who_funds_your_feed.Videos NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN
                 (SELECT brand_name
                         FROM who_funds_your_feed.Brands
@@ -254,32 +255,37 @@ def lambda_handler(event, context):
                 LIMIT 3"""
     
     with conn.cursor() as cur:
-        qryFunderChannels = f"Select Videos.channel_id FROM who_funds_your_feed.Videos NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT brand_name FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = 10001 ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships ORDER BY  COUNT(Sponsorships.video_id) OVER(PARTITION BY Sponsorships.brand_name) DESC  ) as topBrand WHERE Sponsorships.brand_name = topBrand.brand_name LIMIT 3 "
+        qryFunderChannels = f"Select DISTINCT Videos.channel_id FROM who_funds_your_feed.Videos NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT brand_name FROM who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched NATURAL JOIN who_funds_your_feed.Sponsorships ORDER BY  COUNT(Sponsorships.video_id) OVER(PARTITION BY Sponsorships.brand_name) DESC  ) as topBrand WHERE Sponsorships.brand_name = topBrand.brand_name LIMIT 3 "
         additionalChannels = []
         
         try:
-            channels = cur.fetchall()
-        
-            for channel in channels:
-                apiKey = os.environ['YOUTUBE_API_KEY']
-                channelId = channel["channel_id"]
-                youtubeUrl = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={channelId}&key={apiKey}'
-                response = requests.get(youtubeUrl)
-                channelDetails = response.json()
-                channelName = channelDetails['items'][0]['snippet']['title']
-                additionalChannels.append({
-                    "chanelName": channelName,
-                })
-        
+            cur.execute(qryFunderChannels)
 
         except pymysql.Error as e:
-            outputFunderPercent = "System Error"
             print(e)
             return {
-                'statusCode': 500,
+                'statusCode': 500
             }
 
-        reportOutputJSON['topFunderOtherChannels'] = additionalChannels
+        channels = cur.fetchall()
+    
+        for channel in channels:
+            apiKey = os.environ['YOUTUBE_API_KEY']
+            channelId = channel["channel_id"]
+            youtubeUrl = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={channelId}&key={apiKey}'
+            response = requests.get(youtubeUrl)
+            channelDetails = response.json()
+            channelName = channelDetails['items'][0]['snippet']['title']
+            location = channelDetails['items'][0]['snippet']['country'] if "country" in channelDetails['items'][0]['snippet'] else "NA"
+            thumbnail = channelDetails['items'][0]['snippet']['thumbnails']['medium']['url']
+            vidCount = channelDetails['items'][0]['statistics']['videoCount']
+            subCount = channelDetails['items'][0]['statistics']['subscriberCount']
+            additionalChannels.append({
+                "channelName": channelName,
+            })
+    
+
+        reportOutputJSON['outputFunderChannels'] = additionalChannels
    
    
     body = json.dumps(reportOutputJSON)
