@@ -1,35 +1,44 @@
 <template>
 	<div class="funder-card">
-		<div class="content-flipper" @click="flip">
-			<div class="front" :class="{ reveal: flipped }">
-				<div class="front-text">
-					What Channels have worked with {{ topFunder }} the most?
+		<div class="channel-list">
+			<div
+				class="channel"
+				v-for="(channel, index) in stats.outputFunderChannels"
+				:key="channel['channelId']"
+			>
+				<h1 class="number">{{ index + 1 }}</h1>
+				<img class="channel-pic" :src="channel['channelImage']" />
+				<div class="channel-deets">
+					<a
+						style="margin: 0; text-align: left"
+						:href="`http://www.youtube.com/channel/${channel['channelId']}`"
+					>
+						{{ channel["chanelName"] }}
+					</a>
+					<p style="margin: 0; text-align: left; font-size: 25px">
+						Subscribers: {{ channel["subCount"] }}
+					</p>
 				</div>
 			</div>
-			<div class="back" :class="{ reveal: flipped }">
-				<div class="back-text">
-					<div class="channel-list">
-					<div
-					class="channel"
-					v-for="(channel, index) in stats.outputFunderChannels"
-					:key="channel['channelId']"
+		</div>
+		<div class="arrow-right">
+			<img
+				style="height: 300px; width: 300px; transform: ScaleX(-1)"
+				src="../../assets/ARROW_RIGHT.png"
+			/>
+			<div style="position: relative">
+				<h1
+					style="
+						width: 200px;
+						font-size: 25px;
+						margin: 0px;
+						position: absolute;
+						left: 9vw;
+						top: -9vh;
+					"
 				>
-					<h1 class="number">{{ index + 1 }}</h1>
-					<img class="channel-pic" :src="channel['channelImage']" />
-					<div class="channel-deets">
-						<a
-							style="margin: 0; text-align: left"
-							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
-						>
-							{{ channel["chanelName"] }}
-						</a>
-						<p style="margin: 0; text-align: left">
-							Subscribers: {{ channel["subCount"] }}
-						</p>
-					</div>
-				</div>
-				</div>
-				</div>
+					These are the channels who work with {{ topFunder }} the most!
+				</h1>
 			</div>
 		</div>
 	</div>
@@ -40,16 +49,7 @@
 export default {
 	name: "RightMainFunderStat",
 	props: ["topFunder", "stats"],
-	data() {
-		return {
-			flipped: false,
-		};
-	},
-	methods: {
-		flip() {
-			this.flipped = !this.flipped;
-		},
-	},
+	methods: {},
 };
 </script>
 
@@ -57,6 +57,11 @@ export default {
 .funder-card {
 	margin: 10px;
 	width: 40%;
+	height: 90%;
+	background-color: #4fccc4;
+	border: 5px solid #83d3cd;
+	border-radius: 25px;
+	padding: 20px;
 }
 
 .content-flipper {
@@ -67,70 +72,21 @@ export default {
 	cursor: pointer;
 }
 
-.flip {
-	transform: rotateY(180deg);
-}
-
-.front {
-	border-radius: 25px;
-	padding: 10px;
-	background-color: #4fccc4;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transition: ease-in 300ms;
-	display: flex;
-	justify-content: space-around;
-}
-
-.front-text {
-	height: 90%;
-	width: 90%;
-	margin: auto;
-	justify-content: center;
-	align-items: center;
-	font-size: 30px;
-	color: #292f36;
-	display: flex;
-	font-weight: bold;
-	border: 5px solid #f5f5f5;
-	border-radius: 25px;
-	padding: 10px;
-}
-
-.front.reveal {
-	transform: rotateY(180deg);
-}
-
 .back {
 	border-radius: 25px;
 	padding: 10px;
 	background-color: #4fccc4;
+	border: 5px solid #83d3cd;
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transform: rotateY(180deg);
-	transition: ease-in 300ms;
-}
-
-.back-text {
-	height: 90%;
-	width: 90%;
 	margin: auto;
 	justify-content: center;
 	align-items: center;
 	font-size: 20px;
 	color: #292f36;
 	display: flex;
-	padding: 10px;
-}
-
-.back.reveal {
-	transform: rotateY(0deg);
+	padding: 20px;
 }
 
 .title {
@@ -139,6 +95,7 @@ export default {
 	display: flex;
 	justify-content: center;
 }
+
 .channel-list {
 	padding-top: 20px;
 	height: 100%;
@@ -147,25 +104,30 @@ export default {
 	flex-direction: column;
 	justify-content: space-evenly;
 }
+
 .channel {
+	height: 20%;
 	margin-bottom: 20px;
 	width: 100%;
 	display: flex;
 	justify-content: start;
 }
+
 .number {
 	display: flex;
 	justify-content: start;
 	margin: 0;
 	font-size: 30px;
 }
+
 .channel-pic {
-	max-width: 50px;
-	max-height: 50px;
+	width: 130px;
+	height: 130px;
 	border-radius: 65px;
 	margin-left: 10px;
 	margin-top: 10px;
 }
+
 .channel-deets {
 	display: flex;
 	flex-direction: column;
@@ -173,8 +135,15 @@ export default {
 	margin-left: 20px;
 	padding-top: 10px;
 }
+
 a {
-	font-size: 20px;
+	font-size: 35px;
 	color: #292f36;
+}
+
+.arrow-right {
+	position: absolute;
+	top: 30vh;
+	right: 5vw;
 }
 </style>

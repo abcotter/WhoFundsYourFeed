@@ -1,9 +1,5 @@
 <template>
 	<div class="container">
-		<img class="blue-circle" src="../assets/blue_circ.png" alt="blue circle" />
-		<img class="yellow-bar" src="../assets/yell_bar.png" alt="yellow bar" />
-		<img class="peace-sign" src="../assets/peace.png" alt="peace sign" />
-
 		<Header />
 
 		<MainFunder :stats="Stats" />
@@ -68,28 +64,13 @@ export default {
 	background-color: #ffcbc6;
 }
 
-.blue-circle {
-	position: absolute;
-	max-width: 20vw;
-	max-height: 20vh;
-	top: 16vh;
-	left: 7vw;
-}
-
 .yellow-bar {
 	position: absolute;
-	top: 16vh;
-	right: 5vw;
-	max-width: 8vw;
-	max-height: 85vh;
-}
-
-.peace-sign {
-	position: absolute;
-	top: 8vh;
-	right: 13vw;
-	max-width: 10vw;
-	max-height: 20vh;
+	top: 13vh;
+	left: 3vw;
+	max-width: 12vw;
+	max-height: 75vh;
+	transform: scaleX(-1);
 }
 
 .secondHeader {
