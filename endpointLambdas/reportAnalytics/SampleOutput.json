@@ -2,7 +2,6 @@
 	"outputTimeSponsored": 62,
 	"outputVideoSponsored": 64,
 	"outputTimeSponsoredbyFunder": 54,
-
 	"outputFrequentCompanies": [
 		{
 			"brand_name": "HelloFresh",
@@ -28,7 +27,8 @@
 			"channelLocation": "US",
 			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLSHpRoIXXkyTaOOLabT3Q4tHIN6jY1SGB9RaXirLg=s240-c-k-c0x00ffffff-no-rj",
 			"videoCount": "127",
-			"subCount": "485000"
+			"subCount": "485000",
+			"top_brand": "HelloFresh"
 		},
 		{
 			"channelId": "UCRXiA3h1no_PFkb1JCP0yMA",
@@ -36,7 +36,8 @@
 			"channelLocation": "US",
 			"channelImage": "https://yt3.ggpht.com/thnzkriwUD98vyhpBpL9VWKVC8S172K84W8VOPwrdUOmXpadThVRv6RRnlIgS3CRpnRjGz6ZOw=s240-c-k-c0x00ffffff-no-rj",
 			"videoCount": "2600",
-			"subCount": "11100000"
+			"subCount": "11100000",
+			"top_brand": "Poshmark"
 		},
 		{
 			"channelId": "UCnQhwPVwcP-DnbUZtIMrupw",
@@ -44,7 +45,8 @@
 			"channelLocation": "US",
 			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLQQqaWbGzCF2b2hFRXD8ifAXAvibj-vTPys6kz-cA=s240-c-k-c0x00ffffff-no-rj",
 			"videoCount": "208",
-			"subCount": "3800000"
+			"subCount": "3800000",
+			"top_brand": "HelloFresh"
 		},
 		{
 			"channelId": "UCi_mBvcTaUJdCT1pvOnMwQw",
@@ -52,7 +54,8 @@
 			"channelLocation": "US",
 			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLSL8Th7PH4K80MImbmYAXoluW-s1ut_V1aSq2n2Dg=s240-c-k-c0x00ffffff-no-rj",
 			"videoCount": "110",
-			"subCount": "59300"
+			"subCount": "59300",
+			"top_brand": "TeuxDeux"
 		},
 		{
 			"channelId": "UCJ24N4O0bP7LGLBDvye7oCA",
@@ -60,21 +63,8 @@
 			"channelLocation": "US",
 			"channelImage": "https://yt3.ggpht.com/ytc/AKedOLRUZ-Y9amavl7kEI0ZBRH86O6SY8CNwMla_2l57fJ0=s240-c-k-c0x00ffffff-no-rj",
 			"videoCount": "378",
-			"subCount": "3290000"
-		}
-	],
-	"outputChannelSponsors": [
-		{
-			"brand_name": "Apple"
-		},
-		{
-			"brand_name": "Poshmark"
-		},
-		{
-			"brand_name": "Instagram"
-		},
-		{
-			"brand_name": "TeuxDeux"
+			"subCount": "3290000",
+			"top_brand": "Audible"
 		}
 	],
 	"outputTopCategories": [
@@ -119,7 +109,6 @@
 			"count(video_category)": 1
 		}
 	],
-
 	"outputFunderChannels": [
 		{
 			"channelId": "UCKzw1M8xhzXD9TjEquvQ8Sg",
@@ -146,8 +135,7 @@
 			"subCount": "3800000"
 		}
 	],
-
-	"outputYourTopBrands":[
+	"outputYourTopBrands": [
 		{
 			"brandName": "Squarespace",
 			"videoCount": "127"
