@@ -117,7 +117,7 @@ def lambda_handler(event, context):
         reportOutputJSON['outputVideoSponsored'] = outputVideoSponsored
 
         # Most frequently occuring companies
-        """ SELECT brand_name 
+        """ SELECT brand_name, brand_url 
         FROM who_funds_your_feed.Brands
         NATURAL JOIN who_funds_your_feed.Videos
         NATURAL JOIN (SELECT *
@@ -161,10 +161,12 @@ def lambda_handler(event, context):
                         ORDER BY COUNT(channel_id) DESC
                         LIMIT 5) AS topChannels
         WHERE Sponsorships.video_id = topChannels.video_id
+        GROUP BY channel_id
+        ORDER BY count(brand_name) OVER (partition by channel_id)
         LIMIT 5"""
 
     with conn.cursor() as cur:
-        qryChannelSponsors = f"SELECT brand_name From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT video_id, channel_id FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id =" + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched WHERE is_sponsored = TRUE GROUP BY channel_id ORDER BY COUNT(channel_id) DESC LIMIT 5) AS topChannels WHERE Sponsorships.video_id = topChannels.video_id LIMIT 5"
+        qryChannelSponsors = f"SELECT topChannels.channel_id, brand_name From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT video_id, channel_id FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched WHERE is_sponsored = TRUE GROUP BY channel_id ORDER BY COUNT(channel_id) DESC LIMIT 5) AS topChannels WHERE Sponsorships.video_id = topChannels.video_id GROUP BY channel_id ORDER BY count(brand_name) OVER (partition by channel_id) LIMIT 5"
 
         try:
             cur.execute(qryChannelSponsors)
