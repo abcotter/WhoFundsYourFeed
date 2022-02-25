@@ -22,7 +22,7 @@
 						</p>
 						<p style="margin: 0; text-align: left">
 							Top Brand Partner:
-							{{ channel["top_brand"] }}
+							{{ channel["topBrand"] }}
 						</p>
 					</div>
 				</div>
