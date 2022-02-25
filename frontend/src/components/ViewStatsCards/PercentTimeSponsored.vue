@@ -2,12 +2,13 @@
 	<div class="card">
 		<div class="back">
 			<div class="back-text">
+				{{ stats.outputTimeSponsored }}% of your time on youtube is being
+				sponsored!
 				<canvas
 					style="max-width: 30vw; max-height: 30vw"
 					id="TimeSponsored"
 				></canvas>
-				{{ stats.outputTimeSponsored }}% of your time on youtube is being
-				sponsored!
+				
 			</div>
 		</div>
 	</div>
@@ -37,7 +38,7 @@ export default {
 								this.stats.outputTimeSponsored,
 								100 - this.stats.outputTimeSponsored,
 							],
-							backgroundColor: ["rgb(255, 230, 109)", "rgb(255, 107, 107)"],
+							backgroundColor: ["rgb(255, 107, 107)", "rgb(247, 255, 247)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},

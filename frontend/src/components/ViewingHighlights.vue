@@ -3,7 +3,7 @@
 		<div class="column1">
 			<PercentTimeSponsoredStat :stats="stats" />
 			<PercentVideoSponsoredStat :stats="stats" />
-			<YourTopBrands />
+			<YourTopBrands :stats="stats" />
 		</div>
 		<div class="column2">
 			<CategoryBreakdown :stats="stats" />

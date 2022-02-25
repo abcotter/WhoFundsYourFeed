@@ -7,21 +7,64 @@
 				</div>
 			</div>
 			<div class="back" :class="{ reveal: flipped }">
-				<div class="back-text">INSERT DATA VISUAL FOR STAT</div>
+				<div class="back-text">
+					{{ stats.outputTimeSponsoredbyFunder }}% of your time on youtube is being
+				sponsored by {{topFunder}}!
+				<canvas
+					style="max-width: 30vw; max-height: 30vw"
+					id="VideoSponsoredbyFunder"
+				></canvas>
+				
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-//define components here that can be used elsewhere
+import Chart from "chart.js/auto";
+
 export default {
-	name: "LeftMainFunderStat",
+	name: "PercentTimeSponsoredStat",
 	props: ["topFunder", "stats"],
+	mounted(){
+		this.chartData ={
+				type: "doughnut",
+				data: {
+					labels: ["Sponsored by Top Funder", "Sponsored by Others"],
+					datasets: [
+						{
+							label: "Watching Stats",
+							data: [
+								this.stats.outputTimeSponsoredbyFunder,
+								100 - this.stats.outputTimeSponsoredbyFunder,
+							],
+							backgroundColor: ["rgb(255, 230, 109)", "rgb(247, 255, 247)"],
+							borderColor: "#36495d",
+							borderWidth: 1,
+						},
+					],
+				},
+				options: {
+					responsive: true,
+				},
+			};
+	},
+
 	data() {
 		return {
 			flipped: false,
+			chartData: null,
 		};
+	},
+	computed: {
+		
+	},
+	watch: {
+		chartData() {
+			const ctx = document.getElementById("VideoSponsoredbyFunder");
+			new Chart(ctx, this.chartData);
+		},
 	},
 	methods: {
 		flip() {
@@ -99,15 +142,61 @@ export default {
 	height: 90%;
 	width: 90%;
 	margin: auto;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	font-size: 20px;
 	color: #292f36;
 	display: flex;
+	flex-direction: column;
 	padding: 10px;
 }
 
 .back.reveal {
 	transform: rotateY(0deg);
+}
+
+.title {
+	font-size: 50px;
+	color: #292f36;
+	display: flex;
+	justify-content: center;
+}
+.channel-list {
+	padding-top: 20px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+.channel {
+	margin-bottom: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: start;
+}
+.number {
+	display: flex;
+	justify-content: start;
+	margin: 0;
+	font-size: 30px;
+}
+.channel-pic {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 65px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.channel-deets {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	margin-left: 20px;
+	padding-top: 10px;
+}
+a {
+	font-size: 20px;
+	color: #292f36;
 }
 </style>
