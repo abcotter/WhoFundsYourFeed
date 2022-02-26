@@ -168,58 +168,6 @@ def lambda_handler(event, context):
  
         reportOutputJSON['outputFrequentCompanies'] = outputFrequentCompanies
 
-        """ # our top channels top sponsors (channels you watch a lot and who are their sponsors)
-         SELECT topChannels.channel_id, brand_name
-        From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN
-                (SELECT video_id, channel_id
-                        FROM who_funds_your_feed.Videos
-                        NATURAL JOIN (SELECT *
-                                                FROM who_funds_your_feed.Watches
-                                                WHERE user_id = 10001
-                                                ORDER BY time_watched DESC
-                                                LIMIT 50) as userWatched
-						WHERE is_sponsored = TRUE
-                        GROUP BY channel_id
-                        ORDER BY COUNT(channel_id) DESC
-                        LIMIT 5) AS topChannels
-        WHERE Sponsorships.video_id = topChannels.video_id
-        GROUP BY channel_id
-        ORDER BY count(brand_name) OVER (partition by channel_id)
-        LIMIT 5
-
-    with conn.cursor() as cur:
-        qryChannelSponsors = f"SELECT topChannels.channel_id, brand_name From who_funds_your_feed.Brands NATURAL JOIN who_funds_your_feed.Sponsorships NATURAL JOIN (SELECT video_id, channel_id FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT * FROM who_funds_your_feed.Watches WHERE user_id = " + userId + " ORDER BY time_watched DESC LIMIT 50) as userWatched WHERE is_sponsored = TRUE GROUP BY channel_id ORDER BY COUNT(channel_id) DESC LIMIT 5) AS topChannels WHERE Sponsorships.video_id = topChannels.video_id GROUP BY channel_id ORDER BY count(brand_name) OVER (partition by channel_id) LIMIT 5"
-
-        try:
-            cur.execute(qryChannelSponsors)
-            outputChannelSponsors = cur.fetchall()
-
-        except pymysql.Error as e:
-            outputChannelSponsors = "System Error"
-            print(e)
-            return {
-                'statusCode': 500,
-            }
-
-        outputChannelSponsors = cur.fetchall()
-    
-        for channel in channels:
-            apiKey = os.environ['YOUTUBE_API_KEY']
-            channelId = channel["channel_id"]
-            youtubeUrl = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={channelId}&key={apiKey}'
-            response = requests.get(youtubeUrl)
-            channelDetails = response.json()
-            channelName = channelDetails['items'][0]['snippet']['title']
-            location = channelDetails['items'][0]['snippet']['country'] if "country" in channelDetails['items'][0]['snippet'] else "NA"
-            thumbnail = channelDetails['items'][0]['snippet']['thumbnails']['medium']['url']
-            vidCount = channelDetails['items'][0]['statistics']['videoCount']
-            subCount = channelDetails['items'][0]['statistics']['subscriberCount']
-            outputChannelSponsors.append({
-                "channelName": channelName,
-            })
-
-        reportOutputJSON['outputChannelSponsors'] = outputChannelSponsors
- """
         # What makes you unique (your top categories)
         """SELECT video_category, count(video_category)
                 FROM who_funds_your_feed.Videos NATURAL JOIN (SELECT video_id FROM who_funds_your_feed.Watches
