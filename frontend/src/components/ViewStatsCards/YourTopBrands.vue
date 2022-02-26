@@ -5,20 +5,21 @@
 				<div class="brand-list">
 					<div
 						class="brand"
-						v-for="(brand, index) in stats.outputYourTopBrands"
-						:key="brand['brandName']"
+						v-for="(brand, index) in stats.outputFrequentCompanies"
+						:key="brand['brand_name']"
 					>
 						<h1 class="number">{{ index + 1 }}</h1>
 
 						<div class="brand-deets">
 							<a
 								style="margin: 0; text-align: left"
-								:href="`http://www.youtube.com/channel/${brand['brandId']}`"
+								:href="brand['brand_url']"
+								target="_blank"
 							>
-								{{ brand["brandName"] }}
+								{{ brand["brand_name"] }}
 							</a>
 							<p style="margin: 0; text-align: left">
-								Videos Sponsored: {{ brand["videoCount"] }}
+								Videos Sponsored: {{ brand["video_count"] }}
 							</p>
 						</div>
 					</div>
