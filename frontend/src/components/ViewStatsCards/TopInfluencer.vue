@@ -20,6 +20,10 @@
 						<p style="margin: 0; text-align: left">
 							Subscribers: {{ channel["subCount"] }}
 						</p>
+						<p style="margin: 0; text-align: left">
+							Top Brand Partner:
+							{{ channel["topBrand"] }}
+						</p>
 					</div>
 				</div>
 			</div>
