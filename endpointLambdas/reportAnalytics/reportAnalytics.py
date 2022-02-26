@@ -270,7 +270,12 @@ def lambda_handler(event, context):
             vidCount = channelDetails['items'][0]['statistics']['videoCount']
             subCount = channelDetails['items'][0]['statistics']['subscriberCount']
             additionalChannels.append({
+                "channelId": channelId,
                 "channelName": channelName,
+                "channelLocation": location,
+                "channelImage": thumbnail,
+                "videoCount": vidCount,
+                "subCount": subCount
             })
     
 
