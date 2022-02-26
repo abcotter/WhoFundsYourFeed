@@ -139,7 +139,7 @@ def lambda_handler(event, context):
         reportOutputJSON['outputVideoSponsored'] = outputVideoSponsored
 
         # Most frequently occuring companies
-        """ SELECT brand_name, brand_url 
+        """ SELECT brand_name, brand_url, COUNT(brand_name) AS video_count
         FROM who_funds_your_feed.Brands
         NATURAL JOIN who_funds_your_feed.Videos
         NATURAL JOIN (SELECT *
