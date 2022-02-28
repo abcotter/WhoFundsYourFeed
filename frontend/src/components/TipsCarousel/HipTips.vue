@@ -6,6 +6,7 @@
 				<img style="object-fit: cover" src="./GreenwashingSlide2.png" />
 				<img style="object-fit: cover" src="./GreenwashingSlide3.png" />
 				<img style="object-fit: cover" src="./GreenwashingSlide4.png" />
+				<img style="object-fit: cover" src="./GreenwashingSlide5.png" />
 			</agile>
 			<div style="display: flex; width: 100%; justify-content: space-between">
 				<ion-icon
