@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .card {
-	margin: 10px;
+	margin: auto;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);

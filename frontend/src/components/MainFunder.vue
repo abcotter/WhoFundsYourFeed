@@ -14,7 +14,7 @@
 				</a>
 				<div>
 					<a
-						style="float: right"
+						style="float: right; color: black"
 						:href="
 							'https://www.youtube.com/results?search_query=' +
 							stats.outputFrequentCompanies[0]['brand_name'] +
@@ -64,7 +64,8 @@ export default {
 	height: 75vh;
 	width: 75%;
 	margin: auto;
-	background-color: #f5f5f5;
+	background-color: rgb(247, 255, 247, 0.6);
+	border: 5px solid rgba(243, 243, 243, 0.65);
 	border-radius: 30px;
 	padding: 10px;
 }

@@ -1,11 +1,10 @@
 <template>
-	<div class="mainHeader">{{ userName }}, Who Funds Your Feed?</div>
+	<div class="mainHeader">Who Funds Your Feed?</div>
 </template>
 
 <script>
 export default {
 	name: "Header",
-	props: ["userName"],
 };
 </script>
 
@@ -13,7 +12,7 @@ export default {
 <style scoped>
 .mainHeader {
 	padding: 30px;
-	height: 10vh;
+	height: 8vh;
 	display: flex;
 	justify-content: center;
 	color: #292f36;

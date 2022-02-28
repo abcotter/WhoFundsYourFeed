@@ -1,53 +1,47 @@
 <template>
 	<div class="card">
-			<div class="back">
-				<div class="back-text">
-				<div class="title">Your Top Funding Brands</div>
-			<div class="brand-list">
-				<div
-					class="brand"
-					v-for="(brand, index) in stats.outputYourTopBrands"
-					:key="brand['brandName']"
-				>
-					<h1 class="number">{{ index + 1 }}</h1>
-				
-					<div class="brand-deets">
-						<a
-							style="margin: 0; text-align: left"
-							:href="`http://www.youtube.com/channel/${brand['brandId']}`"
-						>
-							{{ brand["brandName"] }}
-						</a>
-						<p style="margin: 0; text-align: left">
-							Videos Sponsored: {{ brand["videoCount"] }}
-						</p>
+		<div class="back">
+			<div class="back-text">
+				<div class="brand-list">
+					<div
+						class="brand"
+						v-for="(brand, index) in stats.outputFrequentCompanies"
+						:key="brand['brand_name']"
+					>
+						<h1 class="number">{{ index + 1 }}</h1>
+
+						<div class="brand-deets">
+							<a
+								style="margin: 0; text-align: left"
+								:href="brand['brand_url']"
+								target="_blank"
+							>
+								{{ brand["brand_name"] }}
+							</a>
+							<p style="margin: 0; text-align: left">
+								Videos Sponsored: {{ brand["video_count"] }}
+							</p>
+						</div>
 					</div>
-					
 				</div>
 			</div>
-				</div>
-			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-
 export default {
 	name: "TopBrandsStat",
-	props: ["stats"],	
+	props: ["stats"],
 };
 </script>
 
 <style scoped>
 .card {
-	margin: 10px;
-	border-radius: 25px;
-	padding: 10px;
-	background-color: rgb(247, 255, 247);
-	width: 47vw;
-	border: 5px solid #f5f5f5;
-	border-radius: 25px;
+	margin: auto;
+	margin-bottom: 30px;
 }
+
 .back-text {
 	height: 90%;
 	width: 90%;
@@ -59,12 +53,14 @@ export default {
 	flex-direction: column;
 	padding: 10px;
 }
-.title {
-	font-size: 50px;
-	color: #292f36;
-	display: flex;
-	justify-content: center;
+
+.back {
+	width: 50vw;
+	border-radius: 25px;
+	padding: 10px;
+	background-color: rgb(247, 255, 247);
 }
+
 .brand-list {
 	padding-top: 20px;
 	height: 100%;
@@ -92,7 +88,7 @@ export default {
 	margin-left: 30px;
 	padding-top: 10px;
 }
-.brand-pic{
+.brand-pic {
 	max-width: 130px;
 	max-height: 130px;
 	border-radius: 65px;

@@ -1,14 +1,10 @@
 <template>
-	<div class="card">
-		<div class="back">
-			<div class="back-text">
-				{{ stats.outputVideoSponsored }}% of videos you watch are sponsored!
-				<canvas
-					style="max-width: 30vw; max-height: 30vw"
-					id="VideoSponsored"
-				></canvas>
-				
-			</div>
+	<div class="back">
+		<div class="back-text">
+			<canvas
+				style="max-width: 35vw; max-height: 35vw"
+				id="VideoSponsored"
+			></canvas>
 		</div>
 	</div>
 </template>
@@ -38,7 +34,7 @@ export default {
 								this.stats.outputVideoSponsored,
 								100 - this.stats.outputVideoSponsored,
 							],
-							backgroundColor: ["rgb(79,204,196)", "rgb(247, 255, 247)"], 
+							backgroundColor: ["rgb(79,204,196)", "rgb(247, 255, 247)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},
@@ -60,19 +56,16 @@ export default {
 </script>
 
 <style scoped>
-.card {
-	margin: 10px;
-	height: 35vw;
-}
-
 .back {
+	width: 40vw;
+	height: 40vw;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
-	position: absolute;
 	width: 47vw;
 	border: 5px solid #f5f5f5;
 	border-radius: 25px;
+	margin: auto;
 }
 
 .back-text {

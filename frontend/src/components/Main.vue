@@ -1,22 +1,20 @@
 <template>
 	<div class="container">
-		<img class="blue-circle" src="../assets/blue_circ.png" alt="blue circle" />
-		<img class="yellow-bar" src="../assets/yell_bar.png" alt="yellow bar" />
-		<img class="peace-sign" src="../assets/peace.png" alt="peace sign" />
-
-		<Header userName="Taylor" />
+		<Header />
 
 		<MainFunder :stats="Stats" />
 
-		<div class="downScroll">
-			<ion-icon name="chevron-down-outline" style="font-size: 72px"></ion-icon>
+		<div class="secondHeader" @click="scrollDown">
+			<h1>More Viewing Highlights</h1>
+			<div class="downScroll">
+				<ion-icon
+					name="chevron-down-outline"
+					style="font-size: 42px"
+				></ion-icon>
+			</div>
 		</div>
 
-		<div class="secondHeader">
-			<h1><font color="#292f36"> More Viewing Highlights</font></h1>
-		</div>
-
-		<ViewingHighlights :stats="Stats" />
+		<ViewingHighlights :stats="Stats" ref="highlights" />
 
 		<h2>Share Your Results</h2>
 		<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
@@ -47,6 +45,16 @@ export default {
 			Stats: {},
 		};
 	},
+	methods: {
+		scrollDown() {
+			console.log("scroll");
+			console.log(this.$refs.highlights.$refs.moreStats.offsetTop);
+			window.scrollTo({
+				top: this.$refs.highlights.$refs.moreStats.offsetTop,
+				behavior: "smooth",
+			});
+		},
+	},
 };
 </script>
 
@@ -56,27 +64,25 @@ export default {
 	background-color: #ffcbc6;
 }
 
-.blue-circle {
-	position: absolute;
-	max-width: 20vw;
-	max-height: 20vh;
-	top: 16vh;
-	left: 7vw;
-}
-
 .yellow-bar {
 	position: absolute;
-	top: 16vh;
-	right: 5vw;
-	max-width: 8vw;
-	max-height: 85vh;
+	top: 13vh;
+	left: 3vw;
+	max-width: 12vw;
+	max-height: 75vh;
+	transform: scaleX(-1);
 }
 
-.peace-sign {
-	position: absolute;
-	top: 8vh;
-	right: 13vw;
-	max-width: 10vw;
-	max-height: 20vh;
+.secondHeader {
+	margin: auto;
+	font-size: 12px;
+	color: #292f36;
+	margin-top: 15px;
+	cursor: pointer;
+	width: 400px;
+}
+
+h1 {
+	margin: 0;
 }
 </style>
