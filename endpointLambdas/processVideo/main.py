@@ -8,7 +8,7 @@ def get_actual_sponsors(video_id, data):
     return [brand_name.lower() for brand_name in brand_names]
 
 if __name__ == "__main__":
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_lg")
     data = pd.read_csv('test_data/sponsorship_data.csv')
     video_ids = data['video_id'].unique().tolist()
     precision_metrics = []
@@ -21,20 +21,24 @@ if __name__ == "__main__":
             print('Error finding sponsors', e)
             continue
         sponsorships = result.get('sponsorships', [])
+        p = sponsorships
+        significant_lines = result.get('sponsor_lines', [])
         sponsorships = [s['name'].lower() for s in sponsorships]
         if len(sponsorships) == 0:
             precision = 0.0
             recall = 0.0
+            actual_sponsorships = get_actual_sponsors(video_id, data)
         else:
             actual_sponsorships = get_actual_sponsors(video_id, data)
             total = set(actual_sponsorships).intersection(set(sponsorships))
             precision = len(total)/len(sponsorships)
             recall = len(total)/len(actual_sponsorships)
         results_info = {'video_id': video_id,
-                        'predicted': sponsorships,
+                        'predicted': p,
                         'actual': actual_sponsorships,
                         'precision': precision,
-                        'recall': recall}
+                        'recall': recall,
+                        'significant_lines': significant_lines}
         overall_results.append(results_info)
         precision_metrics.append(precision)
         recall_metrics.append(recall)
@@ -43,5 +47,4 @@ if __name__ == "__main__":
         json.dump(overall_results, f)
     print('average precision:', sum(precision_metrics)/len(precision_metrics))
     print('average recall:', sum(recall_metrics)/len(recall_metrics))
-
 
