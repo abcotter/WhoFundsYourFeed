@@ -104,8 +104,9 @@ def lambda_handler(event, context):
 			for newSponsor in newSponsors:
 				with conn.cursor() as cur:
 					sponsorName = newSponsor["name"]
-					sponsorUrl = newSponsor["url"]
-					qry = f"INSERT INTO Brands (brand_name, brand_url) Values ('{sponsorName}', '{sponsorUrl}');"
+					sponsorUrl = newSponsor.get('url')
+                    sponsorUrl = "'{sponsorUrl}'" if sponsorUrl else "NULL"
+					qry = f"INSERT INTO Brands (brand_name, brand_url) Values ('{sponsorName}', {sponsorUrl});"
 					cur.execute(qry)
 
 		# create video to brand relationship
