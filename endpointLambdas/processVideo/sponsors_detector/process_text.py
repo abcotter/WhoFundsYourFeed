@@ -119,16 +119,18 @@ def match_title_to_domain(url: str, model):
     if entities:
         entities = remove_duplicate_tokens(entities)
         sponsor = ' '.join(entities)
-        return {"name": sponsor, "url": page.url}
+        url_no_code = get_url_no_code(page.url)
+        url = url_no_code if url_no_code else page.url
+        return {"name": sponsor, "url": url}
 
 def scrape_url(url):
     if "http" not in url:
         url = "http://" + url
     #try and match url with no code since links with codes often do not expire.
     # an exception is tiny urls since these require a code to work
-    url_no_code_match = re.search('(?:https?:\/\/)?(?:[^\/\n]+)?(?:www\.)?([^:\/?\n]+)', url)
-    if "bit" not in url and url_no_code_match:
-        url = url_no_code_match.group(0)
+    url_no_code = get_url_no_code(url)
+    if "bit" not in url and url_no_code:
+        url = url_no_code
     try:
         page = requests.get(url, timeout=10)
     except requests.Timeout as err:
@@ -143,3 +145,9 @@ def get_url_domain(url):
     if matches:
         return matches.group(1)
 
+def get_url_no_code(url):
+    url_no_code_match = re.search('(?:https?:\/\/)?(?:[^\/\n]+)?(?:www\.)?([^:\/?\n]+)', url)
+    if url_no_code_match:
+        return url_no_code_match.group(0)
+    else:
+        return None
