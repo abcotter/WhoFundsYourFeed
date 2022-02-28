@@ -1,7 +1,6 @@
 <template>
 	<div class="card">
 		<div class="back-text">
-			<div class="title">Your Most Watched Channels</div>
 			<div class="channel-list">
 				<div
 					class="channel"
@@ -21,6 +20,10 @@
 						<p style="margin: 0; text-align: left">
 							Subscribers: {{ channel["subCount"] }}
 						</p>
+						<p style="margin: 0; text-align: left">
+							Top Brand Partner:
+							{{ channel["topBrand"] }}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -37,13 +40,13 @@ export default {
 </script>
 <style scoped>
 .card {
-	margin: 10px;
 	border-radius: 25px;
 	padding: 10px;
 	background-color: rgb(247, 255, 247);
 	width: 47vw;
 	border: 5px solid #f5f5f5;
 	border-radius: 25px;
+	margin: auto;
 }
 .back-text {
 	height: 90%;
