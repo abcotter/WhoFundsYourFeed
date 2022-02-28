@@ -4,7 +4,7 @@ import re
 import requests
 from difflib import SequenceMatcher
 
-YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet"
+YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics"
 FILTER_ORGANIZATIONS = set(["ftc"])
 
 YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
@@ -14,29 +14,28 @@ def find_video_sponsors(video_id: str, model) -> list:
     """Find sponsor in Youtube videos"""
     result = {}
     sponsorships = []
-    description = get_video_description(video_id)
+    youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
+    youtube_response = requests.get(youtube_api_url)
+    if youtube_response.status_code != 200 or not youtube_response:
+        return result
+    description = get_video_description(youtube_response)
     # If no description found, result includes empty list of sponsors
     if not description:
         print('No description found')
-        result["sponsorships"] = sponsorships
         return result
     disclaimers = find_sponsorship_disclaimers(description)
     sponsorships = find_sponsors_in_disclaimer(disclaimers, model)
     sponsorships = [s for s in sponsorships if s["name"] not in FILTER_ORGANIZATIONS]
     result["sponsorships"] = sponsorships
     result['sponsor_lines'] = disclaimers
+    result['youtubeApiResponse'] = youtube_response.json()
     return result
 
 
-def get_video_description(video_id):
+def get_video_description(response):
     """Send request to Youtube API and get video description"""
-
-    youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
-    response = requests.get(youtube_api_url)
-    if response.status_code != 200 or not response:
-        return ""
+    description = ""
     items = response.json().get('items', [])
-    description = ''
     if items:
         description = items[0]['snippet']['description']
     return description
