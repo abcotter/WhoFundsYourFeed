@@ -1,7 +1,7 @@
 <template>
 	<div class="column" ref="moreStats">
 		<div style="position: relative">
-			<h1>Percent Of Your WatchTime That's Sponsored</h1>
+			<h1 class="section-header">Percent Of Your WatchTime That's Sponsored</h1>
 			<PercentTimeSponsoredStat :stats="stats" />
 			<div class="arrow-1">
 				<img
@@ -17,7 +17,9 @@
 			</div>
 		</div>
 		<div style="position: relative">
-			<h1>Percent Of Videos That Are Sponsored</h1>
+			<h1 class="section-header">
+				Percent Of Videos You Watched That Are Sponsored
+			</h1>
 			<PercentVideoSponsoredStat :stats="stats" />
 			<div class="arrow-2">
 				<h1 style="width: 200px; margin: 0px">
@@ -33,7 +35,7 @@
 			</div>
 		</div>
 		<div style="position: relative">
-			<h1>Your Personal Category Breakdown</h1>
+			<h1 class="section-header">Your Personal Category Breakdown</h1>
 			<CategoryBreakdown :stats="stats" />
 			<div class="arrow-1" style="left: 70vw">
 				<img
@@ -49,11 +51,11 @@
 				</h1>
 			</div>
 		</div>
-		<h1>Your Most Watched Channels</h1>
+		<h1 class="section-header">Your Most Watched Channels</h1>
 		<TopInfluencer :stats="stats" />
-		<h1>Hip Tips: greenwashing 101</h1>
+		<h1 class="section-header">Hip Tips: greenwashing 101</h1>
 		<HipTips />
-		<h1>Your Most Seen Brands</h1>
+		<h1 class="section-header">Your Most Seen Brands</h1>
 		<YourTopBrands :stats="stats" />
 	</div>
 </template>
@@ -95,6 +97,10 @@ export default {
 	display: flex;
 	flex-direction: column;
 	height: auto;
+}
+
+.section-header {
+	font-size: 45px;
 }
 
 .arrow-1 {
