@@ -2,9 +2,11 @@
 	<div class="container">
 		<Header />
 
-		<MainFunder :stats="Stats" />
+		<DoubleBounce style="margin-top: 30vh" v-if="loading"></DoubleBounce>
 
-		<div class="secondHeader" @click="scrollDown">
+		<MainFunder :stats="Stats" v-if="!loading" />
+
+		<div class="secondHeader" @click="scrollDown" v-if="!loading">
 			<h1>More Viewing Highlights</h1>
 			<div class="downScroll">
 				<ion-icon
@@ -14,12 +16,14 @@
 			</div>
 		</div>
 
-		<ViewingHighlights :stats="Stats" ref="highlights" />
+		<ViewingHighlights :stats="Stats" ref="highlights" v-if="!loading" />
 
-		<h2>Share Your Results</h2>
-		<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
-		<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
-		<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+		<div v-if="!loading">
+			<h2>Share Your Results</h2>
+			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
+			<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
+			<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+		</div>
 	</div>
 </template>
 
@@ -27,8 +31,8 @@
 import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
-import sampleResponse from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
 import axios from "axios";
+import DoubleBounce from "./loader.vue";
 
 export default {
 	async mounted() {
@@ -44,18 +48,20 @@ export default {
 			method: "POST",
 			data: JSON.stringify(body),
 		});
-		const test = await response.data;
-		this.Stats = test;
+		this.Stats = response.data;
+		this.loading = false;
 	},
 	name: "Main",
 	components: {
 		Header,
 		MainFunder,
 		ViewingHighlights,
+		DoubleBounce,
 	},
 	data: function () {
 		return {
 			Stats: {},
+			loading: true,
 		};
 	},
 	methods: {
