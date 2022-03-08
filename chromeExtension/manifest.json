@@ -1,0 +1,25 @@
+{
+    "name": "Who Funds Your Feed",
+    "description": "Detect sponsored content!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+      },
+      "permissions": ["storage"],
+      "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+        "16": "/images/WFYF16.png",
+        "32": "/images/WFYF32.png",
+        "48": "/images/WFYF48.png",
+        "128": "/images/WFYF128.png"
+        }
+    },
+      "icons": {
+        "16": "/images/WFYF16.png",
+        "32": "/images/WFYF32.png",
+        "48": "/images/WFYF48.png",
+        "128": "/images/WFYF128.png"
+      }
+  }
