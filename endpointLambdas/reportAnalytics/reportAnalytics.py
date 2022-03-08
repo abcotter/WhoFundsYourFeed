@@ -51,7 +51,7 @@ def topChannels(userId):
             return {
                 'statusCode': 500
             }
-        
+
         records = cur.fetchall()
         result = []
         
@@ -81,7 +81,11 @@ def topChannels(userId):
 
 
 def lambda_handler(event, context):
-    userId = json.loads(event['userId'])
+    if 'body' in event:
+        body = json.loads(event["body"])
+        userId = body["userId"]
+    else:
+        userId = event["userId"]
     userId = str(userId)
     reportOutputJSON = {}
     
@@ -283,4 +287,7 @@ def lambda_handler(event, context):
    
    
     body = json.dumps(reportOutputJSON)
-    return body
+    return {
+        "statusCode": 200,
+        "body": body
+    }
