@@ -289,5 +289,12 @@ def lambda_handler(event, context):
     body = json.dumps(reportOutputJSON)
     return {
         "statusCode": 200,
+        'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                'Content-Type': 'application/json'
+        },
         "body": body
     }

@@ -28,11 +28,24 @@ import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
 import sampleResponse from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
+import axios from "axios";
 
 export default {
-	mounted() {
+	async mounted() {
 		// todo call Fatimahs API and get real data
-		this.Stats = sampleResponse;
+		let userId = "10001";
+		let url =
+			"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
+		let body = {
+			userId: userId,
+		};
+		const response = await axios({
+			url: url,
+			method: "POST",
+			data: JSON.stringify(body),
+		});
+		const test = await response.data;
+		this.Stats = test;
 	},
 	name: "Main",
 	components: {
