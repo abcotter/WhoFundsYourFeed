@@ -98,8 +98,11 @@ export default {
 }
 
 .demo-disclaimer {
-	width: 300px;
+	width: 20%;
 	margin: auto;
+	position: absolute;
+	left: 40%;
+	top: 11%;
 	margin-bottom: 10px;
 	background-color: #ffe66e;
 	border-radius: 10%;
