@@ -15,7 +15,7 @@
 							:href="`http://www.youtube.com/channel/${channel['channelId']}`"
 							target="_blank"
 						>
-							{{ channel["chanelName"] }}
+							{{ channel["channelName"] }}
 						</a>
 						<p style="margin: 0; text-align: left">
 							Subscribers: {{ channel["subCount"] }}

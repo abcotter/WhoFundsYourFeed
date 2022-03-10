@@ -71,7 +71,7 @@ def topChannels(userId):
             subCount = channelDetails['items'][0]['statistics']['subscriberCount']
             result.append({
                 "channelId": channelId,
-                "chanelName": channelName,
+                "channelName": channelName,
                 "channelLocation": location,
                 "channelImage": thumbnail,
                 "videoCount": vidCount,
