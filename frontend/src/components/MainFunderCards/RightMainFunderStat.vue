@@ -13,7 +13,7 @@
 						style="margin: 0; text-align: left"
 						:href="`http://www.youtube.com/channel/${channel['channelId']}`"
 					>
-						{{ channel["chanelName"] }}
+						{{ channel["channelName"] }}
 					</a>
 					<p style="margin: 0; text-align: left; font-size: 25px">
 						Subscribers: {{ channel["subCount"] }}

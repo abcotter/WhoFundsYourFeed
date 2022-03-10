@@ -53,8 +53,6 @@
 		</div>
 		<h1 class="section-header">Your Most Watched Channels</h1>
 		<TopInfluencer :stats="stats" />
-		<h1 class="section-header">Hip Tips: greenwashing 101</h1>
-		<HipTips />
 		<h1 class="section-header">Your Most Seen Brands</h1>
 		<YourTopBrands :stats="stats" />
 	</div>
@@ -66,7 +64,6 @@ import PercentVideoSponsoredStat from "./ViewStatsCards/PercentVideoSponsored.vu
 import TopInfluencer from "./ViewStatsCards/TopInfluencer.vue";
 import CategoryBreakdown from "./ViewStatsCards/CategoryBreakdown.vue";
 import YourTopBrands from "./ViewStatsCards/YourTopBrands.vue";
-import HipTips from "./TipsCarousel/HipTips.vue";
 
 export default {
 	name: "ViewingStats",
@@ -76,7 +73,6 @@ export default {
 		PercentVideoSponsoredStat,
 		TopInfluencer,
 		YourTopBrands,
-		HipTips,
 	},
 	props: ["stats"],
 	data() {
