@@ -27,6 +27,9 @@ h3{
   display: flex;
   text-align: center;
 }
+p{
+  text-align: center;
+}
 
 a{
   text-decoration: none; 
