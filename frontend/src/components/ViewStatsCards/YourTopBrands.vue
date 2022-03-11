@@ -18,6 +18,18 @@
 							>
 								{{ brand["brand_name"] }}
 							</a>
+							<a
+								style="color: black; font-size: 20px"
+								:href="
+									'https://www.youtube.com/results?search_query=' +
+									stats.outputFrequentCompanies[index]['brand_name'] +
+									' review'
+								"
+								target="_blank"
+							>
+								See reviews for
+								{{ stats.outputFrequentCompanies[index]["brand_name"] }}</a
+							>
 							<p style="margin: 0; text-align: left">
 								Videos Sponsored: {{ brand["video_count"] }}
 							</p>

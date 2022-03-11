@@ -6,7 +6,19 @@
 			Note: you are viewing demo data!
 		</div>
 
-		<DoubleBounce style="margin-top: 30vh" v-if="loading"></DoubleBounce>
+		<div v-if="noData" class="no-data">
+			hhhm....Looks like we haven't collected viewing data for you yet <br />
+			Go watch some
+			<a href="http://www.youtube.com" target="_blank" style="color: black"
+				>YouTube
+			</a>
+			and we'll start gathering insights!
+		</div>
+
+		<DoubleBounce
+			style="margin-top: 30vh"
+			v-if="loading && !noData"
+		></DoubleBounce>
 
 		<MainFunder :stats="Stats" v-if="!loading" />
 
@@ -45,25 +57,30 @@ import SampleData from "../../../endpointLambdas/reportAnalytics/SampleOutput.js
 export default {
 	async mounted() {
 		if (this.$route.params.userid) {
-			this.userId = this.$route.params.userid;
-			let url =
-				"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
-			let body = {
-				userId: this.userId,
-			};
-			const response = await axios({
-				url: url,
-				method: "POST",
-				data: JSON.stringify(body),
-			});
-			this.Stats = response.data;
+			try {
+				this.userId = this.$route.params.userid;
+				let url =
+					"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
+				let body = {
+					userId: this.userId,
+				};
+				const response = await axios({
+					url: url,
+					method: "POST",
+					data: JSON.stringify(body),
+				});
+				this.Stats = response.data;
+				this.loading = false;
+			} catch (e) {
+				this.noData = true;
+			}
 		} else {
 			// load demo data
 			this.Stats = SampleData;
+			this.loading = false;
 		}
 		// for loading nice data - to cut when we have good data in the DB
 		this.Stats = SampleData;
-		this.loading = false;
 	},
 	name: "Main",
 	components: {
@@ -78,6 +95,7 @@ export default {
 			Stats: {},
 			loading: true,
 			userId: "demo",
+			noData: false,
 		};
 	},
 	methods: {
@@ -106,6 +124,13 @@ export default {
 	margin-bottom: 10px;
 	background-color: rgb(79, 203, 195);
 	border-radius: 10%;
+}
+
+.no-data {
+	font-size: 30px;
+	width: 50vw;
+	padding-top: 25vh;
+	margin: auto;
 }
 
 .secondHeader {
