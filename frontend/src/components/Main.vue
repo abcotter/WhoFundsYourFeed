@@ -2,6 +2,10 @@
 	<div class="container">
 		<Header />
 
+		<div v-if="userId == 'demo'" class="demo-disclaimer">
+			Note: you are viewing demo data!
+		</div>
+
 		<DoubleBounce style="margin-top: 30vh" v-if="loading"></DoubleBounce>
 
 		<MainFunder :stats="Stats" v-if="!loading" />
@@ -16,7 +20,9 @@
 			</div>
 		</div>
 
-		<ViewingHighlights :stats="Stats" ref="highlights" v-if="!loading" />
+		<ViewingHighlights :stats="Stats" ref="highlights" v-show="!loading" />
+		<h1 class="section-header" v-show="!loading">Hip Tips: greenwashing 101</h1>
+		<HipTips v-if="!loading" />
 
 		<div v-if="!loading">
 			<h2>Share Your Results</h2>
@@ -31,24 +37,32 @@
 import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
+import HipTips from "./TipsCarousel/HipTips.vue";
 import axios from "axios";
 import DoubleBounce from "./loader.vue";
+import SampleData from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
 
 export default {
 	async mounted() {
-		// todo call Fatimahs API and get real data
-		let userId = "10001";
-		let url =
-			"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
-		let body = {
-			userId: userId,
-		};
-		const response = await axios({
-			url: url,
-			method: "POST",
-			data: JSON.stringify(body),
-		});
-		this.Stats = response.data;
+		if (this.$route.params.userid) {
+			this.userId = this.$route.params.userid;
+			let url =
+				"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
+			let body = {
+				userId: this.userId,
+			};
+			const response = await axios({
+				url: url,
+				method: "POST",
+				data: JSON.stringify(body),
+			});
+			this.Stats = response.data;
+		} else {
+			// load demo data
+			this.Stats = SampleData;
+		}
+		// for loading nice data - to cut when we have good data in the DB
+		this.Stats = SampleData;
 		this.loading = false;
 	},
 	name: "Main",
@@ -56,18 +70,18 @@ export default {
 		Header,
 		MainFunder,
 		ViewingHighlights,
+		HipTips,
 		DoubleBounce,
 	},
 	data: function () {
 		return {
 			Stats: {},
 			loading: true,
+			userId: "demo",
 		};
 	},
 	methods: {
 		scrollDown() {
-			console.log("scroll");
-			console.log(this.$refs.highlights.$refs.moreStats.offsetTop);
 			window.scrollTo({
 				top: this.$refs.highlights.$refs.moreStats.offsetTop,
 				behavior: "smooth",
@@ -83,13 +97,15 @@ export default {
 	background-color: #ffcbc6;
 }
 
-.yellow-bar {
+.demo-disclaimer {
+	width: 20%;
+	margin: auto;
 	position: absolute;
-	top: 13vh;
-	left: 3vw;
-	max-width: 12vw;
-	max-height: 75vh;
-	transform: scaleX(-1);
+	left: 40%;
+	top: 11%;
+	margin-bottom: 10px;
+	background-color: rgb(79, 203, 195);
+	border-radius: 10%;
 }
 
 .secondHeader {
@@ -103,5 +119,9 @@ export default {
 
 h1 {
 	margin: 0;
+}
+
+.section-header {
+	font-size: 45px;
 }
 </style>

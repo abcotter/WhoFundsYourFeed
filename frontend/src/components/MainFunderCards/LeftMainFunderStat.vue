@@ -48,7 +48,7 @@ export default {
 							this.stats.outputTimeSponsoredbyFunder,
 							100 - this.stats.outputTimeSponsoredbyFunder,
 						],
-						backgroundColor: ["rgb(255, 230, 109)", "rgb(247, 255, 247)"],
+						backgroundColor: ["rgb(255,107,107)", "rgb(247, 255, 247)"],
 						borderColor: "#36495d",
 						borderWidth: 1,
 					},
@@ -80,8 +80,8 @@ export default {
 	margin: 10px;
 	width: 40%;
 	height: 90%;
-	background-color: #4fccc4;
-	border: 5px solid #83d3cd;
+	background-color: rgb(79, 204, 196, 0.6);
+	border: 5px solid rgb(131, 211, 205);
 	border-radius: 25px;
 	padding: 20px;
 }

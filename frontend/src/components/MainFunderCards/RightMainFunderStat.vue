@@ -13,7 +13,7 @@
 						style="margin: 0; text-align: left"
 						:href="`http://www.youtube.com/channel/${channel['channelId']}`"
 					>
-						{{ channel["chanelName"] }}
+						{{ channel["channelName"] }}
 					</a>
 					<p style="margin: 0; text-align: left; font-size: 25px">
 						Subscribers: {{ channel["subCount"] }}
@@ -58,8 +58,8 @@ export default {
 	margin: 10px;
 	width: 40%;
 	height: 90%;
-	background-color: #4fccc4;
-	border: 5px solid #83d3cd;
+	background-color: rgb(79, 204, 196, 0.6);
+	border: 5px solid rgb(131, 211, 205);
 	border-radius: 25px;
 	padding: 20px;
 }

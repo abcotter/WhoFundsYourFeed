@@ -8,6 +8,10 @@ const routes = [
   {
     path: '/',
     component: Main
+  },
+  {
+    path: '/:userid',
+    component: Main
   }
 ]
 
