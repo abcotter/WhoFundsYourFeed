@@ -34,7 +34,7 @@ export default {
 								this.stats.outputVideoSponsored,
 								100 - this.stats.outputVideoSponsored,
 							],
-							backgroundColor: ["rgb(79,204,196)", "rgb(247, 255, 247)"],
+							backgroundColor: ["rgb(255,107,107)", "rgb(247, 255, 247)"],
 							borderColor: "#36495d",
 							borderWidth: 1,
 						},

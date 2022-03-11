@@ -1,7 +1,9 @@
 <template>
 	<div class="column" ref="moreStats">
 		<div style="position: relative">
-			<h1 class="section-header">Percent Of Your WatchTime That's Sponsored</h1>
+			<h1 class="section-header">
+				Percent Of Time On Youtube That's Sponsored
+			</h1>
 			<PercentTimeSponsoredStat :stats="stats" />
 			<div class="arrow-1">
 				<img
