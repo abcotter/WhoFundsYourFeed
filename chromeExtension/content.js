@@ -34,6 +34,7 @@ function getCurrentTimeStamp() {
 }
 
 async function processWatchedVideo(body) {
+    console.log('processing video');
     const response = await fetch(processVideoUrl, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -41,6 +42,7 @@ async function processWatchedVideo(body) {
             'Content-Type': 'application/json'
         }
     });
+    console.log('Done processing video');
     return response.json();
 };
 
