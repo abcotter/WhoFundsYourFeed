@@ -38,9 +38,19 @@
 
 		<div v-if="!loading">
 			<h2>Share Your Results</h2>
-			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
-			<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
-			<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+			<ion-icon
+				name="logo-instagram"
+				style="font-size: 35px; fill: grey"
+			></ion-icon>
+			<ion-icon
+				name="logo-facebook"
+				style="font-size: 35px; fill: grey"
+			></ion-icon>
+			<ion-icon
+				name="download-outline"
+				style="font-size: 35px"
+				@click="download()"
+			></ion-icon>
 		</div>
 	</div>
 </template>
@@ -53,6 +63,7 @@ import HipTips from "./TipsCarousel/HipTips.vue";
 import axios from "axios";
 import DoubleBounce from "./loader.vue";
 import SampleData from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
+import img from "../assets/DemoToDownload.png";
 
 export default {
 	async mounted() {
@@ -104,6 +115,13 @@ export default {
 				top: this.$refs.highlights.$refs.moreStats.offsetTop,
 				behavior: "smooth",
 			});
+		},
+		download() {
+			console.log(img);
+			var a = document.createElement("a");
+			a.href = img;
+			a.download = "MainFunder.png";
+			a.click();
 		},
 	},
 };
