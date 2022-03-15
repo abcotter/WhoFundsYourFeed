@@ -1,6 +1,6 @@
 <template>
-	<div class="container">
-		<Header />
+	<div id="wholePage" class="container">
+		<Header id="Header"/>
 
 		<div v-if="userId == 'demo'" class="demo-disclaimer">
 			Note: you are viewing demo data!
@@ -40,7 +40,7 @@
 			<h2>Share Your Results</h2>
 			<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
 			<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
-			<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+			<ion-icon name="download-outline" style="font-size: 35px" v-on:click = "downloadVisualReport ()" ></ion-icon>
 		</div>
 	</div>
 </template>
@@ -53,6 +53,7 @@ import HipTips from "./TipsCarousel/HipTips.vue";
 import axios from "axios";
 import DoubleBounce from "./loader.vue";
 import SampleData from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
+import html2canvas from 'html2canvas'
 
 export default {
 	async mounted() {
@@ -105,6 +106,27 @@ export default {
 				behavior: "smooth",
 			});
 		},
+
+		/* html2canvas(container,{allowTaint:true})
+				.then(function(canvas){
+					var link = document.createElement("a");
+					document.body.appendChild(link);
+					link.download = "html_image.png";
+					link.href = canvas.toDataURL("image/png");
+					link.target = '_blank';
+					link.click();
+		}) */
+	
+		async downloadVisualReport () {
+  			let vc = document.getElementById("wholePage")
+ 		 	let filename = 'something.png'; 
+			html2canvas(vc).then(canvas => {  
+				vc.saveAs(canvas.toDataURL(), filename);      
+			}).catch((error) => {
+				alert("Error")
+			});
+			},
+
 	},
 };
 </script>

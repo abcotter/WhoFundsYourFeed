@@ -68,8 +68,10 @@ export default {
 	computed: {},
 	watch: {
 		chartData() {
-			const ctx = document.getElementById("VideoSponsoredbyFunder");
-			new Chart(ctx, this.chartData);
+			new Chart(
+				document.getElementById("VideoSponsoredbyFunder").getContext("2d"),
+				this.chartData
+);
 		},
 	},
 };
