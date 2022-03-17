@@ -23,42 +23,33 @@ headers = {
 
 # input
 # {
-# 	userId: int,
-# 	youtubeVideoId: string,
-# 	timestamp: UTC timestamp
+# 	userEmail: String
 # }
 def lambda_handler(event, context):
-	userId = event['userId']
-	videoId = event['youtubeVideoId']
-	timestamp = event['timestamp']
+	userEmail = event['userEmail']
 
 	with conn.cursor() as cur:
-		qry = f"INSERT INTO Watches (user_id, video_id, time_watched) Values ('{userId}', '{videoId}', '{timestamp}');"
+		qry = f"INSERT INTO Users (user_name) Values ('{userEmail}');"
 		try: 
 			cur.execute(qry)
 		except pymysql.Error as e:
 			#  duplicate key case
-			if e.args[0] == 1062:
-				return {
-					'statusCode': 200,
-					'headers': headers
-				}
-			else:
+			if e.args[0] != 1062:
+		
 				return {
 					'statusCode': 500,
 					'headers': headers,
-					'body': ("Error %d: %s" % (e.args[0], e.args[1]))
+					'body': json.dumps(("Error %d: %s" % (e.args[0], e.args[1])))
 				}
 		conn.commit()
-		row = cur.rowcount
+    
+	with conn.cursor() as cur:
+		qry = f"SELECT user_id FROM Users where user_name='{userEmail}';"
+		cur.execute(qry)
+		user_id = cur.fetchone().get('user_id')
 
-	if row >= 1:
-		return {
+	return {
 			'statusCode': 200,
-			'headers': headers
-		}
-	else:
-		return {
-			'statusCode': 500,
-			'headers': headers
+			'headers': headers,
+            'userId': user_id
 		}
