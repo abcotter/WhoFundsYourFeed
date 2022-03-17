@@ -5,6 +5,18 @@
 				style="max-width: 30vw; max-height: 30vw"
 				id="VideoSponsoredbyFunder"
 			></canvas>
+			<a id="toSave" v-show="false"></a>
+			<ion-icon
+				name="download-outline"
+				style="
+					font-size: 35px;
+					position: absolute;
+					left: 45vw;
+					top: 80vh;
+					cursor: pointer;
+				"
+				@click="downloadMainFunder()"
+			></ion-icon>
 		</div>
 		<div class="arrow-left">
 			<img
@@ -56,6 +68,13 @@ export default {
 			},
 			options: {
 				responsive: true,
+				animation: {
+					onComplete: function (animation) {
+						var a = document.getElementById("toSave");
+						a.setAttribute("download", "timeSponsoredByMainFunder.png");
+						a.setAttribute("href", this.toBase64Image());
+					},
+				},
 			},
 		};
 	},
@@ -63,6 +82,7 @@ export default {
 	data() {
 		return {
 			chartData: null,
+			href: null,
 		};
 	},
 	computed: {},
@@ -70,6 +90,12 @@ export default {
 		chartData() {
 			const ctx = document.getElementById("VideoSponsoredbyFunder");
 			new Chart(ctx, this.chartData);
+		},
+	},
+	methods: {
+		downloadMainFunder() {
+			var a = document.getElementById("toSave");
+			a.click();
 		},
 	},
 };
