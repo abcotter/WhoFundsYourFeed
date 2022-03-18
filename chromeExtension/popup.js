@@ -1,6 +1,6 @@
 newUserUrl = "https://ihj75vr267.execute-api.us-east-1.amazonaws.com/default/newUserHandler";
 async function getNewUserId(userEmail) {
-    body = {'userEmail': userEmail};
+    body = { 'userEmail': userEmail };
     const response = await fetch(newUserUrl, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -17,10 +17,10 @@ function _submitHandler() {
     console.log(userEmail);
     getNewUserId(userEmail).then(data => {
         var userIdVal = data['userId'];
-        chrome.storage.local.set({userId: userIdVal}, function() {
+        chrome.storage.local.set({ userId: userIdVal }, function () {
             console.log('userId is set to ' + userIdVal);
         });
-        chrome.storage.local.get(['userId'], function(result) {
+        chrome.storage.local.get(['userId'], function (result) {
             console.log('userId currently is ' + result.userId);
         });
         emailRequest.style.display = "none";
@@ -29,7 +29,7 @@ function _submitHandler() {
 
 function requestEmail() {
     emailRequest = document.getElementById("email");
-    chrome.storage.local.get(['userId'], function(result) {
+    chrome.storage.local.get(['userId'], function (result) {
         if ("userId" in result) {
             console.log('user id found');
             emailRequest.style.display = "none";
@@ -43,14 +43,20 @@ function requestEmail() {
 requestEmail();
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("submit").onclick = _submitHandler;
-	  var y = document.getElementById("index_link");
-	  y.addEventListener("click", openIndex);
+    var y = document.getElementById("index_link");
+    y.addEventListener("click", openIndex);
 });
 
 function openIndex() {
-	userId = localStorage.getItem("userId");
-	baseUrl = "http://wfyf-app.s3-website-us-east-1.amazonaws.com/";
-	url = userId ? baseUrl + userId : baseUrl;
-	chrome.tabs.create({ active: true, url: url });
+    userId = localStorage.getItem("userId");
+    chrome.storage.local.get(['userId'], function (result) {
+        baseUrl = "http://wfyf-app.s3-website-us-east-1.amazonaws.com/";
+        if ("userId" in result) {
+            url = baseUrl + result.userId;
+            chrome.tabs.create({ active: true, url: url });
+        } else {
+            chrome.tabs.create({ active: true, url: baseUrl });
+        }
+    })
 }
 
