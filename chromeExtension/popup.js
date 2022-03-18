@@ -8,4 +8,7 @@ function openIndex() {
 	baseUrl = "http://wfyf-app.s3-website-us-east-1.amazonaws.com/";
 	url = userId ? baseUrl + userId : baseUrl;
 	chrome.tabs.create({ active: true, url: url });
+
+
+
 }
