@@ -53,3 +53,4 @@ function openIndex() {
 	url = userId ? baseUrl + userId : baseUrl;
 	chrome.tabs.create({ active: true, url: url });
 }
+

@@ -6,13 +6,21 @@
   </head>
   
   <body>
+     <div id="email">
+         <p>Please enter your e-mail to enable sponsorship detection:</p>
+         <div class="flex-container">
+             <div class="flex-child textBox">
+                 <input type="text" id="userEmail" placeholder=" janeDoe@gmail.com " name="inputText" value="" />
+             </div>
+             <div class="flex-child submitButton">
+                 <input type="button" id="submit" value="Submit" />
+             </div>
+         </div>
+     </div>
+
     <h2>Click to see your personalized insights!</h2>
     <button class="button" id="index_link">View Insights</button>
     <p class="gap"></p>
-    <div id="email">
-        Enter e-mail: <input type="text" id="userEmail" name="inputText" value="" />
-        <input type ="submit" id="submit" value="Submit" />
-    </div>
     <h2>About WFYF</h2>
     <p>This chrome extension will identify sponsored content on YouTube in order to provide awareness around the largest funders of your content consumption and their respective biases</p>
     <script src="popup.js"></script>
