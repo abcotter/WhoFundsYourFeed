@@ -2,17 +2,9 @@ var past_url = '';
 var processVideoUrl = 'https://6827rdxni0.execute-api.us-east-1.amazonaws.com/v1/processVideoTest';
 // mutation observer will invoke the clalback function
 // when the specified dom elements update
-function getUserId() {
-    if (localStorage.getItem("userId") === null) {
-        console.log('user id not found');
-        localStorage.setItem('userId', 1);
-    }
-    userId = localStorage.getItem("userId");
-    return userId;
-}
 
 function getVideoId(url) {
-    const youtubeRegex = /https:\/\/www\.youtube.com\/watch\?v=([a-zA-Z0-9]+)/;
+    const youtubeRegex = /https:\/\/www\.youtube.com\/watch\?v=([-a-zA-Z0-9_]+)/;
     const videoIdMatch = url.match(youtubeRegex)[1];
     return videoIdMatch;
 }
@@ -34,7 +26,6 @@ function getCurrentTimeStamp() {
 }
 
 async function processWatchedVideo(body) {
-    console.log('processing video');
     const response = await fetch(processVideoUrl, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -43,17 +34,19 @@ async function processWatchedVideo(body) {
         }
     });
     console.log('Done processing video');
+    console.log(body);
     return response.json();
 };
 
 function sendWatchEvent() {
-    console.log(location.href);
-    var videoId = getVideoId(location.href);
-    var userId = getUserId();
-    var timeStamp = getCurrentTimeStamp();
-    body = {'userId': userId, 'youtubeVideoId': videoId, 'timestamp': timeStamp};
-    processWatchedVideo(body).then(data => {
-        console.log(data);
+    chrome.storage.local.get(['userId'], function(result) {
+        var videoId = getVideoId(location.href);
+        var userId = result.userId;
+        var timeStamp = getCurrentTimeStamp();
+        body = {'userId': userId, 'youtubeVideoId': videoId, 'timestamp': timeStamp};
+        processWatchedVideo(body).then(data => {
+            console.log(data);
+        });
     });
 
 }
@@ -67,5 +60,4 @@ var observer = new MutationObserver(function (mutations) {
         }
     });
 });
-
 observer.observe(document.documentElement, {childList: true, subtree: true});

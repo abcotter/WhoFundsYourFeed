@@ -3,8 +3,8 @@ CREATE DATABASE who_funds_your_feed;
 USE who_funds_your_feed;
 
 CREATE TABLE who_funds_your_feed.Users (
-	user_id VARCHAR(255) NOT NULL,
-	user_name varchar(255),
+	user_id int NOT NULL AUTO_INCREMENT,
+	user_name varchar(255) UNIQUE,
 	PRIMARY KEY (user_id)
 );
 
