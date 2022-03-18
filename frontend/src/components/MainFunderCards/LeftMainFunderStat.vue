@@ -5,6 +5,18 @@
 				style="max-width: 30vw; max-height: 30vw"
 				id="VideoSponsoredbyFunder"
 			></canvas>
+			<a id="toSave" v-show="false"></a>
+			<ion-icon
+				name="download-outline"
+				style="
+					font-size: 35px;
+					position: absolute;
+					left: 45vw;
+					top: 80vh;
+					cursor: pointer;
+				"
+				@click="downloadMainFunder()"
+			></ion-icon>
 		</div>
 		<div class="arrow-left">
 			<img
@@ -48,7 +60,7 @@ export default {
 							this.stats.outputTimeSponsoredbyFunder,
 							100 - this.stats.outputTimeSponsoredbyFunder,
 						],
-						backgroundColor: ["rgb(255, 230, 109)", "rgb(247, 255, 247)"],
+						backgroundColor: ["rgb(255,107,107)", "rgb(247, 255, 247)"],
 						borderColor: "#36495d",
 						borderWidth: 1,
 					},
@@ -56,6 +68,13 @@ export default {
 			},
 			options: {
 				responsive: true,
+				animation: {
+					onComplete: function (animation) {
+						var a = document.getElementById("toSave");
+						a.setAttribute("download", "timeSponsoredByMainFunder.png");
+						a.setAttribute("href", this.toBase64Image());
+					},
+				},
 			},
 		};
 	},
@@ -63,6 +82,7 @@ export default {
 	data() {
 		return {
 			chartData: null,
+			href: null,
 		};
 	},
 	computed: {},
@@ -70,6 +90,12 @@ export default {
 		chartData() {
 			const ctx = document.getElementById("VideoSponsoredbyFunder");
 			new Chart(ctx, this.chartData);
+		},
+	},
+	methods: {
+		downloadMainFunder() {
+			var a = document.getElementById("toSave");
+			a.click();
 		},
 	},
 };
@@ -80,8 +106,8 @@ export default {
 	margin: 10px;
 	width: 40%;
 	height: 90%;
-	background-color: #4fccc4;
-	border: 5px solid #83d3cd;
+	background-color: rgb(79, 204, 196, 0.6);
+	border: 5px solid rgb(131, 211, 205);
 	border-radius: 25px;
 	padding: 20px;
 }

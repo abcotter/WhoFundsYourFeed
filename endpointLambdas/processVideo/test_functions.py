@@ -1,8 +1,7 @@
 import pytest
 from unittest.mock import Mock, patch
 from sponsors_detector.process_text import (get_url_domain,
-                                            match_links,
-                                            cross_reference_sponsors)
+                                            match_links)
 
 import spacy
 
@@ -22,11 +21,3 @@ import spacy
 def test_find_link_in_disclaimer(test_sentence, test_links):
     links = match_links(test_sentence)
     assert len(links) == len(test_links) and links == test_links
-@pytest.mark.parametrize("test, found",
-                         [
-                             (("en route jewelry", "www.enroutejewelry.com"), True),
-                              (("native", "www.nativecos.com"), True),
-                             (("storyblocks", "https://www.storyblocks.com"), True),
-                              (("adam & eve", "adamandeve.com"), True),
-                             (("false", "htttp://true.com"), False)
-                         ])

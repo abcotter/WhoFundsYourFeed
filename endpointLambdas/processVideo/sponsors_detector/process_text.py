@@ -4,7 +4,7 @@ import re
 import requests
 from difflib import SequenceMatcher
 
-YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet"
+YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics"
 FILTER_ORGANIZATIONS = set(["ftc"])
 
 YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
@@ -14,29 +14,28 @@ def find_video_sponsors(video_id: str, model) -> list:
     """Find sponsor in Youtube videos"""
     result = {}
     sponsorships = []
-    description = get_video_description(video_id)
+    youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
+    youtube_response = requests.get(youtube_api_url)
+    if youtube_response.status_code != 200 or not youtube_response:
+        return result
+    description = get_video_description(youtube_response)
     # If no description found, result includes empty list of sponsors
     if not description:
         print('No description found')
-        result["sponsorships"] = sponsorships
         return result
     disclaimers = find_sponsorship_disclaimers(description)
     sponsorships = find_sponsors_in_disclaimer(disclaimers, model)
     sponsorships = [s for s in sponsorships if s["name"] not in FILTER_ORGANIZATIONS]
     result["sponsorships"] = sponsorships
     result['sponsor_lines'] = disclaimers
+    result['youtubeApiResponse'] = youtube_response.json()
     return result
 
 
-def get_video_description(video_id):
+def get_video_description(response):
     """Send request to Youtube API and get video description"""
-
-    youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
-    response = requests.get(youtube_api_url)
-    if response.status_code != 200 or not response:
-        return ""
+    description = ""
     items = response.json().get('items', [])
-    description = ''
     if items:
         description = items[0]['snippet']['description']
     return description
@@ -120,16 +119,18 @@ def match_title_to_domain(url: str, model):
     if entities:
         entities = remove_duplicate_tokens(entities)
         sponsor = ' '.join(entities)
-        return {"name": sponsor, "url": page.url}
+        url_no_code = get_url_no_code(page.url)
+        url = url_no_code if url_no_code else page.url
+        return {"name": sponsor, "url": url}
 
 def scrape_url(url):
     if "http" not in url:
         url = "http://" + url
     #try and match url with no code since links with codes often do not expire.
     # an exception is tiny urls since these require a code to work
-    url_no_code_match = re.search('(?:https?:\/\/)?(?:[^\/\n]+)?(?:www\.)?([^:\/?\n]+)', url)
-    if "bit" not in url and url_no_code_match:
-        url = url_no_code_match.group(0)
+    url_no_code = get_url_no_code(url)
+    if "bit" not in url and url_no_code:
+        url = url_no_code
     try:
         page = requests.get(url, timeout=10)
     except requests.Timeout as err:
@@ -144,3 +145,9 @@ def get_url_domain(url):
     if matches:
         return matches.group(1)
 
+def get_url_no_code(url):
+    url_no_code_match = re.search('(?:https?:\/\/)?(?:[^\/\n]+)?(?:www\.)?([^:\/?\n]+)', url)
+    if url_no_code_match:
+        return url_no_code_match.group(0)
+    else:
+        return None

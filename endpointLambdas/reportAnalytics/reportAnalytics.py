@@ -51,7 +51,7 @@ def topChannels(userId):
             return {
                 'statusCode': 500
             }
-        
+
         records = cur.fetchall()
         result = []
         
@@ -71,7 +71,7 @@ def topChannels(userId):
             subCount = channelDetails['items'][0]['statistics']['subscriberCount']
             result.append({
                 "channelId": channelId,
-                "chanelName": channelName,
+                "channelName": channelName,
                 "channelLocation": location,
                 "channelImage": thumbnail,
                 "videoCount": vidCount,
@@ -81,7 +81,11 @@ def topChannels(userId):
 
 
 def lambda_handler(event, context):
-    userId = json.loads(event['userId'])
+    if 'body' in event:
+        body = json.loads(event["body"])
+        userId = body["userId"]
+    else:
+        userId = event["userId"]
     userId = str(userId)
     reportOutputJSON = {}
     
@@ -283,4 +287,14 @@ def lambda_handler(event, context):
    
    
     body = json.dumps(reportOutputJSON)
-    return body
+    return {
+        "statusCode": 200,
+        'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                'Content-Type': 'application/json'
+        },
+        "body": body
+    }

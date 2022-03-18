@@ -23,6 +23,7 @@ if __name__ == "__main__":
         sponsorships = result.get('sponsorships', [])
         p = sponsorships
         significant_lines = result.get('sponsor_lines', [])
+        urls = [s['url'] for s in sponsorships]
         sponsorships = [s['name'].lower() for s in sponsorships]
         if len(sponsorships) == 0:
             precision = 0.0
@@ -35,10 +36,12 @@ if __name__ == "__main__":
             recall = len(total)/len(actual_sponsorships)
         results_info = {'video_id': video_id,
                         'predicted': p,
+                        "urls": urls,
                         'actual': actual_sponsorships,
                         'precision': precision,
                         'recall': recall,
                         'significant_lines': significant_lines}
+        print(results_info)
         overall_results.append(results_info)
         precision_metrics.append(precision)
         recall_metrics.append(recall)

@@ -2,9 +2,27 @@
 	<div class="container">
 		<Header />
 
-		<MainFunder :stats="Stats" />
+		<div v-if="userId == 'demo'" class="demo-disclaimer">
+			Note: you are viewing demo data!
+		</div>
 
-		<div class="secondHeader" @click="scrollDown">
+		<div v-if="noData" class="no-data">
+			hhhm....Looks like we haven't collected viewing data for you yet <br />
+			Go watch some
+			<a href="http://www.youtube.com" target="_blank" style="color: black"
+				>YouTube
+			</a>
+			and we'll start gathering insights!
+		</div>
+
+		<DoubleBounce
+			style="margin-top: 30vh"
+			v-if="loading && !noData"
+		></DoubleBounce>
+
+		<MainFunder :stats="Stats" v-if="!loading" />
+
+		<div class="secondHeader" @click="scrollDown" v-if="!loading">
 			<h1>More Viewing Highlights</h1>
 			<div class="downScroll">
 				<ion-icon
@@ -14,12 +32,26 @@
 			</div>
 		</div>
 
-		<ViewingHighlights :stats="Stats" ref="highlights" />
+		<ViewingHighlights :stats="Stats" ref="highlights" v-show="!loading" />
+		<h1 class="section-header" v-show="!loading">Hip Tips: greenwashing 101</h1>
+		<HipTips v-if="!loading" />
 
-		<h2>Share Your Results</h2>
-		<ion-icon name="logo-instagram" style="font-size: 35px"></ion-icon>
-		<ion-icon name="logo-facebook" style="font-size: 35px"></ion-icon>
-		<ion-icon name="download-outline" style="font-size: 35px"></ion-icon>
+		<div v-if="!loading">
+			<h2>Share Your Results</h2>
+			<ion-icon
+				name="logo-instagram"
+				style="font-size: 35px; fill: grey"
+			></ion-icon>
+			<ion-icon
+				name="logo-facebook"
+				style="font-size: 35px; fill: grey"
+			></ion-icon>
+			<ion-icon
+				name="download-outline"
+				style="font-size: 35px"
+				@click="download()"
+			></ion-icon>
+		</div>
 	</div>
 </template>
 
@@ -27,32 +59,69 @@
 import Header from "./Header.vue";
 import MainFunder from "./MainFunder.vue";
 import ViewingHighlights from "./ViewingHighlights.vue";
-import sampleResponse from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
+import HipTips from "./TipsCarousel/HipTips.vue";
+import axios from "axios";
+import DoubleBounce from "./loader.vue";
+import SampleData from "../../../endpointLambdas/reportAnalytics/SampleOutput.json";
+import img from "../assets/DemoToDownload.png";
 
 export default {
-	mounted() {
-		// todo call Fatimahs API and get real data
-		this.Stats = sampleResponse;
+	async mounted() {
+		if (this.$route.params.userid) {
+			try {
+				this.userId = this.$route.params.userid;
+				let url =
+					"https://3vor3iykgi.execute-api.us-east-1.amazonaws.com/default/reportAnalytics";
+				let body = {
+					userId: this.userId,
+				};
+				const response = await axios({
+					url: url,
+					method: "POST",
+					data: JSON.stringify(body),
+				});
+				this.Stats = response.data;
+				this.loading = false;
+			} catch (e) {
+				this.noData = true;
+			}
+		} else {
+			// load demo data
+			this.Stats = SampleData;
+			this.loading = false;
+		}
+		// for loading nice data - to cut when we have good data in the DB
+		this.Stats = SampleData;
 	},
 	name: "Main",
 	components: {
 		Header,
 		MainFunder,
 		ViewingHighlights,
+		HipTips,
+		DoubleBounce,
 	},
 	data: function () {
 		return {
 			Stats: {},
+			loading: true,
+			userId: "demo",
+			noData: false,
 		};
 	},
 	methods: {
 		scrollDown() {
-			console.log("scroll");
-			console.log(this.$refs.highlights.$refs.moreStats.offsetTop);
 			window.scrollTo({
 				top: this.$refs.highlights.$refs.moreStats.offsetTop,
 				behavior: "smooth",
 			});
+		},
+		download() {
+			console.log(img);
+			var a = document.createElement("a");
+			a.href = img;
+			a.download = "MainFunder.png";
+			a.click();
 		},
 	},
 };
@@ -64,13 +133,22 @@ export default {
 	background-color: #ffcbc6;
 }
 
-.yellow-bar {
+.demo-disclaimer {
+	width: 20%;
+	margin: auto;
 	position: absolute;
-	top: 13vh;
-	left: 3vw;
-	max-width: 12vw;
-	max-height: 75vh;
-	transform: scaleX(-1);
+	left: 40%;
+	top: 11%;
+	margin-bottom: 10px;
+	background-color: rgb(79, 203, 195);
+	border-radius: 10%;
+}
+
+.no-data {
+	font-size: 30px;
+	width: 50vw;
+	padding-top: 25vh;
+	margin: auto;
 }
 
 .secondHeader {
@@ -84,5 +162,9 @@ export default {
 
 h1 {
 	margin: 0;
+}
+
+.section-header {
+	font-size: 45px;
 }
 </style>
