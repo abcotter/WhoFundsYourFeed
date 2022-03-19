@@ -1,10 +1,14 @@
 from sponsors_detector.process_text import (find_sponsors_in_disclaimer,
                                             match_title_to_domain,
                                             get_video_description,
-                                            find_sponsorship_disclaimers)
+                                            find_sponsor_names_in_disclaimer)
 import json
 import spacy
+import requests
+import os
 
+YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics"
+YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
 
 def test_detect_possible_sponsors():
     model = spacy.load('en_core_web_sm')
@@ -17,7 +21,7 @@ def test_detect_possible_sponsors():
         disclaimer = d['disclaimer']
         sponsors = [s.lower() for s in d['sponsors']]
         try:
-            predicted = find_sponsors_in_disclaimer(disclaimer, model)
+            predicted = find_sponsor_names_in_disclaimer(disclaimer, model)
         except Exception as e:
             print('disclaimer not working', disclaimer)
             print(e)
@@ -79,12 +83,16 @@ def test_find_sponsorship_disclaimer():
     for d in data:
         video_id = d["video_id"]
         print(video_id)
-        description = get_video_description(video_id)
+
+        youtube_api_url = f"{YOUTUBE_API_BASE_URL}&id={video_id}&key={YOUTUBE_API_KEY}"
+        youtube_response = requests.get(youtube_api_url)
+        description = get_video_description(youtube_response)
         disclaimers = find_sponsorship_disclaimers(description)
-        if d['disclaimer'].lower() == disclaimers:
+        disclaimers = disclaimers.lower()
+        if d['disclaimer'].lower() == disclaimers or d['disclaimer'].lower() in disclaimers or disclaimers in d['disclaimer'].lower():
             accuracy+=1
-        print(d['disclaimer'].lower())
-        print(disclaimers)
+        print('actual', d['disclaimer'].lower())
+        print('predicted', disclaimers)
         print(' ')
 
     print('Accuracy: ', accuracy/len(data))

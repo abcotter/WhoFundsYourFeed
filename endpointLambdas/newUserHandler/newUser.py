@@ -28,20 +28,16 @@ headers = {
 # }
 def lambda_handler(event, context):
 	body = json.loads(event['body'])
-	userId = body['userId']
-	userName = body['userName']
+	userEmail = body['userEmail']
 
 	with conn.cursor() as cur:
-		qry = f"INSERT INTO Users (user_id, user_name) Values ({userId}, '{userName}');"
+		qry = f"INSERT INTO Users (user_name) Values ({userEmail});"
 		try: 
-			cur.execute(qry)
+            cur.execute(qry)
 		except pymysql.Error as e:
 			#  duplicate key case
 			if e.args[0] == 1062:
-				return {
-					'statusCode': 200,
-					'headers': headers
-				}
+                pass
 			else:
 				return {
 					'statusCode': 500,
@@ -50,11 +46,17 @@ def lambda_handler(event, context):
 				}
 		conn.commit()
 		row = cur.rowcount
+    
+	with conn.cursor() as cur:
+		qry = f"SELECT user_id FROM Users where user_name='{userEmail}'"
+        cur.execute(qry)
+        user_id = cur.fetchone().get('user_id')
 
 	if row >= 1:
 		return {
 			'statusCode': 200,
-			'headers': headers
+			'headers': headers,
+            'body': user_id
 		}
 	else:
 		return {

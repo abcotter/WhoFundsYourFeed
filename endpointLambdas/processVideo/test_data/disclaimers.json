@@ -1,18 +1,8 @@
 [
     {
-        "disclaimer": "First 100 people get $50 off their first two weeks of Blue Apron, here!: 'https://cook.ba/2JD4zMS'",
-        "sponsors": ["Blue Apron"],
-        "video_id": "CFatEWNx5RQ"
-    },
-    {
         "disclaimer": "Sponsored by Blue Apron",
         "sponsors": ["Blue Apron"],
         "video_id": "CFatEWNx5RQ"
-    },
-    {
-        "disclaimer": "Thanks to http://getquip.com/h3 & http://stitchfix.com/h3 (search h3) for sponsoring us!",
-        "sponsors": ["http://getquip.com/h3", "http://stitchfix.com/h3"],
-        "video_id": "ex_sBZXU6iU"
     },
 
     {
@@ -27,15 +17,9 @@
         "video_id": "Xk_AQUnB8XY"
     },
     {
-        "disclaimer": "FTC: This video is sponsored by Neiwai & some of the above links may be affiliate.",
+        "disclaimer": "This video is sponsored by Neiwai & some of the above links may be affiliate.",
         "sponsors": ["Neiwai"],
         "video_id": "R2r8qE2drnI"
-    },
-
-    {
-        "disclaimer": "Shop En Route Jewelry Here: https://bit.ly/3xWYRPe & use my code 'GIGI10'",
-        "sponsors": ["En Route Jewelry"],
-        "video_id": "SrlaSAEZccA"
     },
 
     {
@@ -74,30 +58,9 @@
         "video_id": "fBxtS9BpVWs"
     },
 
-    {
-        "disclaimer": "Start feeling and smelling fresh with Native today when you click here http://bit.ly/nativesusie and use my code susie20 to save 20% on your first BYO deodorant pack!",
-        "sponsors": ["Native"],
-        "video_id": "qPF7bjIhcb0"
-    },
 
-    {
-        "disclaimer": "Get your first purchase from Blueland for 20% off by clicking my link https://bit.ly/3GESbck Now shipping to the U.S., Canada, the U.K., Australia & New Zealand!",
-        "sponsors": ["Blueland"],
-        "video_id": "A-tCa8jBIjY"
-    },
-
-    {
-        "disclaimer": "Check out Storyblocks Video at https://www.storyblocks.com/linustech...",
-        "sponsors": ["StoryBlocks"],
-        "video_id": "KOmQG5R74Fo"
-    },
     {
         "disclaimer": "I've partnered with FabFitFun on this video",
-        "sponsors": ["FabFitFun"],
-        "video_id": "I3D7jFZuwmo"
-    },
-    {
-        "disclaimer": "Use my code 'JESSI' for $10 off your FIRST box at www.fabfitfun.com",
         "sponsors": ["FabFitFun"],
         "video_id": "I3D7jFZuwmo"
     },
@@ -112,22 +75,6 @@
         "disclaimer": "Thanks Function of Beauty for sponsoring this video!",
         "sponsors": ["Function of Beauty"],
         "video_id": "mXZkTW-L05I"
-    },
-
-    {
-        "disclaimer": "Use code KELSEYK90 to get $90 off your first five HelloFresh boxes including free shipping on your first box at https://bit.ly/2OgZnRI. ",
-        "sponsors": ["HelloFresh"],
-        "video_id": "n9TBkimi7sI"
-    },
-
-    {
-        "disclaimer": "Go to https://www.casetify.com/kendall today to get 15% off your new favorite phone case",
-        "sponsors": ["casetify"],
-        "video_id": "ZThc79RtIeI"
-    },
-    {
-        "disclaimer": "sponsor bench",
-        "sponsors": ["bench"],
-        "video_id": "jLbXDQKfW8s"
     }
+    
 ]
